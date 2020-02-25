@@ -1,6 +1,7 @@
 import serial
 #from flask import Flask
 
+
 def temp_data():
     ser = serial.Serial('/dev/ttyUSB0',9600)
     
@@ -28,6 +29,7 @@ def temp_data():
                     pass
             values = []
     return temp_list
+
 
 while True:
     print(temp_data())

@@ -41,12 +41,12 @@ class ToggleDO:
     def toggle(self):
         if self.btndo.config('text')[-1] == 'ON':
             self.btndo.config(text='OFF')
-            print(str(self.gpio) + ' OFF')
-            # GPIO.output(25, GPIO.LOW)
+            # print(str(self.gpio) + ' OFF')
+            GPIO.output(self.gpio, GPIO.LOW)
         else:
             self.btndo.config(text='ON')
-            print(str(self.gpio) + ' ON')
-            # GPIO.output(25, GPIO.HIGH)
+            # print(str(self.gpio) + ' ON')
+            GPIO.output(self.gpio, GPIO.HIGH)
 
 
 class Remaining:
@@ -89,8 +89,8 @@ class Remaining:
         self.btndo['state'] = 'disable'
         if self.btndo.config('text')[-1] == 'ON' or self.btndo.config('text')[-1] == 'OFF':
             self.btndo.config(text='ON')
-            print(str(self.gpio) + ' ON')
-            # GPIO.output(25, GPIO.HIGH)
+            # print(str(self.gpio) + ' ON')
+            GPIO.output(self.gpio, GPIO.HIGH)
 
     def stop(self):
         self.btnstart['state'] = 'normal'
@@ -99,8 +99,8 @@ class Remaining:
         self.btndo['state'] = 'normal'
         if self.btndo.config('text')[-1] == 'ON' or self.btndo.config('text')[-1] == 'OFF':
             self.btndo.config(text='OFF')
-            print(str(self.gpio) + ' OFF')
-            # GPIO.output(25, GPIO.LOW)
+            # print(str(self.gpio) + ' OFF')
+            GPIO.output(self.gpio, GPIO.LOW)
 
 
 # gives weight to the cells in the grid
