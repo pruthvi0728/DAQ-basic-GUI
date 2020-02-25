@@ -8,6 +8,7 @@ from tkinter import *
 import serial
 from PIL import Image, ImageTk
 import RPi.GPIO as GPIO
+from datetime import time, datetime, timedelta
 
 GPIO.setmode(GPIO.BCM)
 
@@ -30,78 +31,76 @@ main = Tk()
 main.title("Citriot DAQ")
 
 
-def toggledo1():
-    if do1.config('text')[-1] == 'ON':
-        do1.config(text='OFF')
-        GPIO.output(25, GPIO.LOW)
-    else:
-        do1.config(text='ON')
-        GPIO.output(25, GPIO.HIGH)
+class ToggleDO:
+
+    def __init__(self, btndo, gpio):
+        self.btndo = btndo
+        self.gpio = gpio
+        self.btndo.config(command=self.toggle)
+
+    def toggle(self):
+        if self.btndo.config('text')[-1] == 'ON':
+            self.btndo.config(text='OFF')
+            print(str(self.gpio) + ' OFF')
+            # GPIO.output(25, GPIO.LOW)
+        else:
+            self.btndo.config(text='ON')
+            print(str(self.gpio) + ' ON')
+            # GPIO.output(25, GPIO.HIGH)
 
 
-def toggledo2():
-    if do2.config('text')[-1] == 'ON':
-        do2.config(text='OFF')
-        GPIO.output(17, GPIO.LOW)
+class Remaining:
+    def __init__(self, entry1, entry2, btnstart, btnstop, btndo, gpio):
+        self.running = False
+        self.remaining_time = 0
+        self.entry1 = entry1
+        self.entry2 = entry2
+        self.btnstart = btnstart
+        self.btnstop = btnstop
+        self.btnstart.config(command=lambda: self.start())
+        self.btnstop.config(command=self.stop)
 
-    else:
-        do2.config(text='ON')
-        GPIO.output(17, GPIO.HIGH)
+        self.btndo = btndo
+        self.gpio = gpio
+        self.tdo = ToggleDO(self.btndo, self.gpio)
 
+    def remain(self):
+        # remaining time display
+        def rem():
+            if self.running:
+                if self.remaining_time != 0:
+                    self.remaining_time = self.remaining_time - 1
+                    self.entry2.delete(0, tk.END)
+                    rem_time = timedelta(seconds=self.remaining_time)
+                    self.entry2.insert(0, rem_time)
+                    self.entry2.after(1000, rem)
+                else:
+                    self.stop()
+        rem()
 
-def toggledo3():
-    if do3.config('text')[-1] == 'ON':
-        do3.config(text='OFF')
-        GPIO.output(18, GPIO.LOW)
-    else:
-        do3.config(text='ON')
-        GPIO.output(18, GPIO.HIGH)
+    def start(self):
+        self.running = True
+        # calculation for remaining time
+        stime = datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
+        self.remaining_time = int(timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
+        self.remain()
+        self.btnstart['state'] = 'disable'
+        self.btnstop['state'] = 'normal'
+        self.btndo['state'] = 'disable'
+        if self.btndo.config('text')[-1] == 'ON' or self.btndo.config('text')[-1] == 'OFF':
+            self.btndo.config(text='ON')
+            print(str(self.gpio) + ' ON')
+            # GPIO.output(25, GPIO.HIGH)
 
-
-def toggledo4():
-    if do4.config('text')[-1] == 'ON':
-        do4.config(text='OFF')
-        GPIO.output(27, GPIO.LOW)
-
-    else:
-        do4.config(text='ON')
-        GPIO.output(27, GPIO.HIGH)
-
-
-def toggledo5():
-    if do5.config('text')[-1] == 'ON':
-        do5.config(text='OFF')
-        GPIO.output(22, GPIO.LOW)
-    else:
-        do5.config(text='ON')
-        GPIO.output(22, GPIO.HIGH)
-
-
-def toggledo6():
-    if do6.config('text')[-1] == 'ON':
-        do6.config(text='OFF')
-        GPIO.output(23, GPIO.LOW)
-    else:
-        do6.config(text='ON')
-        GPIO.output(23, GPIO.HIGH)
-
-
-def toggledo7():
-    if do7.config('text')[-1] == 'ON':
-        do7.config(text='OFF')
-        GPIO.output(24, GPIO.LOW)
-    else:
-        do7.config(text='ON')
-        GPIO.output(24, GPIO.HIGH)
-
-
-def toggledo8():
-    if do8.config('text')[-1] == 'ON':
-        do8.config(text='OFF')
-        GPIO.output(10, GPIO.LOW)
-    else:
-        do8.config(text='ON')
-        GPIO.output(10, GPIO.HIGH)
+    def stop(self):
+        self.btnstart['state'] = 'normal'
+        self.btnstop['state'] = 'disable'
+        self.running = False
+        self.btndo['state'] = 'normal'
+        if self.btndo.config('text')[-1] == 'ON' or self.btndo.config('text')[-1] == 'OFF':
+            self.btndo.config(text='OFF')
+            print(str(self.gpio) + ' OFF')
+            # GPIO.output(25, GPIO.LOW)
 
 
 # gives weight to the cells in the grid
@@ -303,37 +302,165 @@ if __name__ == "__main__":
     doPage = ttk.Frame(nb)
     nb.add(doPage, text='Digital Output')
 
+    # DO1 Start
     Label(doPage, text="DO 1").grid(column=0, row=1, padx=10, pady=10)
-    do1 = Button(doPage, text="OFF", width=12, command=toggledo1)
+    do1 = Button(doPage, text="OFF", width=12)
     do1.grid(row=1, column=1)
+    tk.Label(doPage, text="Set Time").grid(row=1, column=2)
+    e1 = tk.Entry(doPage)
+    e1.insert(0, str(time()))
+    e1.grid(row=1, column=3)
 
+    Btn1 = tk.Button(doPage, text="Start")
+    Btn1.grid(row=1, column=4)
+
+    tk.Label(doPage, text="remaining").grid(row=1, column=5)
+    e12 = tk.Entry(doPage)
+    e12.grid(row=1, column=6)
+
+    Btnstp1 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp1.grid(row=1, column=7)
+    rem1 = Remaining(e1, e12, Btn1, Btnstp1, do1, gpio=25)      # here add GPIO pin number for toggle
+
+    # DO2 Start
     Label(doPage, text="DO 2").grid(column=0, row=2, padx=10, pady=10)
-    do2 = Button(doPage, text="OFF", width=12, command=toggledo2)
+    do2 = Button(doPage, text="OFF", width=12)
     do2.grid(row=2, column=1)
+    tk.Label(doPage, text="Set Time").grid(row=2, column=2)
+    e2 = tk.Entry(doPage)
+    e2.insert(0, str(time()))
+    e2.grid(row=2, column=3)
 
+    Btn2 = tk.Button(doPage, text="Start")
+    Btn2.grid(row=2, column=4)
+
+    tk.Label(doPage, text="remaining").grid(row=2, column=5)
+    e22 = tk.Entry(doPage)
+    e22.grid(row=2, column=6)
+
+    Btnstp2 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp2.grid(row=2, column=7)
+    rem2 = Remaining(e2, e22, Btn2, Btnstp2, do2, gpio=17)      # here add GPIO pin number for toggle
+
+    # DO3 Start
     Label(doPage, text="DO 3").grid(column=0, row=3, padx=10, pady=10)
-    do3 = Button(doPage, text="OFF", width=12, command=toggledo3)
+    do3 = Button(doPage, text="OFF", width=12)
     do3.grid(row=3, column=1)
+    tk.Label(doPage, text="Set Time").grid(row=3, column=2)
+    e3 = tk.Entry(doPage)
+    e3 .insert(0, str(time()))
+    e3.grid(row=3, column=3)
 
+    Btn3 = tk.Button(doPage, text="Start")
+    Btn3.grid(row=3, column=4)
+
+    tk.Label(doPage, text="remaining").grid(row=3, column=5)
+    e32 = tk.Entry(doPage)
+    e32.grid(row=3, column=6)
+
+    Btnstp3 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp3.grid(row=3, column=7)
+    rem3 = Remaining(e3, e32, Btn3, Btnstp3, do3, gpio=18)  # here add GPIO pin number for toggle
+
+    # DO4 Start
     Label(doPage, text="DO 4").grid(column=0, row=4, padx=10, pady=10)
-    do4 = Button(doPage, text="OFF", width=12, command=toggledo4)
+    do4 = Button(doPage, text="OFF", width=12)
     do4.grid(row=4, column=1)
+    tk.Label(doPage, text="Set Time").grid(row=4, column=2)
+    e4 = tk.Entry(doPage)
+    e4.insert(0, str(time()))
+    e4.grid(row=4, column=3)
 
+    Btn4 = tk.Button(doPage, text="Start")
+    Btn4.grid(row=4, column=4)
+
+    tk.Label(doPage, text="remaining").grid(row=4, column=5)
+    e42 = tk.Entry(doPage)
+    e42.grid(row=4, column=6)
+
+    Btnstp4 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp4.grid(row=4, column=7)
+    rem4 = Remaining(e4, e42, Btn4, Btnstp4, do4, gpio=27)  # here add GPIO pin number for toggle
+
+    # DO5 Start
     Label(doPage, text="DO 5").grid(column=0, row=5, padx=10, pady=10)
-    do5 = Button(doPage, text="OFF", width=12, command=toggledo5)
+    do5 = Button(doPage, text="OFF", width=12)
     do5.grid(row=5, column=1)
+    tk.Label(doPage, text="Set Time").grid(row=5, column=2)
+    e5 = tk.Entry(doPage)
+    e5.insert(0, str(time()))
+    e5.grid(row=5, column=3)
 
+    Btn5 = tk.Button(doPage, text="Start")
+    Btn5.grid(row=5, column=4)
+
+    tk.Label(doPage, text="remaining").grid(row=5, column=5)
+    e52 = tk.Entry(doPage)
+    e52.grid(row=5, column=6)
+
+    Btnstp5 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp5.grid(row=5, column=7)
+    rem5 = Remaining(e5, e52, Btn5, Btnstp5, do5, gpio=22)  # here add GPIO pin number for toggle
+
+    # DO6 Start
     Label(doPage, text="DO 6").grid(column=0, row=6, padx=10, pady=10)
-    do6 = Button(doPage, text="OFF", width=12, command=toggledo6)
+    do6 = Button(doPage, text="OFF", width=12)
     do6.grid(row=6, column=1)
+    tk.Label(doPage, text="Set Time").grid(row=6, column=2)
+    e6 = tk.Entry(doPage)
+    e6.insert(0, str(time()))
+    e6.grid(row=6, column=3)
 
+    Btn6 = tk.Button(doPage, text="Start")
+    Btn6.grid(row=6, column=4)
+
+    tk.Label(doPage, text="remaining").grid(row=6, column=5)
+    e62 = tk.Entry(doPage)
+    e62.grid(row=6, column=6)
+
+    Btnstp6 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp6.grid(row=6, column=7)
+    rem6 = Remaining(e6, e62, Btn6, Btnstp6, do6, gpio=23)  # here add GPIO pin number for toggle
+
+    # DO7 Start
     Label(doPage, text="DO 7").grid(column=0, row=7, padx=10, pady=10)
-    do7 = Button(doPage, text="OFF", width=12, command=toggledo7)
+    do7 = Button(doPage, text="OFF", width=12)
     do7.grid(row=7, column=1)
+    tk.Label(doPage, text="Set Time").grid(row=7, column=2)
+    e7 = tk.Entry(doPage)
+    e7.insert(0, str(time()))
+    e7.grid(row=7, column=3)
 
+    Btn7 = tk.Button(doPage, text="Start")
+    Btn7.grid(row=7, column=4)
+
+    tk.Label(doPage, text="remaining").grid(row=7, column=5)
+    e72 = tk.Entry(doPage)
+    e72.grid(row=7, column=6)
+
+    Btnstp7 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp7.grid(row=7, column=7)
+    rem7 = Remaining(e7, e72, Btn7, Btnstp7, do7, gpio=24)  # here add GPIO pin number for toggle
+
+    # DO8 Start
     Label(doPage, text="DO 8").grid(column=0, row=8, padx=10, pady=10)
-    do8 = Button(doPage, text="OFF", width=12, command=toggledo8)
+    do8 = Button(doPage, text="OFF", width=12)
     do8.grid(row=8, column=1)
+    tk.Label(doPage, text="Set Time").grid(row=8, column=2)
+    e8 = tk.Entry(doPage)
+    e8.insert(0, str(time()))
+    e8.grid(row=8, column=3)
+
+    Btn8 = tk.Button(doPage, text="Start")
+    Btn8.grid(row=8, column=4)
+
+    tk.Label(doPage, text="remaining").grid(row=8, column=5)
+    e82 = tk.Entry(doPage)
+    e82.grid(row=8, column=6)
+
+    Btnstp8 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp8.grid(row=8, column=7)
+    rem8 = Remaining(e8, e82, Btn8, Btnstp8, do8, gpio=10)  # here add GPIO pin number for toggle
 
     # DI
 
