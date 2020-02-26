@@ -703,7 +703,7 @@ if __name__ == "__main__":
     tk.Label(ada, text="Voltage2 ").grid(row=1)
     adae2 = tk.Entry(ada)
     adae2.grid(row=1, column=1)
-    AdaBtn1 = tk.B1utton(ada, text="Start", command=setdec1)
+    AdaBtn1 = tk.Button(ada, text="Start", command=setdec1)
     AdaBtn1.grid(row=1, column=2)
 
 
