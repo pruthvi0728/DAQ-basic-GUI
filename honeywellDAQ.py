@@ -10,7 +10,8 @@ from PIL import Image, ImageTk
 import RPi.GPIO as GPIO
 import Adafruit_MCP4725
 from tkinter import messagebox
-from datetime import time, datetime, timedelta
+# from datetime import time, datetime, timedelta
+import datetime as dt
 
 GPIO.setmode(GPIO.BCM)
 
@@ -73,7 +74,7 @@ class Remaining:
                 if self.remaining_time != 0:
                     self.remaining_time = self.remaining_time - 1
                     self.entry2.delete(0, tk.END)
-                    rem_time = timedelta(seconds=self.remaining_time)
+                    rem_time = dt.timedelta(seconds=self.remaining_time)
                     self.entry2.insert(0, rem_time)
                     self.entry2.after(1000, rem)
                 else:
@@ -86,8 +87,8 @@ class Remaining:
         try:
             if self.entry1.get() == '00:00:00':
                 raise ValueError()
-            stime = datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
-            self.remaining_time = int(timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
+            stime = dt.datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
+            self.remaining_time = int(dt.timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
             self.remain()
             self.btnstart['state'] = 'disable'
             self.btnstop['state'] = 'normal'
@@ -127,9 +128,9 @@ class CheckBox(Remaining):
         try:
             if self.entry1.get() == '00:00:00':
                 raise ValueError()
-            stime = datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
+            stime = dt.datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
             self.remaining_time = int(
-                timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
+                dt.timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
             self.remain()
             self.btnstart['state'] = 'disable'
             self.btnstop['state'] = 'normal'
@@ -439,10 +440,10 @@ if __name__ == "__main__":
     panel.pack(side="bottom", fill="both", expand="yes")
     Label(aboutPage, text="Citriot Data Acquisition System", font=("Helvetica", 24)).pack()
 
+    # DO
     doPage = ttk.Frame(nb)
     nb.add(doPage, text='Digital Output')
 
-    # DO
     # Creating variable for checkbox
     cb1 = tk.IntVar()
     cb2 = tk.IntVar()
@@ -459,7 +460,7 @@ if __name__ == "__main__":
     do1.grid(row=1, column=1)
     tk.Label(doPage, text="Set Time").grid(row=1, column=2)
     e1 = tk.Entry(doPage)
-    e1.insert(0, str(time()))
+    e1.insert(0, str('00:00:00'))
     e1.grid(row=1, column=3)
 
     Btn1 = tk.Button(doPage, text="Start")
@@ -479,7 +480,7 @@ if __name__ == "__main__":
     do2.grid(row=2, column=1)
     tk.Label(doPage, text="Set Time").grid(row=2, column=2)
     e2 = tk.Entry(doPage)
-    e2.insert(0, str(time()))
+    e2.insert(0, str('00:00:00'))
     e2.grid(row=2, column=3)
 
     Btn2 = tk.Button(doPage, text="Start")
@@ -499,7 +500,7 @@ if __name__ == "__main__":
     do3.grid(row=3, column=1)
     tk.Label(doPage, text="Set Time").grid(row=3, column=2)
     e3 = tk.Entry(doPage)
-    e3 .insert(0, str(time()))
+    e3 .insert(0, str('00:00:00'))
     e3.grid(row=3, column=3)
 
     Btn3 = tk.Button(doPage, text="Start")
@@ -519,7 +520,7 @@ if __name__ == "__main__":
     do4.grid(row=4, column=1)
     tk.Label(doPage, text="Set Time").grid(row=4, column=2)
     e4 = tk.Entry(doPage)
-    e4.insert(0, str(time()))
+    e4.insert(0, str('00:00:00'))
     e4.grid(row=4, column=3)
 
     Btn4 = tk.Button(doPage, text="Start")
@@ -539,7 +540,7 @@ if __name__ == "__main__":
     do5.grid(row=5, column=1)
     tk.Label(doPage, text="Set Time").grid(row=5, column=2)
     e5 = tk.Entry(doPage)
-    e5.insert(0, str(time()))
+    e5.insert(0, str('00:00:00'))
     e5.grid(row=5, column=3)
 
     Btn5 = tk.Button(doPage, text="Start")
@@ -559,7 +560,7 @@ if __name__ == "__main__":
     do6.grid(row=6, column=1)
     tk.Label(doPage, text="Set Time").grid(row=6, column=2)
     e6 = tk.Entry(doPage)
-    e6.insert(0, str(time()))
+    e6.insert(0, str('00:00:00'))
     e6.grid(row=6, column=3)
 
     Btn6 = tk.Button(doPage, text="Start")
@@ -579,7 +580,7 @@ if __name__ == "__main__":
     do7.grid(row=7, column=1)
     tk.Label(doPage, text="Set Time").grid(row=7, column=2)
     e7 = tk.Entry(doPage)
-    e7.insert(0, str(time()))
+    e7.insert(0, str('00:00:00'))
     e7.grid(row=7, column=3)
 
     Btn7 = tk.Button(doPage, text="Start")
@@ -599,7 +600,7 @@ if __name__ == "__main__":
     do8.grid(row=8, column=1)
     tk.Label(doPage, text="Set Time").grid(row=8, column=2)
     e8 = tk.Entry(doPage)
-    e8.insert(0, str(time()))
+    e8.insert(0, str('00:00:00'))
     e8.grid(row=8, column=3)
 
     Btn8 = tk.Button(doPage, text="Start")
@@ -617,7 +618,7 @@ if __name__ == "__main__":
     tk.Label(doPage, text="Global").grid(column=0, row=9, padx=10, pady=10)
     tk.Label(doPage, text="Set Time").grid(row=9, column=2)
     eg1 = tk.Entry(doPage)
-    eg1.insert(0, str(time()))
+    eg1.insert(0, str('00:00:00'))
     eg1.grid(row=9, column=3)
 
     Btng = tk.Button(doPage, text="Start")
@@ -761,8 +762,8 @@ if __name__ == "__main__":
 
     button_var = IntVar()
 
-    connect = Button(text="Connect", command=connect).place(x=15, y=400)
-    disconnect = Button(text="Disconnect", command=disconnect).place(x=300, y=400)
+    connect = Button(text="Connect", command=connect).place(x=15, y=360)
+    disconnect = Button(text="Disconnect", command=disconnect).place(x=300, y=360)
 
     # Defines and places the notebook widget
 
