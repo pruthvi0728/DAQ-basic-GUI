@@ -213,16 +213,16 @@ class CheckBox(Remaining):
 
 
 def setdec():
-    if validate(e1):
-        volt = round(float(e1.get()), 2)
+    if validate(adae1):
+        volt = round(float(adae1.get()), 2)
         xdec = int((volt/5.280)*4096)
         # messagebox.showinfo("Hello", str(xdec))
         dac.set_voltage(xdec)
 
 
 def setdec1():
-    if validate(e2):
-        volt = round(float(e1.get()), 2)
+    if validate(adae2):
+        volt = round(float(adae2.get()), 2)
         xdec1 = int((volt/5.280)*4096)
         # messagebox.showinfo("Hello", str(xdec1))
         dac1.set_voltage(xdec1)
@@ -695,14 +695,14 @@ if __name__ == "__main__":
     dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
 
     tk.Label(ada, text="Voltage1 ").grid(row=0)
-    e1 = tk.Entry(ada)
-    e1.grid(row=0, column=1)
+    adae1 = tk.Entry(ada)
+    adae1.grid(row=0, column=1)
     AdaBtn = tk.Button(ada, text="Start", command=setdec)
     AdaBtn.grid(row=0, column=2)
 
     tk.Label(ada, text="Voltage2 ").grid(row=1)
-    e2 = tk.Entry(ada)
-    e2.grid(row=1, column=1)
+    adae2 = tk.Entry(ada)
+    adae2.grid(row=1, column=1)
     AdaBtn1 = tk.B1utton(ada, text="Start", command=setdec1)
     AdaBtn1.grid(row=1, column=2)
 
