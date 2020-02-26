@@ -87,20 +87,113 @@ class Remaining:
         self.btnstart['state'] = 'disable'
         self.btnstop['state'] = 'normal'
         self.btndo['state'] = 'disable'
-        if self.btndo.config('text')[-1] == 'ON' or self.btndo.config('text')[-1] == 'OFF':
-            self.btndo.config(text='ON')
-            # print(str(self.gpio) + ' ON')
-            GPIO.output(self.gpio, GPIO.HIGH)
+        self.btndo.config(text='ON')
+        # print(str(self.gpio) + ' ON')
+        GPIO.output(self.gpio, GPIO.HIGH)
 
     def stop(self):
         self.btnstart['state'] = 'normal'
         self.btnstop['state'] = 'disable'
         self.running = False
         self.btndo['state'] = 'normal'
-        if self.btndo.config('text')[-1] == 'ON' or self.btndo.config('text')[-1] == 'OFF':
-            self.btndo.config(text='OFF')
-            # print(str(self.gpio) + ' OFF')
-            GPIO.output(self.gpio, GPIO.LOW)
+        self.btndo.config(text='OFF')
+        # print(str(self.gpio) + ' OFF')
+        GPIO.output(self.gpio, GPIO.LOW)
+
+
+class CheckBox(Remaining):
+    def __init__(self, entry1, entry2, btnstart, btnstop):
+        self.running = False
+        self.remaining_time = 0
+        self.entry1 = entry1
+        self.entry2 = entry2
+        self.btnstart = btnstart
+        self.btnstop = btnstop
+        self.btnstart.config(command=lambda: self.start())
+        self.btnstop.config(command=self.stop)
+
+    def start(self):
+        self.running = True
+        # calculation for remaining time
+        stime = datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
+        self.remaining_time = int(
+            timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
+        self.remain()
+        self.btnstart['state'] = 'disable'
+        self.btnstop['state'] = 'normal'
+        if cb1.get() == 1:
+            self.btnctrl(Btn1, Btnstp1, do1, dis=1)
+            self.dobtnctrl(do1, gpio=25, flag=1)
+        if cb2.get() == 1:
+            self.btnctrl(Btn2, Btnstp2, do2, dis=1)
+            self.dobtnctrl(do2, gpio=17, flag=1)
+        if cb3.get() == 1:
+            self.btnctrl(Btn3, Btnstp3, do3, dis=1)
+            self.dobtnctrl(do3, gpio=18, flag=1)
+        if cb4.get() == 1:
+            self.btnctrl(Btn4, Btnstp4, do4, dis=1)
+            self.dobtnctrl(do4, gpio=27, flag=1)
+        if cb5.get() == 1:
+            self.btnctrl(Btn5, Btnstp5, do5, dis=1)
+            self.dobtnctrl(do5, gpio=22, flag=1)
+        if cb6.get() == 1:
+            self.btnctrl(Btn6, Btnstp6, do6, dis=1)
+            self.dobtnctrl(do6, gpio=23, flag=1)
+        if cb7.get() == 1:
+            self.btnctrl(Btn7, Btnstp7, do7, dis=1)
+            self.dobtnctrl(do7, gpio=24, flag=1)
+        if cb8.get() == 1:
+            self.btnctrl(Btn8, Btnstp8, do8, dis=1)
+            self.dobtnctrl(do8, gpio=10, flag=1)
+
+    def dobtnctrl(self, btncdo, gpio, flag):
+        if flag:
+            btncdo.config(text='ON')
+            # print(str(gpio) + ' ON')
+            GPIO.output(gpio, GPIO.HIGH)
+        else:
+            btncdo.config(text='OFF')
+            # print(str(gpio) + ' OFF')
+            GPIO.output(gpio, GPIO.LOW)
+
+    def stop(self):
+        self.btnstart['state'] = 'normal'
+        self.btnstop['state'] = 'disable'
+        self.running = False
+        if cb1.get() == 1:
+            self.btnctrl(Btn1, Btnstp1, do1, dis=0)
+            self.dobtnctrl(do1, gpio=25, flag=0)
+        if cb2.get() == 1:
+            self.btnctrl(Btn2, Btnstp2, do2, dis=0)
+            self.dobtnctrl(do2, gpio=17, flag=0)
+        if cb3.get() == 1:
+            self.btnctrl(Btn3, Btnstp3, do3, dis=0)
+            self.dobtnctrl(do3, gpio=18, flag=0)
+        if cb4.get() == 1:
+            self.btnctrl(Btn4, Btnstp4, do4, dis=0)
+            self.dobtnctrl(do4, gpio=27, flag=0)
+        if cb5.get() == 1:
+            self.btnctrl(Btn5, Btnstp5, do5, dis=0)
+            self.dobtnctrl(do5, gpio=22, flag=0)
+        if cb6.get() == 1:
+            self.btnctrl(Btn6, Btnstp6, do6, dis=0)
+            self.dobtnctrl(do6, gpio=23, flag=0)
+        if cb7.get() == 1:
+            self.btnctrl(Btn7, Btnstp7, do7, dis=0)
+            self.dobtnctrl(do7, gpio=24, flag=0)
+        if cb8.get() == 1:
+            self.btnctrl(Btn8, Btnstp8, do8, dis=0)
+            self.dobtnctrl(do8, gpio=10, flag=0)
+
+    def btnctrl(self, btncs, btncstp, btncdo, dis):
+        if dis:
+            btncs['state'] = 'disable'
+            btncstp['state'] = 'disable'
+            btncdo['state'] = 'disable'
+        else:
+            btncs['state'] = 'normal'
+            btncstp['state'] = 'normal'
+            btncdo['state'] = 'normal'
 
 
 # gives weight to the cells in the grid
@@ -302,8 +395,19 @@ if __name__ == "__main__":
     doPage = ttk.Frame(nb)
     nb.add(doPage, text='Digital Output')
 
+    # DO
+    # Creating variable for checkbox
+    cb1 = tk.IntVar()
+    cb2 = tk.IntVar()
+    cb3 = tk.IntVar()
+    cb4 = tk.IntVar()
+    cb5 = tk.IntVar()
+    cb6 = tk.IntVar()
+    cb7 = tk.IntVar()
+    cb8 = tk.IntVar()
+
     # DO1 Start
-    Label(doPage, text="DO 1").grid(column=0, row=1, padx=10, pady=10)
+    tk.Checkbutton(doPage, text="DO 1", variable=cb1).grid(column=0, row=1, padx=10, pady=10)
     do1 = Button(doPage, text="OFF", width=12)
     do1.grid(row=1, column=1)
     tk.Label(doPage, text="Set Time").grid(row=1, column=2)
@@ -323,7 +427,7 @@ if __name__ == "__main__":
     rem1 = Remaining(e1, e12, Btn1, Btnstp1, do1, gpio=25)      # here add GPIO pin number for toggle
 
     # DO2 Start
-    Label(doPage, text="DO 2").grid(column=0, row=2, padx=10, pady=10)
+    tk.Checkbutton(doPage, text="DO 2", variable=cb2).grid(column=0, row=2, padx=10, pady=10)
     do2 = Button(doPage, text="OFF", width=12)
     do2.grid(row=2, column=1)
     tk.Label(doPage, text="Set Time").grid(row=2, column=2)
@@ -343,7 +447,7 @@ if __name__ == "__main__":
     rem2 = Remaining(e2, e22, Btn2, Btnstp2, do2, gpio=17)      # here add GPIO pin number for toggle
 
     # DO3 Start
-    Label(doPage, text="DO 3").grid(column=0, row=3, padx=10, pady=10)
+    tk.Checkbutton(doPage, text="DO 3", variable=cb3).grid(column=0, row=3, padx=10, pady=10)
     do3 = Button(doPage, text="OFF", width=12)
     do3.grid(row=3, column=1)
     tk.Label(doPage, text="Set Time").grid(row=3, column=2)
@@ -363,7 +467,7 @@ if __name__ == "__main__":
     rem3 = Remaining(e3, e32, Btn3, Btnstp3, do3, gpio=18)  # here add GPIO pin number for toggle
 
     # DO4 Start
-    Label(doPage, text="DO 4").grid(column=0, row=4, padx=10, pady=10)
+    tk.Checkbutton(doPage, text="DO 4", variable=cb4).grid(column=0, row=4, padx=10, pady=10)
     do4 = Button(doPage, text="OFF", width=12)
     do4.grid(row=4, column=1)
     tk.Label(doPage, text="Set Time").grid(row=4, column=2)
@@ -383,7 +487,7 @@ if __name__ == "__main__":
     rem4 = Remaining(e4, e42, Btn4, Btnstp4, do4, gpio=27)  # here add GPIO pin number for toggle
 
     # DO5 Start
-    Label(doPage, text="DO 5").grid(column=0, row=5, padx=10, pady=10)
+    tk.Checkbutton(doPage, text="DO 5", variable=cb5).grid(column=0, row=5, padx=10, pady=10)
     do5 = Button(doPage, text="OFF", width=12)
     do5.grid(row=5, column=1)
     tk.Label(doPage, text="Set Time").grid(row=5, column=2)
@@ -403,7 +507,7 @@ if __name__ == "__main__":
     rem5 = Remaining(e5, e52, Btn5, Btnstp5, do5, gpio=22)  # here add GPIO pin number for toggle
 
     # DO6 Start
-    Label(doPage, text="DO 6").grid(column=0, row=6, padx=10, pady=10)
+    tk.Checkbutton(doPage, text="DO 6", variable=cb6).grid(column=0, row=6, padx=10, pady=10)
     do6 = Button(doPage, text="OFF", width=12)
     do6.grid(row=6, column=1)
     tk.Label(doPage, text="Set Time").grid(row=6, column=2)
@@ -423,7 +527,7 @@ if __name__ == "__main__":
     rem6 = Remaining(e6, e62, Btn6, Btnstp6, do6, gpio=23)  # here add GPIO pin number for toggle
 
     # DO7 Start
-    Label(doPage, text="DO 7").grid(column=0, row=7, padx=10, pady=10)
+    tk.Checkbutton(doPage, text="DO 7", variable=cb7).grid(column=0, row=7, padx=10, pady=10)
     do7 = Button(doPage, text="OFF", width=12)
     do7.grid(row=7, column=1)
     tk.Label(doPage, text="Set Time").grid(row=7, column=2)
@@ -443,7 +547,7 @@ if __name__ == "__main__":
     rem7 = Remaining(e7, e72, Btn7, Btnstp7, do7, gpio=24)  # here add GPIO pin number for toggle
 
     # DO8 Start
-    Label(doPage, text="DO 8").grid(column=0, row=8, padx=10, pady=10)
+    tk.Checkbutton(doPage, text="DO 8", variable=cb8).grid(column=0, row=8, padx=10, pady=10)
     do8 = Button(doPage, text="OFF", width=12)
     do8.grid(row=8, column=1)
     tk.Label(doPage, text="Set Time").grid(row=8, column=2)
@@ -461,6 +565,24 @@ if __name__ == "__main__":
     Btnstp8 = tk.Button(doPage, text="Stop", state='disable')
     Btnstp8.grid(row=8, column=7)
     rem8 = Remaining(e8, e82, Btn8, Btnstp8, do8, gpio=10)  # here add GPIO pin number for toggle
+
+    # global Time
+    tk.Label(doPage, text="Global").grid(column=0, row=9, padx=10, pady=10)
+    tk.Label(doPage, text="Set Time").grid(row=9, column=2)
+    eg1 = tk.Entry(doPage)
+    eg1.insert(0, str(time()))
+    eg1.grid(row=9, column=3)
+
+    Btng = tk.Button(doPage, text="Start")
+    Btng.grid(row=9, column=4)
+
+    tk.Label(doPage, text="remaining").grid(row=9, column=5)
+    eg2 = tk.Entry(doPage)
+    eg2.grid(row=9, column=6)
+
+    Btnstpg = tk.Button(doPage, text="Stop", state='disable')
+    Btnstpg.grid(row=9, column=7)
+    gbl = CheckBox(eg1, eg2, Btng, Btnstpg)
 
     # DI
 
