@@ -97,7 +97,6 @@ main.geometry('500x500')
 # gives weight to the cells in the grid
 rows = 0
 while rows < 50:
-while rows < 50:
     main.rowconfigure(rows, weight=1)
     main.columnconfigure(rows, weight=1)
     rows += 1
