@@ -8,6 +8,7 @@ from tkinter import *
 import serial
 from PIL import Image, ImageTk
 import RPi.GPIO as GPIO
+from tkinter import messagebox
 from datetime import time, datetime, timedelta
 
 GPIO.setmode(GPIO.BCM)
