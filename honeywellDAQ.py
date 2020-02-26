@@ -675,6 +675,7 @@ if __name__ == "__main__":
     analogText7 = Label(analogPage, text='Loading...', font=("Courier", 20))
     analogText8 = Label(analogPage, text='Loading...', font=("Courier", 20))
 
+    # Accelerometer
     accelerometerPage = ttk.Frame(nb)
     nb.add(accelerometerPage, text = 'Accelerometer')
 
@@ -684,7 +685,6 @@ if __name__ == "__main__":
     accText2y = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
     accText1z = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
     accText2z = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
-
 
     # Analog Output
     ada = ttk.Frame(nb)
