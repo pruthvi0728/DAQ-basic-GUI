@@ -81,15 +81,22 @@ class Remaining:
     def start(self):
         self.running = True
         # calculation for remaining time
-        stime = datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
-        self.remaining_time = int(timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
-        self.remain()
-        self.btnstart['state'] = 'disable'
-        self.btnstop['state'] = 'normal'
-        self.btndo['state'] = 'disable'
-        self.btndo.config(text='ON')
-        # print(str(self.gpio) + ' ON')
-        GPIO.output(self.gpio, GPIO.HIGH)
+        try:
+            if self.entry1.get() == '00:00:00':
+                raise ValueError()
+            stime = datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
+            self.remaining_time = int(timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
+            self.remain()
+            self.btnstart['state'] = 'disable'
+            self.btnstop['state'] = 'normal'
+            self.btndo['state'] = 'disable'
+            self.btndo.config(text='ON')
+            # print(str(self.gpio) + ' ON')
+            GPIO.output(self.gpio, GPIO.HIGH)
+        except ValueError:
+            messagebox.showinfo("Error", "Enter value in non zero hh:mm:ss format only")
+        except:
+            messagebox.showinfo("Error", "Something went wrong")
 
     def stop(self):
         self.btnstart['state'] = 'normal'
@@ -115,36 +122,43 @@ class CheckBox(Remaining):
     def start(self):
         self.running = True
         # calculation for remaining time
-        stime = datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
-        self.remaining_time = int(
-            timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
-        self.remain()
-        self.btnstart['state'] = 'disable'
-        self.btnstop['state'] = 'normal'
-        if cb1.get() == 1:
-            self.btnctrl(Btn1, Btnstp1, do1, dis=1)
-            self.dobtnctrl(do1, gpio=25, flag=1)
-        if cb2.get() == 1:
-            self.btnctrl(Btn2, Btnstp2, do2, dis=1)
-            self.dobtnctrl(do2, gpio=17, flag=1)
-        if cb3.get() == 1:
-            self.btnctrl(Btn3, Btnstp3, do3, dis=1)
-            self.dobtnctrl(do3, gpio=18, flag=1)
-        if cb4.get() == 1:
-            self.btnctrl(Btn4, Btnstp4, do4, dis=1)
-            self.dobtnctrl(do4, gpio=27, flag=1)
-        if cb5.get() == 1:
-            self.btnctrl(Btn5, Btnstp5, do5, dis=1)
-            self.dobtnctrl(do5, gpio=22, flag=1)
-        if cb6.get() == 1:
-            self.btnctrl(Btn6, Btnstp6, do6, dis=1)
-            self.dobtnctrl(do6, gpio=23, flag=1)
-        if cb7.get() == 1:
-            self.btnctrl(Btn7, Btnstp7, do7, dis=1)
-            self.dobtnctrl(do7, gpio=24, flag=1)
-        if cb8.get() == 1:
-            self.btnctrl(Btn8, Btnstp8, do8, dis=1)
-            self.dobtnctrl(do8, gpio=10, flag=1)
+        try:
+            if self.entry1.get() == '00:00:00':
+                raise ValueError()
+            stime = datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
+            self.remaining_time = int(
+                timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
+            self.remain()
+            self.btnstart['state'] = 'disable'
+            self.btnstop['state'] = 'normal'
+            if cb1.get() == 1:
+                self.btnctrl(Btn1, Btnstp1, do1, dis=1)
+                self.dobtnctrl(do1, gpio=25, flag=1)
+            if cb2.get() == 1:
+                self.btnctrl(Btn2, Btnstp2, do2, dis=1)
+                self.dobtnctrl(do2, gpio=17, flag=1)
+            if cb3.get() == 1:
+                self.btnctrl(Btn3, Btnstp3, do3, dis=1)
+                self.dobtnctrl(do3, gpio=18, flag=1)
+            if cb4.get() == 1:
+                self.btnctrl(Btn4, Btnstp4, do4, dis=1)
+                self.dobtnctrl(do4, gpio=27, flag=1)
+            if cb5.get() == 1:
+                self.btnctrl(Btn5, Btnstp5, do5, dis=1)
+                self.dobtnctrl(do5, gpio=22, flag=1)
+            if cb6.get() == 1:
+                self.btnctrl(Btn6, Btnstp6, do6, dis=1)
+                self.dobtnctrl(do6, gpio=23, flag=1)
+            if cb7.get() == 1:
+                self.btnctrl(Btn7, Btnstp7, do7, dis=1)
+                self.dobtnctrl(do7, gpio=24, flag=1)
+            if cb8.get() == 1:
+                self.btnctrl(Btn8, Btnstp8, do8, dis=1)
+                self.dobtnctrl(do8, gpio=10, flag=1)
+        except ValueError:
+            messagebox.showinfo("Error", "Enter value in non zero hh:mm:ss format only")
+        except:
+            messagebox.showinfo("Error", "Something went wrong")
 
     def dobtnctrl(self, btncdo, gpio, flag):
         if flag:
