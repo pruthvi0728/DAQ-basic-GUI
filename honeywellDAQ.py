@@ -215,7 +215,7 @@ class CheckBox(Remaining):
 def setdec():
     if validate(adae1):
         volt = round(float(adae1.get()), 2)
-        xdec = int((volt/5.280)*4096)
+        xdec = int((volt/5.3)*4096)
         # messagebox.showinfo("Hello", str(xdec))
         dac.set_voltage(xdec)
 
@@ -223,7 +223,7 @@ def setdec():
 def setdec1():
     if validate(adae2):
         volt = round(float(adae2.get()), 2)
-        xdec1 = int((volt/5.280)*4096)
+        xdec1 = int((volt/5.3)*4096)
         # messagebox.showinfo("Hello", str(xdec1))
         dac1.set_voltage(xdec1)
 
