@@ -8,6 +8,7 @@ from tkinter import *
 import serial
 from PIL import Image, ImageTk
 import RPi.GPIO as GPIO
+import Adafruit_MCP4725
 from tkinter import messagebox
 from datetime import time, datetime, timedelta
 
@@ -209,6 +210,36 @@ class CheckBox(Remaining):
             btncs['state'] = 'normal'
             btncstp['state'] = 'normal'
             btncdo['state'] = 'normal'
+
+
+def setdec():
+    if validate(e1):
+        volt = round(float(e1.get()), 2)
+        xdec = int((volt/5.280)*4096)
+        # print(xdec)
+        # messagebox.showinfo("Hello", str(xdec))
+        dac.set_voltage(xdec)
+
+
+def setdec1():
+    if validate(e2):
+        volt = round(float(e1.get()), 2)
+        xdec1 = int((volt/5.280)*4096)
+        # messagebox.showinfo("Hello", xdec1)
+        dac1.set_voltage(xdec1)
+
+
+def validate(entry):
+    try:
+        volt = float(entry.get())
+        if volt < 0 or volt > 5:
+            messagebox.showinfo("Error", "Voltage only between 0 to 5")
+            return False
+        else:
+            return True
+    except ValueError:
+        messagebox.showinfo("Error", "Voltage only between 0 to 5")
+        return False
 
 
 # gives weight to the cells in the grid
@@ -655,6 +686,26 @@ if __name__ == "__main__":
     accText1z = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
     accText2z = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
 
+
+    # Analog Output
+    ada = ttk.Frame(nb)
+    nb.add(ada, text="Analog Output")
+
+    # Create a DAC instance.
+    dac = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)
+    dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
+
+    tk.Label(ada, text="Voltage1 ").grid(row=0)
+    e1 = tk.Entry(ada)
+    e1.grid(row=0, column=1)
+    AdaBtn = tk.Button(ada, text="Start", command=setdec)
+    AdaBtn.grid(row=0, column=2)
+
+    tk.Label(ada, text="Voltage2 ").grid(row=1)
+    e2 = tk.Entry(ada)
+    e2.grid(row=1, column=1)
+    AdaBtn1 = tk.B1utton(ada, text="Start", command=setdec1)
+    AdaBtn1.grid(row=1, column=2)
 
 
     # threads
