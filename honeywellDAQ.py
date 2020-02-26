@@ -226,7 +226,7 @@ def setdec1():
         volt = round(float(adae2.get()), 2)
         xdec1 = int((volt/5.274349)*4096)
         # messagebox.showinfo("Hello", str(xdec1))
-        tk.Label(ada, text=" Running on... " + str(volt)).grid(row=0, column=3)
+        tk.Label(ada, text=" Running on... " + str(volt)).grid(row=1, column=3)
         dac1.set_voltage(xdec1)
 
 
