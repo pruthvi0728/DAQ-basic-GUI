@@ -216,7 +216,6 @@ def setdec():
     if validate(e1):
         volt = round(float(e1.get()), 2)
         xdec = int((volt/5.280)*4096)
-        # print(xdec)
         # messagebox.showinfo("Hello", str(xdec))
         dac.set_voltage(xdec)
 
@@ -225,7 +224,7 @@ def setdec1():
     if validate(e2):
         volt = round(float(e1.get()), 2)
         xdec1 = int((volt/5.280)*4096)
-        # messagebox.showinfo("Hello", xdec1)
+        # messagebox.showinfo("Hello", str(xdec1))
         dac1.set_voltage(xdec1)
 
 
