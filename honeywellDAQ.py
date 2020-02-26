@@ -708,8 +708,8 @@ if __name__ == "__main__":
 
     button_var = IntVar()
 
-    connect = Button(text="Connect", command=connect).place(x=15, y=360)
-    disconnect = Button(text="Disconnect", command=disconnect).place(x=300, y=360)
+    connect = Button(text="Connect", command=connect).place(x=15, y=400)
+    disconnect = Button(text="Disconnect", command=disconnect).place(x=300, y=400)
 
     # Defines and places the notebook widget
 
