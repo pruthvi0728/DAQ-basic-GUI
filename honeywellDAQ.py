@@ -326,7 +326,7 @@ def get_data():
 
             filter_data = serial_data.split(',')
             for i in range(len(filter_data)):
-                if float(filter_data[i])>500.00 or float(filter_data[i])==0:
+                if float(filter_data[i]) > 500.00 or float(filter_data[i]) == 0:
                     filter_data[i] = 'NAN'
 
             for i in range(len(diPinlist)):
@@ -371,7 +371,7 @@ def update_main():
     thermocoupleText7.grid(column=2, row=7)
     thermocoupleText8.grid(column=2, row=8)
 
-    analogText1.grid(column = 2, row=1)
+    analogText1.grid(column=2, row=1)
     analogText2.grid(column=2, row=2)
     analogText3.grid(column=2, row=3)
     analogText4.grid(column=2, row=4)
@@ -397,25 +397,25 @@ def update_main():
             var = 0
             var = filter_data[0]
 
-            thermocoupleText1.config(text = filter_data[0])
-            thermocoupleText2.config(text = filter_data[1])
-            thermocoupleText3.config(text = filter_data[2])
-            thermocoupleText4.config(text = filter_data[3])
-            thermocoupleText5.config(text = filter_data[4])
-            thermocoupleText6.config(text = filter_data[5])
-            thermocoupleText7.config(text = filter_data[6])
-            thermocoupleText8.config(text = filter_data[7])
+            thermocoupleText1.config(text=filter_data[0])
+            thermocoupleText2.config(text=filter_data[1])
+            thermocoupleText3.config(text=filter_data[2])
+            thermocoupleText4.config(text=filter_data[3])
+            thermocoupleText5.config(text=filter_data[4])
+            thermocoupleText6.config(text=filter_data[5])
+            thermocoupleText7.config(text=filter_data[6])
+            thermocoupleText8.config(text=filter_data[7])
 
-            analogText1.config(text = filter_data[8])
-            analogText2.config(text = filter_data[9])
-            analogText3.config(text = filter_data[10])
-            analogText4.config(text = filter_data[11])
-            analogText5.config(text = filter_data[12])
-            analogText6.config(text = filter_data[13])
-            analogText7.config(text = filter_data[14])
-            analogText8.config(text = filter_data[15])
+            analogText1.config(text=filter_data[8])
+            analogText2.config(text=filter_data[9])
+            analogText3.config(text=filter_data[10])
+            analogText4.config(text=filter_data[11])
+            analogText5.config(text=filter_data[12])
+            analogText6.config(text=filter_data[13])
+            analogText7.config(text=filter_data[14])
+            analogText8.config(text=filter_data[15])
 
-            diText1.config(text = di_data[0])
+            diText1.config(text=di_data[0])
             diText2.config(text=di_data[1])
             diText3.config(text=di_data[2])
             diText4.config(text=di_data[3])
@@ -687,7 +687,7 @@ if __name__ == "__main__":
     thermocoupleText1 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
     thermocoupleText2 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
     thermocoupleText3 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
-    thermocoupleText4 =Label(thermocouplePage, text='Loading...', font=("Courier", 15))
+    thermocoupleText4 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
     thermocoupleText5 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
     thermocoupleText6 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
     thermocoupleText7 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
@@ -710,7 +710,7 @@ if __name__ == "__main__":
 
     # Accelerometer
     accelerometerPage = ttk.Frame(nb)
-    nb.add(accelerometerPage, text = 'Accelerometer')
+    nb.add(accelerometerPage, text='Accelerometer')
 
     accText1x = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
     accText2x = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
@@ -777,7 +777,7 @@ if __name__ == "__main__":
     diLabel7 = Label(diPage, text="Digital Input 7: ").grid(column=1, row=7)
     diLabel8 = Label(diPage, text="Digital Input 8: ").grid(column=1, row=8)
 
-    acc1x = Label(accelerometerPage, text='Accelerometer1 X Axis').grid(column = 1, row = 1)
+    acc1x = Label(accelerometerPage, text='Accelerometer1 X Axis').grid(column=1, row=1)
     acc1y = Label(accelerometerPage, text='Accelerometer1 Y Axis').grid(column=1, row=2)
     acc1z = Label(accelerometerPage, text='Accelerometer1 Z Axis').grid(column=1, row=3)
     acc2x = Label(accelerometerPage, text='Accelerometer2 X Axis').grid(column=1, row=4)
