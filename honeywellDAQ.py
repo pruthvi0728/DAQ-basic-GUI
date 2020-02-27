@@ -233,12 +233,12 @@ def setdec1():
 
 
 def setdecstp():
-    tk.Label(ada, text="running on... 0.0").grid(row=0, column=4)
+    tk.Label(ada, text="Running on... 0.0").grid(row=0, column=4)
     dac.set_voltage(0)
 
 
 def setdec1stp():
-    tk.Label(ada, text="running on... 0.0").grid(row=1, column=4)
+    tk.Label(ada, text="Running on... 0.0").grid(row=1, column=4)
     dac1.set_voltage(0)
 
 
@@ -290,7 +290,7 @@ def connect():
     csvfilename = 'CITRIOT_DATASHEET_' + str(nowfile.strftime('%Y_%b_%d_%H_%M_%S')) + '.csv'
 
     try:
-        with open('/DATASHEET/' + csvfilename, 'w', newline='') as datafile:
+        with open(csvfilename, 'w', newline='') as datafile:
             writer = csv.writer(datafile)
             writer.writerow(["Timestamp", "Thermocouple_1", "Thermocouple_2", "Thermocouple_3", "Thermocouple_4",
                              "Thermocouple_5", "Thermocouple_6", "Thermocouple_7", "Thermocouple_8", "Analog_1",
@@ -796,8 +796,8 @@ if __name__ == "__main__":
 
     button_var = IntVar()
 
-    connect = Button(text="Connect", command=connect).place(x=10, y=360)
-    disconnect = Button(text="Disconnect", command=disconnect).place(x=98, y=360)
+    connect = Button(text="Connect", command=connect).place(x=10, y=370)
+    disconnect = Button(text="Disconnect", command=disconnect).place(x=98, y=370)
 
     # Defines and places the notebook widget
 
