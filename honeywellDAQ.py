@@ -219,7 +219,7 @@ def setdec():
         volt = round(float(adae1.get()), 2)
         xdec = int((volt/5.274349)*4096)
         # messagebox.showinfo("Hello", str(xdec))
-        tk.Label(ada, text=" Running on... " + str(volt)).grid(row=0, column=3)
+        tk.Label(ada, text=" Running on... " + str(volt)).grid(row=0, column=4)
         dac.set_voltage(xdec)
 
 
@@ -228,8 +228,18 @@ def setdec1():
         volt = round(float(adae2.get()), 2)
         xdec1 = int((volt/5.274349)*4096)
         # messagebox.showinfo("Hello", str(xdec1))
-        tk.Label(ada, text=" Running on... " + str(volt)).grid(row=1, column=3)
+        tk.Label(ada, text=" Running on... " + str(volt)).grid(row=1, column=4)
         dac1.set_voltage(xdec1)
+
+
+def setdecstp():
+    tk.Label(ada, text="running on... 0.0").grid(row=0, column=4)
+    dac.set_voltage(0)
+
+
+def setdec1stp():
+    tk.Label(ada, text="running on... 0.0").grid(row=1, column=4)
+    dac1.set_voltage(0)
 
 
 def validate(entry):
@@ -730,13 +740,17 @@ if __name__ == "__main__":
     adae1 = tk.Entry(ada)
     adae1.grid(row=0, column=1)
     AdaBtn = tk.Button(ada, text="Start", command=setdec)
-    AdaBtn.grid(row=0, column=2)
+    AdaBtn.grid(row=0, column=2, padx=10, pady=10)
+    AdaBtnstp = tk.Button(ada, text="Stop", command=setdecstp)
+    AdaBtnstp.grid(row=0, column=3, padx=10, pady=10)
 
     tk.Label(ada, text="Voltage2 ").grid(row=1)
     adae2 = tk.Entry(ada)
     adae2.grid(row=1, column=1)
     AdaBtn1 = tk.Button(ada, text="Start", command=setdec1)
-    AdaBtn1.grid(row=1, column=2)
+    AdaBtn1.grid(row=1, column=2, padx=10, pady=10)
+    AdaBtnstp1 = tk.Button(ada, text="Stop", command=setdec1stp)
+    AdaBtnstp1.grid(row=1, column=3, padx=10, pady=10)
 
 
     # threads
