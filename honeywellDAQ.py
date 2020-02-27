@@ -284,7 +284,7 @@ def connect():
             writer = csv.writer(datafile)
             writer.writerow(["Thermocouple_1", "Thermocouple_2", "Thermocouple_3", "Thermocouple_4", "Thermocouple_5",
                              "Thermocouple_6", "Thermocouple_7", "Thermocouple_8", "Analog_1", "Analog_2", "Analog_3",
-                             "Analog_4", "Analog_6", "Analog_7", "Analog_8", "Digital_1", "Digital_2", "Digital_3",
+                             "Analog_4", "Analog_5", "Analog_6", "Analog_7", "Analog_8", "Digital_1", "Digital_2", "Digital_3",
                              "Digital_4", "Digital_5", "Digital_6", "Digital_7", "Digital_8"])
             messagebox.showinfo("Data", "Data is Saving...")
     except:
@@ -328,7 +328,7 @@ def get_data():
 
             print(filter_data)
 
-            datasave = filter_data + di_data
+            datasave = filter_data[:8] + di_data
 
             try:
                 with open(csvfilename, 'a', newline='') as datafile:
