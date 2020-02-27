@@ -10,7 +10,6 @@ from PIL import Image, ImageTk
 import RPi.GPIO as GPIO
 import Adafruit_MCP4725
 from tkinter import messagebox
-# from datetime import time, datetime, timedelta
 import datetime as dt
 import csv
 
@@ -18,6 +17,7 @@ GPIO.setmode(GPIO.BCM)
 
 doPinlist = [25, 17, 18, 27, 22, 23, 24, 10]
 diPinlist = [5, 6, 13, 19, 26, 16, 20, 21]
+di_data = [0, 0, 0, 0, 0, 0, 0, 0]
 
 for i in doPinlist:
     GPIO.setup(i, GPIO.OUT)
@@ -316,8 +316,8 @@ def get_data():
     global filter_data
     global di_data
     global csvfilename
-    di_data = [0,0,0,0,0,0,0,0]
-    while (1):
+    # di_data = [0, 0, 0, 0, 0, 0, 0, 0]
+    while 1:
         try:
             serial_data = serial_object.readline()
             serial_data = serial_data.decode("utf-8")
@@ -329,14 +329,12 @@ def get_data():
                 if float(filter_data[i])>500.00 or float(filter_data[i])==0:
                     filter_data[i] = 'NAN'
 
-
             for i in range(len(diPinlist)):
                 di_data[i] = GPIO.input(diPinlist[i])
-                if di_data[i]==1:
+                if di_data[i] == 1:
                     di_data[i] = 'OFF'
                 else:
                     di_data[i] = 'ON'
-
 
             print(filter_data)
             datatimestamp = [str(dt.datetime.now())]
@@ -391,20 +389,13 @@ def update_main():
     diText7.grid(column=2, row=7)
     diText8.grid(column=2, row=8)
 
-
-
-
-
-
     new = time.time()
     global var
-    while (1):
+    while 1:
         if filter_data:
 
             var = 0
             var = filter_data[0]
-
-
 
             thermocoupleText1.config(text = filter_data[0])
             thermocoupleText2.config(text = filter_data[1])
@@ -432,7 +423,6 @@ def update_main():
             diText6.config(text=di_data[5])
             diText7.config(text=di_data[6])
             diText8.config(text=di_data[7])
-
 
             if time.time() - new >= update_period:
                 new = time.time()
