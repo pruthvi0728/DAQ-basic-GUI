@@ -328,7 +328,7 @@ def get_data():
 
             print(filter_data)
 
-            datasave = filter_data[:8] + di_data
+            datasave = filter_data[:16] + di_data
 
             try:
                 with open(csvfilename, 'a', newline='') as datafile:
