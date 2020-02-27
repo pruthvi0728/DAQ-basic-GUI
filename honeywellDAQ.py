@@ -12,6 +12,7 @@ import Adafruit_MCP4725
 from tkinter import messagebox
 # from datetime import time, datetime, timedelta
 import datetime as dt
+import csv
 
 GPIO.setmode(GPIO.BCM)
 
@@ -265,6 +266,7 @@ def connect():
     version_ = button_var.get()
 
     global serial_object
+    global csvfilename
 
     baud = 9600
     try:
@@ -272,6 +274,21 @@ def connect():
 
     except:
         print("Can't open port ACM0")
+
+    # For File Creating Whenever click on Connect
+    nowfile = dt.datetime.now()
+    csvfilename = 'CITRIOT_DATASHEET_' + str(nowfile.strftime('%Y_%b_%d_%H_%M_%S')) + '.csv'
+
+    try:
+        with open(csvfilename, 'w', newline='') as datafile:
+            writer = csv.writer(datafile)
+            writer.writerow(["Thermocouple_1", "Thermocouple_2", "Thermocouple_3", "Thermocouple_4", "Thermocouple_5",
+                             "Thermocouple_6", "Thermocouple_7", "Thermocouple_8", "Analog_1", "Analog_2", "Analog_3",
+                             "Analog_4", "Analog_6", "Analog_7", "Analog_8", "Digital_1", "Digital_2", "Digital_3",
+                             "Digital_4", "Digital_5", "Digital_6", "Digital_7", "Digital_8"])
+            messagebox.showinfo("Data", "Data is Saving...")
+    except:
+        messagebox.showinfo("Error", "Something went wrong in file creation")
 
     t1 = threading.Thread(target=get_data)
     t1.daemon = True
@@ -286,6 +303,7 @@ def get_data():
     global serial_object
     global filter_data
     global di_data
+    global csvfilename
     di_data = [0,0,0,0,0,0,0,0]
     while (1):
         try:
@@ -309,6 +327,15 @@ def get_data():
 
 
             print(filter_data)
+
+            datasave = filter_data + di_data
+
+            try:
+                with open(csvfilename, 'a', newline='') as datafile:
+                    writer = csv.writer(datafile)
+                    writer.writerow(datasave)
+            except:
+                messagebox.showinfo("Error", "Something went wrong in data storing")
 
         except TypeError:
             pass
@@ -406,12 +433,13 @@ def disconnect():
     but will be pushed to the repo once done.
     simple main.quit() calls.
     """
+    global csvfilename
     try:
         serial_object.close()
 
     except AttributeError:
         print("Closed without Using it -_-")
-
+    messagebox.showinfo("Data", "Data is Saved on " + csvfilename)
     main.quit()
 
 
@@ -421,6 +449,7 @@ if __name__ == "__main__":
     The Main loop handles all the widget placements.
     """
     global var
+    global csvfilename
     # frames
     # frame_1 = Frame(height=285, width=480, bd=3, relief='groove').place(x=7, y=5)
     # frame_2 = Frame(height=150, width=480, bd=3, relief='groove').place(x=7, y=300)
