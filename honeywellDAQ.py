@@ -290,12 +290,14 @@ def connect():
     csvfilename = 'CITRIOT_DATASHEET_' + str(nowfile.strftime('%Y_%b_%d_%H_%M_%S')) + '.csv'
 
     try:
-        with open(csvfilename, 'w', newline='') as datafile:
+        with open('/DATASHEET/' + csvfilename, 'w', newline='') as datafile:
             writer = csv.writer(datafile)
-            writer.writerow(["Thermocouple_1", "Thermocouple_2", "Thermocouple_3", "Thermocouple_4", "Thermocouple_5",
-                             "Thermocouple_6", "Thermocouple_7", "Thermocouple_8", "Analog_1", "Analog_2", "Analog_3",
-                             "Analog_4", "Analog_5", "Analog_6", "Analog_7", "Analog_8", "Digital_1", "Digital_2", "Digital_3",
-                             "Digital_4", "Digital_5", "Digital_6", "Digital_7", "Digital_8"])
+            writer.writerow(["Timestamp", "Thermocouple_1", "Thermocouple_2", "Thermocouple_3", "Thermocouple_4",
+                             "Thermocouple_5", "Thermocouple_6", "Thermocouple_7", "Thermocouple_8", "Analog_1",
+                             "Analog_2", "Analog_3", "Analog_4", "Analog_5", "Analog_6", "Analog_7", "Analog_8",
+                             "Digital_1", "Digital_2", "Digital_3", "Digital_4", "Digital_5", "Digital_6", "Digital_7",
+                             "Digital_8"])
+
             messagebox.showinfo("Data", "Data is Saving...")
     except:
         messagebox.showinfo("Error", "Something went wrong in file creation")
@@ -337,8 +339,8 @@ def get_data():
 
 
             print(filter_data)
-
-            datasave = filter_data[:16] + di_data
+            datatimestamp = [str(dt.datetime.now())]
+            datasave = datatimestamp + filter_data[:16] + di_data
 
             try:
                 with open(csvfilename, 'a', newline='') as datafile:
