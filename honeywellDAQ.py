@@ -654,7 +654,6 @@ if __name__ == "__main__":
     rem8 = Remaining(e8, e82, Btn8, Btnstp8, do8, gpio=10)  # here add GPIO pin number for toggle
 
     # global Time
-    tk.Label(doPage, text="Global").grid(column=0, row=9, padx=10, pady=10)
     tk.Label(doPage, text="Set Time").grid(row=9, column=2)
     eg1 = tk.Entry(doPage)
     eg1.insert(0, str('00:00:00'))
@@ -805,8 +804,8 @@ if __name__ == "__main__":
 
     button_var = IntVar()
 
-    connect = Button(text="Connect", command=connect).place(x=15, y=360)
-    disconnect = Button(text="Disconnect", command=disconnect).place(x=300, y=360)
+    connect = Button(text="Connect", command=connect).place(x=10, y=360)
+    disconnect = Button(text="Disconnect", command=disconnect).place(x=98, y=360)
 
     # Defines and places the notebook widget
 
