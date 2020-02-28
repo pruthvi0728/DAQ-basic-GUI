@@ -290,7 +290,7 @@ def connect():
     csvfilename = 'CITRIOT_DATASHEET_' + str(nowfile.strftime('%Y_%b_%d_%H_%M_%S')) + '.csv'
 
     try:
-        with open(csvfilename, 'w', newline='') as datafile:
+        with open('DATASHEET/' + csvfilename, 'w', newline='') as datafile:
             writer = csv.writer(datafile)
             writer.writerow(["Timestamp", "Thermocouple_1", "Thermocouple_2", "Thermocouple_3", "Thermocouple_4",
                              "Thermocouple_5", "Thermocouple_6", "Thermocouple_7", "Thermocouple_8", "Analog_1",
@@ -341,7 +341,7 @@ def get_data():
             datasave = datatimestamp + filter_data[:16] + di_data
 
             try:
-                with open(csvfilename, 'a', newline='') as datafile:
+                with open('DATASHEET/' + csvfilename, 'a', newline='') as datafile:
                     writer = csv.writer(datafile)
                     writer.writerow(datasave)
             except:
