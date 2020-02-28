@@ -338,6 +338,7 @@ def get_data():
 
             print(filter_data)
             datatimestamp = [str(dt.datetime.now())]
+            filter_data[0], filter_data[7] = filter_data[7], filter_data[0]
             datasave = datatimestamp + filter_data[:16] + di_data
 
             try:
@@ -397,14 +398,14 @@ def update_main():
             var = 0
             var = filter_data[0]
 
-            thermocoupleText1.config(text=filter_data[0])
+            thermocoupleText1.config(text=filter_data[7])
             thermocoupleText2.config(text=filter_data[1])
             thermocoupleText3.config(text=filter_data[2])
             thermocoupleText4.config(text=filter_data[3])
             thermocoupleText5.config(text=filter_data[4])
             thermocoupleText6.config(text=filter_data[5])
             thermocoupleText7.config(text=filter_data[6])
-            thermocoupleText8.config(text=filter_data[7])
+            thermocoupleText8.config(text=filter_data[0])
 
             analogText1.config(text=filter_data[8])
             analogText2.config(text=filter_data[9])
