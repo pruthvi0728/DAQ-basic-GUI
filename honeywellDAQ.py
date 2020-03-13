@@ -301,6 +301,9 @@ def connect():
             messagebox.showinfo("Data", "Data is Saving...")
     except:
         messagebox.showinfo("Error", "Something went wrong in file creation")
+    
+    disconnect["state"] = 'normal'
+    connect["state"] = 'disable'
 
     t1 = threading.Thread(target=get_data)
     t1.daemon = True
@@ -441,6 +444,8 @@ def disconnect():
     except AttributeError:
         print("Closed without Using it -_-")
     messagebox.showinfo("Data", "Data is Saved on " + csvfilename)
+    disconnect["state"] = 'disable'
+    connect["state"] = 'normal'
     main.quit()
 
 
@@ -796,7 +801,7 @@ if __name__ == "__main__":
     button_var = IntVar()
 
     connect = Button(text="Connect", command=connect).place(x=10, y=370)
-    disconnect = Button(text="Disconnect", command=disconnect).place(x=98, y=370)
+    disconnect = Button(text="Disconnect", command=disconnect, state="disable").place(x=98, y=370)
 
     # Defines and places the notebook widget
 
