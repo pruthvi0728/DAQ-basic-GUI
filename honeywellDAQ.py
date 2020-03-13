@@ -263,7 +263,7 @@ while rows < 50:
     rows += 1
 
 
-def connect(connectbtn, disconnectbtn):
+def connect():
     """The function initiates the Connection to the UART device with the Port and Buad fed through the Entry
     boxes in the application.
     The radio button selects the platform, as the serial object has different key phrases
@@ -301,9 +301,9 @@ def connect(connectbtn, disconnectbtn):
             messagebox.showinfo("Data", "Data is Saving...")
     except:
         messagebox.showinfo("Error", "Something went wrong in file creation")
-    
-    disconnectbtn['state'] = 'normal'
+
     connectbtn['state'] = 'disable'
+    disconnectbtn['state'] = 'normal'
 
     t1 = threading.Thread(target=get_data)
     t1.daemon = True
@@ -801,7 +801,7 @@ if __name__ == "__main__":
 
     button_var = IntVar()
 
-    connectbtn = Button(text="Connect", command=lambda: connect(connectbtn, disconnectbtn)).place(x=10, y=370)
+    connectbtn = Button(text="Connect", command=connect).place(x=10, y=370)
     disconnectbtn = Button(text="Disconnect", command=disconnect, state='disable').place(x=98, y=370)
 
     # Defines and places the notebook widget
