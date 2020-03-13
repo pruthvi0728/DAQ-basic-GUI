@@ -277,8 +277,6 @@ def connect():
 
     global serial_object
     global csvfilename
-    global connectbtn
-    global disconnectbtn
 
     baud = 9600
     try:
@@ -440,8 +438,7 @@ def disconnect():
     simple main.quit() calls.
     """
     global csvfilename
-    global connectbtn
-    global disconnectbtn
+
     try:
         serial_object.close()
 
