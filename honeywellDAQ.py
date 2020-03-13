@@ -277,8 +277,8 @@ def connect():
 
     global serial_object
     global csvfilename
-    global connect
-    global disconnect
+    global connectbtn
+    global disconnectbtn
 
     baud = 9600
     try:
@@ -304,8 +304,8 @@ def connect():
     except:
         messagebox.showinfo("Error", "Something went wrong in file creation")
     
-    disconnect['state'] = 'normal'
-    connect['state'] = 'disable'
+    disconnectbtn['state'] = 'normal'
+    connectbtn['state'] = 'disable'
 
     t1 = threading.Thread(target=get_data)
     t1.daemon = True
@@ -440,16 +440,16 @@ def disconnect():
     simple main.quit() calls.
     """
     global csvfilename
-    global connect
-    global disconnect
+    global connectbtn
+    global disconnectbtn
     try:
         serial_object.close()
 
     except AttributeError:
         print("Closed without Using it -_-")
     messagebox.showinfo("Data", "Data is Saved on " + csvfilename)
-    disconnect['state'] = 'disable'
-    connect['state'] = 'normal'
+    disconnectbtn['state'] = 'disable'
+    connectbtn['state'] = 'normal'
     main.quit()
 
 
@@ -804,8 +804,8 @@ if __name__ == "__main__":
 
     button_var = IntVar()
 
-    connect = Button(text="Connect", command=connect).place(x=10, y=370)
-    disconnect = Button(text="Disconnect", command=disconnect, state='disable').place(x=98, y=370)
+    connectbtn = Button(text="Connect", command=connect).place(x=10, y=370)
+    disconnectbtn = Button(text="Disconnect", command=disconnect, state='disable').place(x=98, y=370)
 
     # Defines and places the notebook widget
 
