@@ -469,7 +469,7 @@ if __name__ == "__main__":
     # image = PhotoImage(file="logo.gif")
     # L = Label(aboutPage, image=image).pack()
 
-    image = Image.open("logo.jpg")
+    image = Image.open("/home/pi/Desktop/New/DAQ-basic-GUI/Logo2.png")
     image = image.resize((500, 250), Image.ANTIALIAS)  ## The (250, 250) is (height, width)
     img = ImageTk.PhotoImage(image)
     panel = Label(aboutPage, image=img)
