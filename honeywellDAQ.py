@@ -277,6 +277,8 @@ def connect():
 
     global serial_object
     global csvfilename
+    global connect
+    global disconnect
 
     baud = 9600
     try:
@@ -438,6 +440,8 @@ def disconnect():
     simple main.quit() calls.
     """
     global csvfilename
+    global connect
+    global disconnect
     try:
         serial_object.close()
 
@@ -801,7 +805,7 @@ if __name__ == "__main__":
     button_var = IntVar()
 
     connect = Button(text="Connect", command=connect).place(x=10, y=370)
-    disconnect = Button(text="Disconnect", command=disconnect).place(x=98, y=370)
+    disconnect = Button(text="Disconnect", command=disconnect, state='disable').place(x=98, y=370)
 
     # Defines and places the notebook widget
 
