@@ -450,16 +450,6 @@ def disconnect():
     main.quit()
 
 
-def connecttmp():
-    disconnectbtn['state'] = 'normal'
-    connectbtn['state'] = 'disable'
-
-
-def disconnecttmp():
-    disconnectbtn['state'] = 'disable'
-    connectbtn['state'] = 'normal'
-
-
 if __name__ == "__main__":
     """
     The main loop consists of all the main objects and its placement.
@@ -811,8 +801,8 @@ if __name__ == "__main__":
 
     button_var = IntVar()
 
-    connectbtn = tk.Button(text="Connect", command=connecttmp).place(x=10, y=370)
-    disconnectbtn = tk.Button(text="Disconnect", command=disconnecttmp).place(x=98, y=370)
+    connectbtn = tk.Button(text="Connect", command=connect).place(x=10, y=370)
+    disconnectbtn = tk.Button(text="Disconnect", command=disconnect).place(x=98, y=370)
 
     # Defines and places the notebook widget
 
