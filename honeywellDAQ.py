@@ -61,7 +61,7 @@ class Remaining:
         self.entry2 = entry2
         self.btnstart = btnstart
         self.btnstop = btnstop
-        self.btnstart.config(command=lambda: self.start())
+        self.btnstart.config(command=lambda: self.start(r=0))
         self.btnstop.config(command=self.stop)
 
         self.btndo = btndo
@@ -82,7 +82,23 @@ class Remaining:
                     self.stop()
         rem()
 
-    def start(self):
+    def remain_new(self):
+        def rem():
+            if self.running:
+                if self.remaining_time != 0:
+                    print(self.remaining_time)
+                    self.remaining_time = self.remaining_time - 1
+                    rem_time = dt.timedelta(seconds=self.remaining_time)
+                    self.entry2.delete(0, tk.END)
+                    self.entry2.insert(0, rem_time)
+                    main.update()
+                    time.sleep(1)
+                    rem()
+                else:
+                    self.stop()
+        rem()
+
+    def start(self, r):
         self.running = True
         # calculation for remaining time
         try:
@@ -90,13 +106,24 @@ class Remaining:
                 raise ValueError()
             stime = dt.datetime.strptime(self.entry1.get(), '%H:%M:%S').time()
             self.remaining_time = int(dt.timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
-            self.remain()
-            self.btnstart['state'] = 'disable'
-            self.btnstop['state'] = 'normal'
-            self.btndo['state'] = 'disable'
-            self.btndo.config(text='ON')
-            # print(str(self.gpio) + ' ON')
-            GPIO.output(self.gpio, GPIO.HIGH)
+            if r:
+                self.btnstart['state'] = 'disable'
+                self.btnstop['state'] = 'normal'
+                self.btndo['state'] = 'disable'
+
+                self.btndo.config(text='ON')
+                # print(str(self.gpio) + ' ON')
+                GPIO.output(self.gpio, GPIO.HIGH)
+                self.remain_new()
+            else:
+                self.remain()
+                self.btnstart['state'] = 'disable'
+                self.btnstop['state'] = 'normal'
+                self.btndo['state'] = 'disable'
+
+                self.btndo.config(text='ON')
+                # print(str(self.gpio) + ' ON')
+                GPIO.output(self.gpio, GPIO.HIGH)
         except ValueError:
             messagebox.showinfo("Error", "Enter value in non zero hh:mm:ss format only")
         except:
@@ -253,6 +280,50 @@ def validate(entry):
     except ValueError:
         messagebox.showinfo("Error", "Voltage only between 0 to 5")
         return False
+
+
+class Cycle:
+    def __init__(self, entry1, entry2, btnstart, btnstop):
+        self.entry1 = entry1
+        self.entry2 = entry2
+        self.remaining = 0
+        self.btnstart = btnstart
+        self.btnstop = btnstop
+        self.btnstart.config(command=lambda: self.start())
+        self.btnstop.config(command=self.stop)
+
+    def remain_new(self):
+        cy = [cb1, cb2, cb3, cb4, cb5, cb6, cb7, cb8]
+        re = [rem1, rem2, rem3, rem4, rem5, rem6, rem7, rem8]
+
+        for r in range(self.remaining):
+            rem_time = self.remaining - r - 1
+            self.entry2.delete(0, tk.END)
+            self.entry2.insert(0, rem_time)
+            main.update()
+            i = 0
+            for c in cy:
+                if c.get() == 1:
+                    re[i].start(r=1)
+                i += 1
+
+    def start(self):
+        Btng['state'] = 'disable'
+        self.btnstart['state'] = 'disable'
+        self.btnstop['state'] = 'normal'
+        self.remaining = int(self.entry1.get())
+        self.remain_new()
+        self.stop()
+
+    def stop(self):
+        Btng['state'] = 'normal'
+        self.btnstart['state'] = 'normal'
+        self.btnstop['state'] = 'disable'
+        cy = [cb1, cb2, cb3, cb4, cb5, cb6, cb7, cb8]
+        re = [rem1, rem2, rem3, rem4, rem5, rem6, rem7, rem8]
+        for r, c in zip(re, cy):
+            if c.get() == 1:
+                r.stop()
 
 
 # gives weight to the cells in the grid
@@ -666,6 +737,23 @@ if __name__ == "__main__":
     Btnstpg = tk.Button(doPage, text="Stop", state='disable')
     Btnstpg.grid(row=9, column=7)
     gbl = CheckBox(eg1, eg2, Btng, Btnstpg)
+
+    # cycle
+    tk.Label(main, text="set Cycle").grid(row=10, column=2)
+    eg1c = tk.Entry(main)
+    eg1c.insert(0, str('0'))
+    eg1c.grid(row=10, column=3)
+
+    Btngc = tk.Button(main, text="Start")
+    Btngc.grid(row=10, column=4)
+
+    tk.Label(main, text="remaining").grid(row=10, column=5)
+    eg2c = tk.Entry(main)
+    eg2c.grid(row=10, column=6)
+
+    Btnstpgc = tk.Button(main, text="Stop", state='disable')
+    Btnstpgc.grid(row=10, column=7)
+    gblcy = Cycle(eg1c, eg2c, Btngc, Btnstpgc)
 
     # DI
 
