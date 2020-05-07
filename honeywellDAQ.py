@@ -86,7 +86,6 @@ class Remaining:
         def rem():
             if self.running:
                 if self.remaining_time != 0:
-                    print(self.remaining_time)
                     self.remaining_time = self.remaining_time - 1
                     rem_time = dt.timedelta(seconds=self.remaining_time)
                     self.entry2.delete(0, tk.END)
