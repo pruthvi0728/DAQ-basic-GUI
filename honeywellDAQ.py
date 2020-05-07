@@ -929,13 +929,13 @@ if __name__ == "__main__":
     sada2 = AOcontrol(ao2, adae2, AdaBtn1, 4, dac1, AdaBtnstp1, aoe2, aoe22)
 
     # cycle
-    tk.Label(ada, text="set Cycle").grid(row=5, column=1)
+    tk.Label(ada, text="set Cycle").grid(row=5, column=0)
     aoeg1c = tk.Entry(ada)
     aoeg1c.insert(0, str('0'))
-    aoeg1c.grid(row=5, column=2)
+    aoeg1c.grid(row=5, column=1)
 
     Btnaogc = tk.Button(ada, text="Start")
-    Btnaogc.grid(row=5, column=3)
+    Btnaogc.grid(row=5, column=2)
 
     tk.Label(ada, text="remaining").grid(row=5, column=4)
     aoeg2c = tk.Entry(ada)
