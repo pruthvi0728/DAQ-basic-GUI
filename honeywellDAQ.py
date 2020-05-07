@@ -924,9 +924,26 @@ if __name__ == "__main__":
     aoe22 = tk.Entry(ada)
     aoe22.grid(row=3, column=5)
 
-    AdaBtnstp1 = tk.Button(ada, text="Stop")
+    AdaBtnstp1 = tk.Button(ada, text="Stop", state='disable')
     AdaBtnstp1.grid(row=3, column=6, padx=10, pady=10)
     sada2 = AOcontrol(ao2, adae2, AdaBtn1, 4, dac1, AdaBtnstp1, aoe2, aoe22)
+
+    # cycle
+    tk.Label(ada, text="set Cycle").grid(row=5, column=1)
+    aoeg1c = tk.Entry(ada)
+    aoeg1c.insert(0, str('0'))
+    aoeg1c.grid(row=5, column=2)
+
+    Btnaogc = tk.Button(ada, text="Start")
+    Btnaogc.grid(row=5, column=3)
+
+    tk.Label(ada, text="remaining").grid(row=5, column=4)
+    aoeg2c = tk.Entry(ada)
+    aoeg2c.grid(row=5, column=5)
+
+    Btnstpaogc = tk.Button(ada, text="Stop", state='disable')
+    Btnstpaogc.grid(row=5, column=6)
+    gblcyao = Cycle(aoeg1c, aoeg2c, Btnaogc, Btnstpaogc)
 
 
     # threads
