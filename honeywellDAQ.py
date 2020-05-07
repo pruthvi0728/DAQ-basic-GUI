@@ -883,7 +883,7 @@ if __name__ == "__main__":
     dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
 
     tk.Label(ada, text="Set Time").grid(row=0, column=3)
-    tk.Label(ada, text="Remaining").grid(row=0, column=6)
+    tk.Label(ada, text="Remaining").grid(row=0, column=5)
 
     tk.Checkbutton(ada, text="AO 1", variable=aocb1).grid(column=0, row=1, padx=10, pady=10)
     adae1 = tk.Entry(ada)
@@ -916,16 +916,16 @@ if __name__ == "__main__":
 
     aoe2 = tk.Entry(ada)
     aoe2.insert(0, str('00:00:00'))
-    aoe2.grid(row=3, column=4)
+    aoe2.grid(row=3, column=3)
 
     AdaBtn1 = tk.Button(ada, text="Start")
-    AdaBtn1.grid(row=3, column=5, padx=10, pady=10)
+    AdaBtn1.grid(row=3, column=4, padx=10, pady=10)
 
     aoe22 = tk.Entry(ada)
-    aoe22.grid(row=3, column=7)
+    aoe22.grid(row=3, column=5)
 
     AdaBtnstp1 = tk.Button(ada, text="Stop")
-    AdaBtnstp1.grid(row=3, column=8, padx=10, pady=10)
+    AdaBtnstp1.grid(row=3, column=6, padx=10, pady=10)
     sada2 = AOcontrol(ao2, adae2, AdaBtn1, 4, dac1, AdaBtnstp1, aoe2, aoe22)
 
 
