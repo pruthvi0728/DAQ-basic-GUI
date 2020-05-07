@@ -746,7 +746,7 @@ if __name__ == "__main__":
     Btngc = tk.Button(doPage, text="Start")
     Btngc.grid(row=9, column=4)
 
-    tk.Label(doPage, text="remaining").grid(row=10, column=5)
+    tk.Label(doPage, text="remaining").grid(row=9, column=5)
     eg2c = tk.Entry(doPage)
     eg2c.grid(row=9, column=6)
 
