@@ -241,22 +241,66 @@ class CheckBox(Remaining):
 
 
 class AOcontrol:
-    def __init__(self, adaentry, adabtn, prow, sdec, stpadabtn):
+    def __init__(self, btnao, adaentry, adabtn, prow, sdec, stpadabtn, btnentry1, btnentry2):
+        self.btnao = btnao
         self.adaentry = adaentry
         self.adabtn = adabtn
         self.prow = prow
         self.sdec = sdec
         self.stpadabtn = stpadabtn
-        self.adabtn.config(command=self.setdec)
+        self.btnentry1 = btnentry1
+        self.btnentry2 = btnentry2
+        self.running = False
+        self.remaining_time = 0
+        self.adabtn.config(command=lambda: self.setdec(r=0))
         self.stpadabtn.config(command=self.setdecstp)
+        self.btnao.config(command=self.toggleao)
 
-    def setdec(self):
-        if self.validate(self.adaentry):
-            volt = round(float(self.adaentry.get()), 2)
-            xdec = int((volt/5.274349)*4096)
-            # messagebox.showinfo("Hello", str(xdec))
-            tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=4)
-            self.sdec.set_voltage(xdec)
+    def remain(self):
+        # remaining time display
+        def rem():
+            if self.running:
+                if self.remaining_time != 0:
+                    self.remaining_time = self.remaining_time - 1
+                    self.btnentry2.delete(0, tk.END)
+                    rem_time = dt.timedelta(seconds=self.remaining_time)
+                    self.btnentry2.insert(0, rem_time)
+                    self.btnentry2.after(1000, rem)
+                else:
+                    self.setdecstp()
+        rem()
+
+    def setdec(self, r):
+        if r:
+            if self.validate(self.adaentry):
+                volt = round(float(self.adaentry.get()), 2)
+                xdec = int((volt/5.274349)*4096)
+                # messagebox.showinfo("Hello", str(xdec))
+                tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=4)
+                self.sdec.set_voltage(xdec)
+        else:
+            self.running = True
+            # calculation for remaining time
+            try:
+                if self.validate(self.adaentry):
+                    if self.btnentry1.get() == '00:00:00':
+                        raise ValueError()
+                    stime = dt.datetime.strptime(self.btnentry1.get(), '%H:%M:%S').time()
+                    self.remaining_time = int(
+                        dt.timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
+                    self.remain()
+                    self.adabtn['state'] = 'disable'
+                    self.stpadabtn['state'] = 'normal'
+
+                    volt = round(float(self.adaentry.get()), 2)
+                    xdec = int((volt / 5.274349) * 4096)
+                    # messagebox.showinfo("Hello", str(xdec))
+                    tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=4)
+                    self.sdec.set_voltage(xdec)
+            except ValueError:
+                messagebox.showinfo("Error", "Enter value in non zero hh:mm:ss format only")
+            except:
+                messagebox.showinfo("Error", "Something went wrong")
 
     # def setdec1(self):
     #     if self.validate(adae2):
@@ -267,6 +311,8 @@ class AOcontrol:
     #         dac1.set_voltage(xdec1)
 
     def setdecstp(self):
+        self.adabtn['state'] = 'normal'
+        self.stpadabtn['state'] = 'disable'
         tk.Label(ada, text="Running on... 0.0").grid(row=self.prow, column=4)
         self.sdec.set_voltage(0)
 
@@ -285,6 +331,14 @@ class AOcontrol:
         except ValueError:
             messagebox.showinfo("Error", "Voltage only between 0 to 5")
             return False
+
+    def toggleao(self):
+        if self.btnao.config('text')[-1] == 'ON':
+            self.btnao.config(text='OFF')
+            self.setdecstp()
+        else:
+            self.btnao.config(text='ON')
+            self.setdec(r=1)
 
 
 class Cycle:
@@ -821,26 +875,58 @@ if __name__ == "__main__":
     ada = ttk.Frame(nb)
     nb.add(ada, text="Analog Output")
 
+    aocb1 = tk.IntVar()
+    aocb2 = tk.IntVar()
+
     # Create a DAC instance.
     dac = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)
     dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
 
-    tk.Label(ada, text="Voltage1 ").grid(row=0)
+    tk.Checkbutton(ada, text="AO 1", variable=aocb1).grid(column=0, row=0, padx=10, pady=10)
     adae1 = tk.Entry(ada)
     adae1.grid(row=0, column=1)
-    AdaBtn = tk.Button(ada, text="Start")
-    AdaBtn.grid(row=0, column=2, padx=10, pady=10)
-    AdaBtnstp = tk.Button(ada, text="Stop")
-    AdaBtnstp.grid(row=0, column=3, padx=10, pady=10)
-    sada1 = AOcontrol(adae1, AdaBtn, 1, dac, AdaBtnstp)
 
-    tk.Label(ada, text="Voltage2 ").grid(row=2)
+    ao1 = Button(ada, text="OFF", width=12)
+    ao1.grid(row=0, column=2)
+
+    tk.Label(ada, text="Set Time").grid(row=7, column=2)
+    aoe1 = tk.Entry(ada)
+    aoe1.insert(0, str('00:00:00'))
+    aoe1.grid(row=0, column=3)
+
+    AdaBtn = tk.Button(ada, text="Start")
+    AdaBtn.grid(row=0, column=4, padx=10, pady=10)
+
+    tk.Label(ada, text="remaining").grid(row=7, column=5)
+    aoe12 = tk.Entry(ada)
+    aoe12.grid(row=0, column=5)
+
+    AdaBtnstp = tk.Button(ada, text="Stop", state='disable')
+    AdaBtnstp.grid(row=0, column=6, padx=10, pady=10)
+
+    sada1 = AOcontrol(ao1, adae1, AdaBtn, 1, dac, AdaBtnstp, aoe1, aoe12)
+
+    tk.Checkbutton(ada, text="AO 2", variable=aocb2).grid(column=0, row=2, padx=10, pady=10)
     adae2 = tk.Entry(ada)
     adae2.grid(row=2, column=1)
+
+    ao2 = Button(ada, text="OFF", width=12)
+    ao2.grid(row=2, column=2)
+
+    tk.Label(ada, text="Set Time").grid(row=7, column=2)
+    aoe2 = tk.Entry(ada)
+    aoe2.insert(0, str('00:00:00'))
+    aoe2.grid(row=2, column=3)
+
     AdaBtn1 = tk.Button(ada, text="Start")
-    AdaBtn1.grid(row=2, column=2, padx=10, pady=10)
+    AdaBtn1.grid(row=2, column=4, padx=10, pady=10)
+
+    tk.Label(ada, text="remaining").grid(row=7, column=5)
+    aoe22 = tk.Entry(ada)
+    aoe22.grid(row=2, column=5)
+
     AdaBtnstp1 = tk.Button(ada, text="Stop")
-    AdaBtnstp1.grid(row=2, column=3, padx=10, pady=10)
+    AdaBtnstp1.grid(row=2, column=6, padx=10, pady=10)
     sada2 = AOcontrol(adae2, AdaBtn1, 3, dac1, AdaBtnstp1)
 
 
