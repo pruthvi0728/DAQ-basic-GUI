@@ -291,7 +291,7 @@ class AOcontrol:
                 volt = round(float(self.adaentry.get()), 2)
                 xdec = int((volt/5.274349)*4096)
                 # messagebox.showinfo("Hello", str(xdec))
-                tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=4)
+                tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=3)
                 self.sdec.set_voltage(xdec)
         else:
             self.running = True
@@ -309,7 +309,7 @@ class AOcontrol:
                     volt = round(float(self.adaentry.get()), 2)
                     xdec = int((volt / 5.274349) * 4096)
                     # messagebox.showinfo("Hello", str(xdec))
-                    tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=4)
+                    tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=3)
                     self.sdec.set_voltage(xdec)
 
                     if rr:
@@ -330,9 +330,10 @@ class AOcontrol:
     #         dac1.set_voltage(xdec1)
 
     def setdecstp(self):
+        self.running = False
         self.adabtn['state'] = 'normal'
         self.stpadabtn['state'] = 'disable'
-        tk.Label(ada, text="Running on... 0.0").grid(row=self.prow, column=4)
+        tk.Label(ada, text="Running on... 0.0").grid(row=self.prow, column=3)
         self.sdec.set_voltage(0)
 
     # def setdec1stp(self):
@@ -988,9 +989,10 @@ if __name__ == "__main__":
 
     AdaBtnstp1 = tk.Button(ada, text="Stop", state='disable')
     AdaBtnstp1.grid(row=3, column=6, padx=10, pady=10)
+
     sada2 = AOcontrol(ao2, adae2, AdaBtn1, 4, dac1, AdaBtnstp1, aoe2, aoe22)
 
-    # cycle
+    # AO cycle
     tk.Label(ada, text="set Cycle").grid(row=5, column=0)
     aoeg1c = tk.Entry(ada)
     aoeg1c.insert(0, str('0'))
