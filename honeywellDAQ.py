@@ -720,38 +720,38 @@ if __name__ == "__main__":
     Btnstp8.grid(row=8, column=7)
     rem8 = Remaining(e8, e82, Btn8, Btnstp8, do8, gpio=10)  # here add GPIO pin number for toggle
 
-    # global Time
-    tk.Label(doPage, text="Set Time").grid(row=9, column=2)
-    eg1 = tk.Entry(doPage)
-    eg1.insert(0, str('00:00:00'))
-    eg1.grid(row=9, column=3)
-
-    Btng = tk.Button(doPage, text="Start")
-    Btng.grid(row=9, column=4)
-
-    tk.Label(doPage, text="remaining").grid(row=9, column=5)
-    eg2 = tk.Entry(doPage)
-    eg2.grid(row=9, column=6)
-
-    Btnstpg = tk.Button(doPage, text="Stop", state='disable')
-    Btnstpg.grid(row=9, column=7)
-    gbl = CheckBox(eg1, eg2, Btng, Btnstpg)
+    # # global Time
+    # tk.Label(doPage, text="Set Time").grid(row=9, column=2)
+    # eg1 = tk.Entry(doPage)
+    # eg1.insert(0, str('00:00:00'))
+    # eg1.grid(row=9, column=3)
+    #
+    # Btng = tk.Button(doPage, text="Start")
+    # Btng.grid(row=9, column=4)
+    #
+    # tk.Label(doPage, text="remaining").grid(row=9, column=5)
+    # eg2 = tk.Entry(doPage)
+    # eg2.grid(row=9, column=6)
+    #
+    # Btnstpg = tk.Button(doPage, text="Stop", state='disable')
+    # Btnstpg.grid(row=9, column=7)
+    # gbl = CheckBox(eg1, eg2, Btng, Btnstpg)
 
     # cycle
-    tk.Label(doPage, text="set Cycle").grid(row=10, column=2)
+    tk.Label(doPage, text="set Cycle").grid(row=9, column=2)
     eg1c = tk.Entry(doPage)
     eg1c.insert(0, str('0'))
-    eg1c.grid(row=10, column=3)
+    eg1c.grid(row=9, column=3)
 
     Btngc = tk.Button(doPage, text="Start")
-    Btngc.grid(row=10, column=4)
+    Btngc.grid(row=9, column=4)
 
     tk.Label(doPage, text="remaining").grid(row=10, column=5)
     eg2c = tk.Entry(doPage)
-    eg2c.grid(row=10, column=6)
+    eg2c.grid(row=9, column=6)
 
     Btnstpgc = tk.Button(doPage, text="Stop", state='disable')
-    Btnstpgc.grid(row=10, column=7)
+    Btnstpgc.grid(row=9, column=7)
     gblcy = Cycle(eg1c, eg2c, Btngc, Btnstpgc)
 
     # DI
