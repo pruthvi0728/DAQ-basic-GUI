@@ -241,7 +241,8 @@ class CheckBox(Remaining):
 
 
 class AOcontrol:
-    def __init__(self, adabtn, prow, sdec, stpadabtn):
+    def __init__(self, adaentry, adabtn, prow, sdec, stpadabtn):
+        self.adaentry = adaentry
         self.adabtn = adabtn
         self.prow = prow
         self.sdec = sdec
@@ -250,8 +251,8 @@ class AOcontrol:
         self.stpadabtn.config(command=self.setdecstp)
 
     def setdec(self):
-        if self.validate(self.adabtn):
-            volt = round(float(self.adabtn.get()), 2)
+        if self.validate(self.adaentry):
+            volt = round(float(self.adaentry.get()), 2)
             xdec = int((volt/5.274349)*4096)
             # messagebox.showinfo("Hello", str(xdec))
             tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=4)
@@ -831,7 +832,7 @@ if __name__ == "__main__":
     AdaBtn.grid(row=0, column=2, padx=10, pady=10)
     AdaBtnstp = tk.Button(ada, text="Stop")
     AdaBtnstp.grid(row=0, column=3, padx=10, pady=10)
-    sada1 = AOcontrol(AdaBtn, 1, dac, AdaBtnstp)
+    sada1 = AOcontrol(adae1, AdaBtn, 1, dac, AdaBtnstp)
 
     tk.Label(ada, text="Voltage2 ").grid(row=2)
     adae2 = tk.Entry(ada)
@@ -840,7 +841,7 @@ if __name__ == "__main__":
     AdaBtn1.grid(row=2, column=2, padx=10, pady=10)
     AdaBtnstp1 = tk.Button(ada, text="Stop")
     AdaBtnstp1.grid(row=2, column=3, padx=10, pady=10)
-    sada2 = AOcontrol(AdaBtn1, 3, dac1, AdaBtnstp1)
+    sada2 = AOcontrol(adae2, AdaBtn1, 3, dac1, AdaBtnstp1)
 
 
     # threads
