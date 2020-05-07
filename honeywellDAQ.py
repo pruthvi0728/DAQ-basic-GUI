@@ -882,52 +882,51 @@ if __name__ == "__main__":
     dac = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)
     dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
 
-    tk.Checkbutton(ada, text="AO 1", variable=aocb1).grid(column=0, row=0, padx=10, pady=10)
+    tk.Label(ada, text="Set Time").grid(row=0, column=3)
+    tk.Label(ada, text="Remaining").grid(row=0, column=6)
+
+    tk.Checkbutton(ada, text="AO 1", variable=aocb1).grid(column=0, row=1, padx=10, pady=10)
     adae1 = tk.Entry(ada)
-    adae1.grid(row=0, column=1)
+    adae1.grid(row=1, column=1)
 
     ao1 = Button(ada, text="OFF")
-    ao1.grid(row=0, column=2)
+    ao1.grid(row=1, column=2)
 
-    tk.Label(ada, text="Set Time").grid(row=0, column=3)
     aoe1 = tk.Entry(ada)
     aoe1.insert(0, str('00:00:00'))
-    aoe1.grid(row=0, column=4)
+    aoe1.grid(row=1, column=3)
 
     AdaBtn = tk.Button(ada, text="Start")
-    AdaBtn.grid(row=0, column=5, padx=10, pady=10)
+    AdaBtn.grid(row=1, column=4, padx=10, pady=10)
 
-    tk.Label(ada, text="remaining").grid(row=0, column=6)
     aoe12 = tk.Entry(ada)
-    aoe12.grid(row=0, column=7)
+    aoe12.grid(row=1, column=5)
 
     AdaBtnstp = tk.Button(ada, text="Stop", state='disable')
-    AdaBtnstp.grid(row=0, column=8, padx=10, pady=10)
+    AdaBtnstp.grid(row=1, column=6, padx=10, pady=10)
 
-    sada1 = AOcontrol(ao1, adae1, AdaBtn, 1, dac, AdaBtnstp, aoe1, aoe12)
+    sada1 = AOcontrol(ao1, adae1, AdaBtn, 2, dac, AdaBtnstp, aoe1, aoe12)
 
-    tk.Checkbutton(ada, text="AO 2", variable=aocb2).grid(column=0, row=2, padx=10, pady=10)
+    tk.Checkbutton(ada, text="AO 2", variable=aocb2).grid(column=0, row=3, padx=10, pady=10)
     adae2 = tk.Entry(ada)
-    adae2.grid(row=2, column=1)
+    adae2.grid(row=3, column=1)
 
     ao2 = Button(ada, text="OFF")
-    ao2.grid(row=2, column=2)
+    ao2.grid(row=3, column=2)
 
-    tk.Label(ada, text="Set Time").grid(row=2, column=3)
     aoe2 = tk.Entry(ada)
     aoe2.insert(0, str('00:00:00'))
-    aoe2.grid(row=2, column=4)
+    aoe2.grid(row=3, column=4)
 
     AdaBtn1 = tk.Button(ada, text="Start")
-    AdaBtn1.grid(row=2, column=5, padx=10, pady=10)
+    AdaBtn1.grid(row=3, column=5, padx=10, pady=10)
 
-    tk.Label(ada, text="remaining").grid(row=2, column=6)
     aoe22 = tk.Entry(ada)
-    aoe22.grid(row=2, column=7)
+    aoe22.grid(row=3, column=7)
 
     AdaBtnstp1 = tk.Button(ada, text="Stop")
-    AdaBtnstp1.grid(row=2, column=8, padx=10, pady=10)
-    sada2 = AOcontrol(ao2, adae2, AdaBtn1, 3, dac1, AdaBtnstp1, aoe2, aoe22)
+    AdaBtnstp1.grid(row=3, column=8, padx=10, pady=10)
+    sada2 = AOcontrol(ao2, adae2, AdaBtn1, 4, dac1, AdaBtnstp1, aoe2, aoe22)
 
 
     # threads
