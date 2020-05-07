@@ -927,7 +927,7 @@ if __name__ == "__main__":
 
     AdaBtnstp1 = tk.Button(ada, text="Stop")
     AdaBtnstp1.grid(row=2, column=6, padx=10, pady=10)
-    sada2 = AOcontrol(adae2, AdaBtn1, 3, dac1, AdaBtnstp1)
+    sada2 = AOcontrol(ao2, adae2, AdaBtn1, 3, dac1, AdaBtnstp1, aoe2, aoe22)
 
 
     # threads
