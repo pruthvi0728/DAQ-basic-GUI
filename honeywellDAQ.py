@@ -307,7 +307,7 @@ class Cycle:
                 i += 1
 
     def start(self):
-        Btng['state'] = 'disable'
+        # Btng['state'] = 'disable'
         self.btnstart['state'] = 'disable'
         self.btnstop['state'] = 'normal'
         self.remaining = int(self.entry1.get())
@@ -315,7 +315,7 @@ class Cycle:
         self.stop()
 
     def stop(self):
-        Btng['state'] = 'normal'
+        # Btng['state'] = 'normal'
         self.btnstart['state'] = 'normal'
         self.btnstop['state'] = 'disable'
         cy = [cb1, cb2, cb3, cb4, cb5, cb6, cb7, cb8]
