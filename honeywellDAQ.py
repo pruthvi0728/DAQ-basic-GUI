@@ -252,7 +252,7 @@ class AOcontrol:
         self.btnentry2 = btnentry2
         self.running = False
         self.remaining_time = 0
-        self.adabtn.config(command=lambda: self.setdec(r=0))
+        self.adabtn.config(command=lambda: self.setdec(r=0, rr=0))
         self.stpadabtn.config(command=self.setdecstp)
         self.btnao.config(command=self.toggleao)
 
@@ -270,7 +270,22 @@ class AOcontrol:
                     self.setdecstp()
         rem()
 
-    def setdec(self, r):
+    def remain_new(self):
+        def rem():
+            if self.running:
+                if self.remaining_time != 0:
+                    self.remaining_time = self.remaining_time - 1
+                    rem_time = dt.timedelta(seconds=self.remaining_time)
+                    self.btnentry2.delete(0, tk.END)
+                    self.btnentry2.insert(0, rem_time)
+                    main.update()
+                    time.sleep(1)
+                    rem()
+                else:
+                    self.setdecstp()
+        rem()
+
+    def setdec(self, r, rr):
         if r:
             if self.validate(self.adaentry):
                 volt = round(float(self.adaentry.get()), 2)
@@ -288,7 +303,6 @@ class AOcontrol:
                     stime = dt.datetime.strptime(self.btnentry1.get(), '%H:%M:%S').time()
                     self.remaining_time = int(
                         dt.timedelta(hours=stime.hour, minutes=stime.minute, seconds=stime.second).total_seconds())
-                    self.remain()
                     self.adabtn['state'] = 'disable'
                     self.stpadabtn['state'] = 'normal'
 
@@ -297,6 +311,11 @@ class AOcontrol:
                     # messagebox.showinfo("Hello", str(xdec))
                     tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=4)
                     self.sdec.set_voltage(xdec)
+
+                    if rr:
+                        self.remain_new()
+                    else:
+                        self.remain()
             except ValueError:
                 messagebox.showinfo("Error", "Enter value in non zero hh:mm:ss format only")
             except:
@@ -338,7 +357,7 @@ class AOcontrol:
             self.setdecstp()
         else:
             self.btnao.config(text='ON')
-            self.setdec(r=1)
+            self.setdec(r=1, rr=0)
 
 
 class Cycle:
@@ -383,6 +402,49 @@ class Cycle:
         for r, c in zip(re, cy):
             if c.get() == 1:
                 r.stop()
+
+
+class AOCycle:
+    def __init__(self, entry1, entry2, btnstart, btnstop):
+        self.entry1 = entry1
+        self.entry2 = entry2
+        self.remaining = 0
+        self.btnstart = btnstart
+        self.btnstop = btnstop
+        self.btnstart.config(command=lambda: self.start())
+        self.btnstop.config(command=self.stop)
+
+    def remain_new(self):
+        aocy = [aocb1, aocb2]
+        sada = [sada1, sada2]
+
+        for r in range(self.remaining):
+            rem_time = self.remaining - r - 1
+            self.entry2.delete(0, tk.END)
+            self.entry2.insert(0, rem_time)
+            main.update()
+            i = 0
+            for c in aocy:
+                if c.get() == 1:
+                    sada[i].setdec(r=0, rr=1)
+                i += 1
+
+    def start(self):
+        self.btnstart['state'] = 'disable'
+        self.btnstop['state'] = 'normal'
+        self.remaining = int(self.entry1.get())
+        self.remain_new()
+        self.stop()
+
+    def stop(self):
+        self.btnstart['state'] = 'normal'
+        self.btnstop['state'] = 'disable'
+        aocy = [aocb1, aocb2]
+        sada = [sada1, sada2]
+        for r, c in zip(sada, aocy):
+            if c.get() == 1:
+                r.setdecstp()
+
 
 
 # gives weight to the cells in the grid
@@ -943,7 +1005,7 @@ if __name__ == "__main__":
 
     Btnstpaogc = tk.Button(ada, text="Stop", state='disable')
     Btnstpaogc.grid(row=5, column=6)
-    gblcyao = Cycle(aoeg1c, aoeg2c, Btnaogc, Btnstpaogc)
+    gblcyao = AOCycle(aoeg1c, aoeg2c, Btnaogc, Btnstpaogc)
 
 
     # threads
