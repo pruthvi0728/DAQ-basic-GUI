@@ -886,23 +886,23 @@ if __name__ == "__main__":
     adae1 = tk.Entry(ada)
     adae1.grid(row=0, column=1)
 
-    ao1 = Button(ada, text="OFF", width=12)
+    ao1 = Button(ada, text="OFF")
     ao1.grid(row=0, column=2)
 
-    tk.Label(ada, text="Set Time").grid(row=7, column=2)
+    tk.Label(ada, text="Set Time").grid(row=0, column=3)
     aoe1 = tk.Entry(ada)
     aoe1.insert(0, str('00:00:00'))
-    aoe1.grid(row=0, column=3)
+    aoe1.grid(row=0, column=4)
 
     AdaBtn = tk.Button(ada, text="Start")
-    AdaBtn.grid(row=0, column=4, padx=10, pady=10)
+    AdaBtn.grid(row=0, column=5, padx=10, pady=10)
 
-    tk.Label(ada, text="remaining").grid(row=7, column=5)
+    tk.Label(ada, text="remaining").grid(row=0, column=6)
     aoe12 = tk.Entry(ada)
-    aoe12.grid(row=0, column=5)
+    aoe12.grid(row=0, column=7)
 
     AdaBtnstp = tk.Button(ada, text="Stop", state='disable')
-    AdaBtnstp.grid(row=0, column=6, padx=10, pady=10)
+    AdaBtnstp.grid(row=0, column=8, padx=10, pady=10)
 
     sada1 = AOcontrol(ao1, adae1, AdaBtn, 1, dac, AdaBtnstp, aoe1, aoe12)
 
@@ -910,23 +910,23 @@ if __name__ == "__main__":
     adae2 = tk.Entry(ada)
     adae2.grid(row=2, column=1)
 
-    ao2 = Button(ada, text="OFF", width=12)
+    ao2 = Button(ada, text="OFF")
     ao2.grid(row=2, column=2)
 
-    tk.Label(ada, text="Set Time").grid(row=7, column=2)
+    tk.Label(ada, text="Set Time").grid(row=2, column=3)
     aoe2 = tk.Entry(ada)
     aoe2.insert(0, str('00:00:00'))
-    aoe2.grid(row=2, column=3)
+    aoe2.grid(row=2, column=4)
 
     AdaBtn1 = tk.Button(ada, text="Start")
-    AdaBtn1.grid(row=2, column=4, padx=10, pady=10)
+    AdaBtn1.grid(row=2, column=5, padx=10, pady=10)
 
-    tk.Label(ada, text="remaining").grid(row=7, column=5)
+    tk.Label(ada, text="remaining").grid(row=2, column=6)
     aoe22 = tk.Entry(ada)
-    aoe22.grid(row=2, column=5)
+    aoe22.grid(row=2, column=7)
 
     AdaBtnstp1 = tk.Button(ada, text="Stop")
-    AdaBtnstp1.grid(row=2, column=6, padx=10, pady=10)
+    AdaBtnstp1.grid(row=2, column=8, padx=10, pady=10)
     sada2 = AOcontrol(ao2, adae2, AdaBtn1, 3, dac1, AdaBtnstp1, aoe2, aoe22)
 
 
