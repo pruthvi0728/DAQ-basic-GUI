@@ -739,19 +739,19 @@ if __name__ == "__main__":
     gbl = CheckBox(eg1, eg2, Btng, Btnstpg)
 
     # cycle
-    tk.Label(main, text="set Cycle").grid(row=10, column=2)
-    eg1c = tk.Entry(main)
+    tk.Label(doPage, text="set Cycle").grid(row=10, column=2)
+    eg1c = tk.Entry(doPage)
     eg1c.insert(0, str('0'))
     eg1c.grid(row=10, column=3)
 
-    Btngc = tk.Button(main, text="Start")
+    Btngc = tk.Button(doPage, text="Start")
     Btngc.grid(row=10, column=4)
 
-    tk.Label(main, text="remaining").grid(row=10, column=5)
-    eg2c = tk.Entry(main)
+    tk.Label(doPage, text="remaining").grid(row=10, column=5)
+    eg2c = tk.Entry(doPage)
     eg2c.grid(row=10, column=6)
 
-    Btnstpgc = tk.Button(main, text="Stop", state='disable')
+    Btnstpgc = tk.Button(doPage, text="Stop", state='disable')
     Btnstpgc.grid(row=10, column=7)
     gblcy = Cycle(eg1c, eg2c, Btngc, Btnstpgc)
 
