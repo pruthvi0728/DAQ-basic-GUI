@@ -240,45 +240,50 @@ class CheckBox(Remaining):
             btncdo['state'] = 'normal'
 
 
-def setdec():
-    if validate(adae1):
-        volt = round(float(adae1.get()), 2)
-        xdec = int((volt/5.274349)*4096)
-        # messagebox.showinfo("Hello", str(xdec))
-        tk.Label(ada, text=" Running on... " + str(volt)).grid(row=0, column=4)
-        dac.set_voltage(xdec)
+class AOcontrol:
+    def __init__(self, adabtn, prow, sdec, stpadabtn):
+        self.adabtn = adabtn
+        self.prow = prow
+        self.sdec = sdec
+        self.stpadabtn = stpadabtn
+        self.adabtn.config(command=self.setdec)
+        self.stpadabtn.config(command=self.setdecstp)
 
+    def setdec(self):
+        if self.validate(self.adabtn):
+            volt = round(float(self.adabtn.get()), 2)
+            xdec = int((volt/5.274349)*4096)
+            # messagebox.showinfo("Hello", str(xdec))
+            tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=4)
+            self.sdec.set_voltage(xdec)
 
-def setdec1():
-    if validate(adae2):
-        volt = round(float(adae2.get()), 2)
-        xdec1 = int((volt/5.274349)*4096)
-        # messagebox.showinfo("Hello", str(xdec1))
-        tk.Label(ada, text=" Running on... " + str(volt)).grid(row=1, column=4)
-        dac1.set_voltage(xdec1)
+    # def setdec1(self):
+    #     if self.validate(adae2):
+    #         volt = round(float(adae2.get()), 2)
+    #         xdec1 = int((volt/5.274349)*4096)
+    #         # messagebox.showinfo("Hello", str(xdec1))
+    #         tk.Label(ada, text=" Running on... " + str(volt)).grid(row=1, column=4)
+    #         dac1.set_voltage(xdec1)
 
+    def setdecstp(self):
+        tk.Label(ada, text="Running on... 0.0").grid(row=self.prow, column=4)
+        self.sdec.set_voltage(0)
 
-def setdecstp():
-    tk.Label(ada, text="Running on... 0.0").grid(row=0, column=4)
-    dac.set_voltage(0)
+    # def setdec1stp(self):
+    #     tk.Label(ada, text="Running on... 0.0").grid(row=1, column=4)
+    #     dac1.set_voltage(0)
 
-
-def setdec1stp():
-    tk.Label(ada, text="Running on... 0.0").grid(row=1, column=4)
-    dac1.set_voltage(0)
-
-
-def validate(entry):
-    try:
-        volt = float(entry.get())
-        if volt < 0 or volt > 5:
+    def validate(self, entry):
+        try:
+            volt = float(entry.get())
+            if volt < 0 or volt > 5:
+                messagebox.showinfo("Error", "Voltage only between 0 to 5")
+                return False
+            else:
+                return True
+        except ValueError:
             messagebox.showinfo("Error", "Voltage only between 0 to 5")
             return False
-        else:
-            return True
-    except ValueError:
-        messagebox.showinfo("Error", "Voltage only between 0 to 5")
-        return False
 
 
 class Cycle:
@@ -822,18 +827,20 @@ if __name__ == "__main__":
     tk.Label(ada, text="Voltage1 ").grid(row=0)
     adae1 = tk.Entry(ada)
     adae1.grid(row=0, column=1)
-    AdaBtn = tk.Button(ada, text="Start", command=setdec)
+    AdaBtn = tk.Button(ada, text="Start")
     AdaBtn.grid(row=0, column=2, padx=10, pady=10)
-    AdaBtnstp = tk.Button(ada, text="Stop", command=setdecstp)
+    AdaBtnstp = tk.Button(ada, text="Stop")
     AdaBtnstp.grid(row=0, column=3, padx=10, pady=10)
+    sada1 = AOcontrol(AdaBtn, 1, dac, AdaBtnstp)
 
-    tk.Label(ada, text="Voltage2 ").grid(row=1)
+    tk.Label(ada, text="Voltage2 ").grid(row=2)
     adae2 = tk.Entry(ada)
-    adae2.grid(row=1, column=1)
-    AdaBtn1 = tk.Button(ada, text="Start", command=setdec1)
-    AdaBtn1.grid(row=1, column=2, padx=10, pady=10)
-    AdaBtnstp1 = tk.Button(ada, text="Stop", command=setdec1stp)
-    AdaBtnstp1.grid(row=1, column=3, padx=10, pady=10)
+    adae2.grid(row=2, column=1)
+    AdaBtn1 = tk.Button(ada, text="Start")
+    AdaBtn1.grid(row=2, column=2, padx=10, pady=10)
+    AdaBtnstp1 = tk.Button(ada, text="Stop")
+    AdaBtnstp1.grid(row=2, column=3, padx=10, pady=10)
+    sada2 = AOcontrol(AdaBtn1, 3, dac1, AdaBtnstp1)
 
 
     # threads
