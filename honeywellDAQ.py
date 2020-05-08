@@ -368,6 +368,7 @@ class Cycle:
         self.remaining = 0
         self.btnstart = btnstart
         self.btnstop = btnstop
+        self.running = False
         self.btnstart.config(command=lambda: self.start())
         self.btnstop.config(command=self.stop)
 
@@ -376,17 +377,24 @@ class Cycle:
         re = [rem1, rem2, rem3, rem4, rem5, rem6, rem7, rem8]
 
         for r in range(self.remaining):
-            rem_time = self.remaining - r - 1
-            self.entry2.delete(0, tk.END)
-            self.entry2.insert(0, rem_time)
-            main.update()
-            i = 0
-            for c in cy:
-                if c.get() == 1:
-                    re[i].start(r=1)
-                i += 1
+            if self.running:
+                rem_time = self.remaining - r - 1
+                self.entry2.delete(0, tk.END)
+                self.entry2.insert(0, rem_time)
+                main.update()
+                i = 0
+                for c in cy:
+                    if self.running:
+                        if c.get() == 1:
+                            re[i].start(r=1)
+                        i += 1
+                    else:
+                        break
+            else:
+                break
 
     def start(self):
+        self.running = True
         # Btng['state'] = 'disable'
         self.btnstart['state'] = 'disable'
         self.btnstop['state'] = 'normal'
@@ -395,6 +403,7 @@ class Cycle:
         self.stop()
 
     def stop(self):
+        self.running = False
         # Btng['state'] = 'normal'
         self.btnstart['state'] = 'normal'
         self.btnstop['state'] = 'disable'
@@ -412,6 +421,7 @@ class AOCycle:
         self.remaining = 0
         self.btnstart = btnstart
         self.btnstop = btnstop
+        self.running = False
         self.btnstart.config(command=lambda: self.start())
         self.btnstop.config(command=self.stop)
 
@@ -420,17 +430,24 @@ class AOCycle:
         sada = [sada1, sada2]
 
         for r in range(self.remaining):
-            rem_time = self.remaining - r - 1
-            self.entry2.delete(0, tk.END)
-            self.entry2.insert(0, rem_time)
-            main.update()
-            i = 0
-            for c in aocy:
-                if c.get() == 1:
-                    sada[i].setdec(r=0, rr=1)
-                i += 1
+            if self.running:
+                rem_time = self.remaining - r - 1
+                self.entry2.delete(0, tk.END)
+                self.entry2.insert(0, rem_time)
+                main.update()
+                i = 0
+                for c in aocy:
+                    if self.running:
+                        if c.get() == 1:
+                            sada[i].setdec(r=0, rr=1)
+                        i += 1
+                    else:
+                        break
+            else:
+                break
 
     def start(self):
+        self.running = True
         self.btnstart['state'] = 'disable'
         self.btnstop['state'] = 'normal'
         self.remaining = int(self.entry1.get())
@@ -438,6 +455,7 @@ class AOCycle:
         self.stop()
 
     def stop(self):
+        self.running = False
         self.btnstart['state'] = 'normal'
         self.btnstop['state'] = 'disable'
         aocy = [aocb1, aocb2]
