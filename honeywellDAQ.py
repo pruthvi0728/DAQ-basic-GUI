@@ -289,7 +289,7 @@ class AOcontrol:
         if r:
             if self.validate(self.adaentry):
                 volt = round(float(self.adaentry.get()), 2)
-                xdec = int((volt/5.22) * 4096)
+                xdec = int((volt/5.11) * 4096)
                 # messagebox.showinfo("Hello", str(xdec))
                 tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=3)
                 self.sdec.set_voltage(xdec)
@@ -307,7 +307,7 @@ class AOcontrol:
                     self.stpadabtn['state'] = 'normal'
 
                     volt = round(float(self.adaentry.get()), 2)
-                    xdec = int((volt / 5.22) * 4096)
+                    xdec = int((volt / 5.11) * 4096)
                     # messagebox.showinfo("Hello", str(xdec))
                     tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=3)
                     self.sdec.set_voltage(xdec)
