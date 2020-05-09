@@ -973,7 +973,7 @@ if __name__ == "__main__":
     ttk.Label(ada, text="Set Time").grid(row=0, column=3)
     ttk.Label(ada, text="Remaining").grid(row=0, column=5)
 
-    tk.Checkbutton(ada, text="AO 1", variable=aocb1).grid(column=0, row=1, padx=10, pady=10)
+    ttk.Checkbutton(ada, text="AO 1", variable=aocb1).grid(column=0, row=1, padx=10, pady=10)
     adae1 = ttk.Entry(ada)
     adae1.grid(row=1, column=1)
 
@@ -995,7 +995,7 @@ if __name__ == "__main__":
 
     sada1 = AOcontrol(ao1, adae1, AdaBtn, 2, dac, AdaBtnstp, aoe1, aoe12)
 
-    tk.Checkbutton(ada, text="AO 2", variable=aocb2).grid(column=0, row=3, padx=10, pady=10)
+    ttk.Checkbutton(ada, text="AO 2", variable=aocb2).grid(column=0, row=3, padx=10, pady=10)
     adae2 = ttk.Entry(ada)
     adae2.grid(row=3, column=1)
 
