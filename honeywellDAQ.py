@@ -37,7 +37,7 @@ main.title("Citriot DAQ")
 
 # Setting Theme
 style = ThemedStyle(main)
-style.set_theme("equilux")
+style.set_theme("ITFT1")
 
 class ToggleDO:
 
