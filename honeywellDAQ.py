@@ -12,6 +12,7 @@ import Adafruit_MCP4725
 from tkinter import messagebox
 import datetime as dt
 import csv
+from ttkthemes import ThemedStyle
 
 GPIO.setmode(GPIO.BCM)
 
@@ -34,6 +35,9 @@ serial_object = None
 main = Tk()
 main.title("Citriot DAQ")
 
+# Setting Theme
+style = ThemedStyle(main)
+style.set_theme("breeze")
 
 class ToggleDO:
 
