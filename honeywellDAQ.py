@@ -291,7 +291,7 @@ class AOcontrol:
                 volt = round(float(self.adaentry.get()), 2)
                 xdec = int((volt/5.11) * 4096)
                 # messagebox.showinfo("Hello", str(xdec))
-                tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=3)
+                ttk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=3)
                 self.sdec.set_voltage(xdec)
         else:
             self.running = True
@@ -309,7 +309,7 @@ class AOcontrol:
                     volt = round(float(self.adaentry.get()), 2)
                     xdec = int((volt / 5.11) * 4096)
                     # messagebox.showinfo("Hello", str(xdec))
-                    tk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=3)
+                    ttk.Label(ada, text=" Running on... " + str(volt)).grid(row=self.prow, column=3)
                     self.sdec.set_voltage(xdec)
 
                     if rr:
@@ -333,7 +333,7 @@ class AOcontrol:
         self.running = False
         self.adabtn['state'] = 'normal'
         self.stpadabtn['state'] = 'disable'
-        tk.Label(ada, text="Running on... 0.0").grid(row=self.prow, column=3)
+        ttk.Label(ada, text="Running on... 0.0").grid(row=self.prow, column=3)
         self.sdec.set_voltage(0)
 
     # def setdec1stp(self):
@@ -691,8 +691,8 @@ if __name__ == "__main__":
     doPage = ttk.Frame(nb)
     nb.add(doPage, text='Digital Output')
 
-    tk.Label(doPage, text="Set Time").grid(row=0, column=2)
-    tk.Label(doPage, text="Remaining").grid(row=0, column=4)
+    ttk.Label(doPage, text="Set Time").grid(row=0, column=2)
+    ttk.Label(doPage, text="Remaining").grid(row=0, column=4)
 
     # Creating variable for checkbox
     cb1 = tk.IntVar()
@@ -705,162 +705,162 @@ if __name__ == "__main__":
     cb8 = tk.IntVar()
 
     # DO1 Start
-    tk.Checkbutton(doPage, text="DO 1", variable=cb1).grid(column=0, row=1, padx=10, pady=10)
-    do1 = Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 1", variable=cb1).grid(column=0, row=1, padx=10, pady=10)
+    do1 = ttk.Button(doPage, text="OFF")
     do1.grid(row=1, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=1, column=2)
-    e1 = tk.Entry(doPage)
+    e1 = ttk.Entry(doPage)
     e1.insert(0, str('00:00:00'))
     e1.grid(row=1, column=2)
 
-    Btn1 = tk.Button(doPage, text="Start")
+    Btn1 = ttk.Button(doPage, text="Start")
     Btn1.grid(row=1, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=1, column=5)
-    e12 = tk.Entry(doPage)
+    e12 = ttk.Entry(doPage)
     e12.grid(row=1, column=4)
 
-    Btnstp1 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp1 = ttk.Button(doPage, text="Stop", state='disable')
     Btnstp1.grid(row=1, column=5)
     rem1 = Remaining(e1, e12, Btn1, Btnstp1, do1, gpio=25)   # here add GPIO pin number for toggle
 
     # DO2 Start
-    tk.Checkbutton(doPage, text="DO 2", variable=cb2).grid(column=0, row=2, padx=10, pady=10)
-    do2 = Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 2", variable=cb2).grid(column=0, row=2, padx=10, pady=10)
+    do2 = ttk.Button(doPage, text="OFF")
     do2.grid(row=2, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=2, column=2)
-    e2 = tk.Entry(doPage)
+    e2 = ttk.Entry(doPage)
     e2.insert(0, str('00:00:00'))
     e2.grid(row=2, column=2)
 
-    Btn2 = tk.Button(doPage, text="Start")
+    Btn2 = ttk.Button(doPage, text="Start")
     Btn2.grid(row=2, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=2, column=5)
-    e22 = tk.Entry(doPage)
+    e22 = ttk.Entry(doPage)
     e22.grid(row=2, column=4)
 
-    Btnstp2 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp2 = ttk.Button(doPage, text="Stop", state='disable')
     Btnstp2.grid(row=2, column=5)
     rem2 = Remaining(e2, e22, Btn2, Btnstp2, do2, gpio=17)      # here add GPIO pin number for toggle
 
     # DO3 Start
-    tk.Checkbutton(doPage, text="DO 3", variable=cb3).grid(column=0, row=3, padx=10, pady=10)
-    do3 = Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 3", variable=cb3).grid(column=0, row=3, padx=10, pady=10)
+    do3 = ttk.Button(doPage, text="OFF")
     do3.grid(row=3, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=3, column=2)
-    e3 = tk.Entry(doPage)
+    e3 = ttk.Entry(doPage)
     e3 .insert(0, str('00:00:00'))
     e3.grid(row=3, column=2)
 
-    Btn3 = tk.Button(doPage, text="Start")
+    Btn3 = ttk.Button(doPage, text="Start")
     Btn3.grid(row=3, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=3, column=5)
-    e32 = tk.Entry(doPage)
+    e32 = ttk.Entry(doPage)
     e32.grid(row=3, column=4)
 
-    Btnstp3 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp3 = ttk.Button(doPage, text="Stop", state='disable')
     Btnstp3.grid(row=3, column=5)
     rem3 = Remaining(e3, e32, Btn3, Btnstp3, do3, gpio=18)  # here add GPIO pin number for toggle
 
     # DO4 Start
-    tk.Checkbutton(doPage, text="DO 4", variable=cb4).grid(column=0, row=4, padx=10, pady=10)
-    do4 = Button(doPage, text="OFF", width=12)
+    ttk.Checkbutton(doPage, text="DO 4", variable=cb4).grid(column=0, row=4, padx=10, pady=10)
+    do4 = ttk.Button(doPage, text="OFF", width=12)
     do4.grid(row=4, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=4, column=2)
-    e4 = tk.Entry(doPage)
+    e4 = ttk.Entry(doPage)
     e4.insert(0, str('00:00:00'))
     e4.grid(row=4, column=2)
 
-    Btn4 = tk.Button(doPage, text="Start")
+    Btn4 = ttk.Button(doPage, text="Start")
     Btn4.grid(row=4, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=4, column=5)
-    e42 = tk.Entry(doPage)
+    e42 = ttk.Entry(doPage)
     e42.grid(row=4, column=4)
 
-    Btnstp4 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp4 = ttk.Button(doPage, text="Stop", state='disable')
     Btnstp4.grid(row=4, column=5)
     rem4 = Remaining(e4, e42, Btn4, Btnstp4, do4, gpio=27)  # here add GPIO pin number for toggle
 
     # DO5 Start
-    tk.Checkbutton(doPage, text="DO 5", variable=cb5).grid(column=0, row=5, padx=10, pady=10)
-    do5 = Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 5", variable=cb5).grid(column=0, row=5, padx=10, pady=10)
+    do5 = ttk.Button(doPage, text="OFF")
     do5.grid(row=5, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=5, column=2)
-    e5 = tk.Entry(doPage)
+    e5 = ttk.Entry(doPage)
     e5.insert(0, str('00:00:00'))
     e5.grid(row=5, column=2)
 
-    Btn5 = tk.Button(doPage, text="Start")
+    Btn5 = ttk.Button(doPage, text="Start")
     Btn5.grid(row=5, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=5, column=5)
-    e52 = tk.Entry(doPage)
+    e52 = ttk.Entry(doPage)
     e52.grid(row=5, column=4)
 
-    Btnstp5 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp5 = ttk.Button(doPage, text="Stop", state='disable')
     Btnstp5.grid(row=5, column=5)
     rem5 = Remaining(e5, e52, Btn5, Btnstp5, do5, gpio=22)  # here add GPIO pin number for toggle
 
     # DO6 Start
-    tk.Checkbutton(doPage, text="DO 6", variable=cb6).grid(column=0, row=6, padx=10, pady=10)
-    do6 = Button(doPage, text="OFF", width=12)
+    ttk.Checkbutton(doPage, text="DO 6", variable=cb6).grid(column=0, row=6, padx=10, pady=10)
+    do6 = ttk.Button(doPage, text="OFF", width=12)
     do6.grid(row=6, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=6, column=2)
-    e6 = tk.Entry(doPage)
+    e6 = ttk.Entry(doPage)
     e6.insert(0, str('00:00:00'))
     e6.grid(row=6, column=2)
 
-    Btn6 = tk.Button(doPage, text="Start")
+    Btn6 = ttk.Button(doPage, text="Start")
     Btn6.grid(row=6, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=6, column=5)
-    e62 = tk.Entry(doPage)
+    e62 = ttk.Entry(doPage)
     e62.grid(row=6, column=4)
 
-    Btnstp6 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp6 = ttk.Button(doPage, text="Stop", state='disable')
     Btnstp6.grid(row=6, column=5)
     rem6 = Remaining(e6, e62, Btn6, Btnstp6, do6, gpio=23)  # here add GPIO pin number for toggle
 
     # DO7 Start
-    tk.Checkbutton(doPage, text="DO 7", variable=cb7).grid(column=0, row=7, padx=10, pady=10)
-    do7 = Button(doPage, text="OFF", width=12)
+    ttk.Checkbutton(doPage, text="DO 7", variable=cb7).grid(column=0, row=7, padx=10, pady=10)
+    do7 = ttk.Button(doPage, text="OFF", width=12)
     do7.grid(row=7, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=7, column=2)
-    e7 = tk.Entry(doPage)
+    e7 = ttk.Entry(doPage)
     e7.insert(0, str('00:00:00'))
     e7.grid(row=7, column=2)
 
-    Btn7 = tk.Button(doPage, text="Start")
+    Btn7 = ttk.Button(doPage, text="Start")
     Btn7.grid(row=7, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=7, column=5)
-    e72 = tk.Entry(doPage)
+    e72 = ttk.Entry(doPage)
     e72.grid(row=7, column=4)
 
-    Btnstp7 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp7 = ttk.Button(doPage, text="Stop", state='disable')
     Btnstp7.grid(row=7, column=5)
     rem7 = Remaining(e7, e72, Btn7, Btnstp7, do7, gpio=24)  # here add GPIO pin number for toggle
 
     # DO8 Start
-    tk.Checkbutton(doPage, text="DO 8", variable=cb8).grid(column=0, row=8, padx=10, pady=10)
-    do8 = Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 8", variable=cb8).grid(column=0, row=8, padx=10, pady=10)
+    do8 = ttk.Button(doPage, text="OFF")
     do8.grid(row=8, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=8, column=2)
-    e8 = tk.Entry(doPage)
+    e8 = ttk.Entry(doPage)
     e8.insert(0, str('00:00:00'))
     e8.grid(row=8, column=2)
 
-    Btn8 = tk.Button(doPage, text="Start")
+    Btn8 = ttk.Button(doPage, text="Start")
     Btn8.grid(row=8, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=8, column=5)
-    e82 = tk.Entry(doPage)
+    e82 = ttk.Entry(doPage)
     e82.grid(row=8, column=4)
 
-    Btnstp8 = tk.Button(doPage, text="Stop", state='disable')
+    Btnstp8 = ttk.Button(doPage, text="Stop", state='disable')
     Btnstp8.grid(row=8, column=5)
     rem8 = Remaining(e8, e82, Btn8, Btnstp8, do8, gpio=10)  # here add GPIO pin number for toggle
 
@@ -882,19 +882,19 @@ if __name__ == "__main__":
     # gbl = CheckBox(eg1, eg2, Btng, Btnstpg)
 
     # cycle
-    tk.Label(doPage, text="set Cycle").grid(row=9, column=0)
-    eg1c = tk.Entry(doPage)
+    ttk.Label(doPage, text="set Cycle").grid(row=9, column=0)
+    eg1c = ttk.Entry(doPage)
     eg1c.insert(0, str('0'))
     eg1c.grid(row=9, column=2)
 
-    Btngc = tk.Button(doPage, text="Start")
+    Btngc = ttk.Button(doPage, text="Start")
     Btngc.grid(row=9, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=9, column=5)
-    eg2c = tk.Entry(doPage)
+    eg2c = ttk.Entry(doPage)
     eg2c.grid(row=9, column=4)
 
-    Btnstpgc = tk.Button(doPage, text="Stop", state='disable')
+    Btnstpgc = ttk.Button(doPage, text="Stop", state='disable')
     Btnstpgc.grid(row=9, column=5)
     gblcy = Cycle(eg1c, eg2c, Btngc, Btnstpgc)
 
@@ -903,14 +903,14 @@ if __name__ == "__main__":
     diPage = ttk.Frame(nb)
     nb.add(diPage, text='Digital Input')
 
-    diText1 = Label(diPage, text='OFF', font=("Courier", 15))
-    diText2 = Label(diPage, text='OFF', font=("Courier", 15))
-    diText3 = Label(diPage, text='OFF', font=("Courier", 15))
-    diText4 = Label(diPage, text='OFF', font=("Courier", 15))
-    diText5 = Label(diPage, text='OFF', font=("Courier", 15))
-    diText6 = Label(diPage, text='OFF', font=("Courier", 15))
-    diText7 = Label(diPage, text='OFF', font=("Courier", 15))
-    diText8 = Label(diPage, text='OFF', font=("Courier", 15))
+    diText1 = ttk.Label(diPage, text='OFF', font=("Courier", 15))
+    diText2 = ttk.Label(diPage, text='OFF', font=("Courier", 15))
+    diText3 = ttk.Label(diPage, text='OFF', font=("Courier", 15))
+    diText4 = ttk.Label(diPage, text='OFF', font=("Courier", 15))
+    diText5 = ttk.Label(diPage, text='OFF', font=("Courier", 15))
+    diText6 = ttk.Label(diPage, text='OFF', font=("Courier", 15))
+    diText7 = ttk.Label(diPage, text='OFF', font=("Courier", 15))
+    diText8 = ttk.Label(diPage, text='OFF', font=("Courier", 15))
 
 
 
@@ -920,14 +920,14 @@ if __name__ == "__main__":
     nb.add(thermocouplePage, text='Thermocouple')
     # nb.Label(main, text="Citriot Data Acquisition System").grid(row=5)
 
-    thermocoupleText1 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
-    thermocoupleText2 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
-    thermocoupleText3 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
-    thermocoupleText4 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
-    thermocoupleText5 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
-    thermocoupleText6 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
-    thermocoupleText7 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
-    thermocoupleText8 = Label(thermocouplePage, text='Loading...', font=("Courier", 15))
+    thermocoupleText1 = ttk.Label(thermocouplePage, text='Loading...', font=("Courier", 15))
+    thermocoupleText2 = ttk.Label(thermocouplePage, text='Loading...', font=("Courier", 15))
+    thermocoupleText3 = ttk.Label(thermocouplePage, text='Loading...', font=("Courier", 15))
+    thermocoupleText4 = ttk.Label(thermocouplePage, text='Loading...', font=("Courier", 15))
+    thermocoupleText5 = ttk.Label(thermocouplePage, text='Loading...', font=("Courier", 15))
+    thermocoupleText6 = ttk.Label(thermocouplePage, text='Loading...', font=("Courier", 15))
+    thermocoupleText7 = ttk.Label(thermocouplePage, text='Loading...', font=("Courier", 15))
+    thermocoupleText8 = ttk.Label(thermocouplePage, text='Loading...', font=("Courier", 15))
 
 
 
@@ -935,25 +935,25 @@ if __name__ == "__main__":
     analogPage = ttk.Frame(nb)
     nb.add(analogPage, text='Analog Input')
 
-    analogText1 = Label(analogPage, text='Loading...', font=("Courier", 20))
-    analogText2 = Label(analogPage, text='Loading...', font=("Courier", 20))
-    analogText3 = Label(analogPage, text='Loading...', font=("Courier", 20))
-    analogText4 = Label(analogPage, text='Loading...', font=("Courier", 20))
-    analogText5 = Label(analogPage, text='Loading...', font=("Courier", 20))
-    analogText6 = Label(analogPage, text='Loading...', font=("Courier", 20))
-    analogText7 = Label(analogPage, text='Loading...', font=("Courier", 20))
-    analogText8 = Label(analogPage, text='Loading...', font=("Courier", 20))
+    analogText1 = ttk.Label(analogPage, text='Loading...', font=("Courier", 20))
+    analogText2 = ttk.Label(analogPage, text='Loading...', font=("Courier", 20))
+    analogText3 = ttk.Label(analogPage, text='Loading...', font=("Courier", 20))
+    analogText4 = ttk.Label(analogPage, text='Loading...', font=("Courier", 20))
+    analogText5 = ttk.Label(analogPage, text='Loading...', font=("Courier", 20))
+    analogText6 = ttk.Label(analogPage, text='Loading...', font=("Courier", 20))
+    analogText7 = ttk.Label(analogPage, text='Loading...', font=("Courier", 20))
+    analogText8 = ttk.Label(analogPage, text='Loading...', font=("Courier", 20))
 
     # Accelerometer
     # accelerometerPage = ttk.Frame(nb)
     # nb.add(accelerometerPage, text='Accelerometer')
     #
-    # accText1x = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
-    # accText2x = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
-    # accText1y = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
-    # accText2y = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
-    # accText1z = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
-    # accText2z = Label(accelerometerPage, text='Loading...', font=("Courier", 20))
+    # accText1x = ttk.Label(accelerometerPage, text='Loading...', font=("Courier", 20))
+    # accText2x = ttk.Label(accelerometerPage, text='Loading...', font=("Courier", 20))
+    # accText1y = ttk.Label(accelerometerPage, text='Loading...', font=("Courier", 20))
+    # accText2y = ttk.Label(accelerometerPage, text='Loading...', font=("Courier", 20))
+    # accText1z = ttk.Label(accelerometerPage, text='Loading...', font=("Courier", 20))
+    # accText2z = ttk.Label(accelerometerPage, text='Loading...', font=("Courier", 20))
 
     # Analog Output
     ada = ttk.Frame(nb)
@@ -966,67 +966,67 @@ if __name__ == "__main__":
     dac = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)
     dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
 
-    tk.Label(ada, text="Set Time").grid(row=0, column=3)
-    tk.Label(ada, text="Remaining").grid(row=0, column=5)
+    ttk.Label(ada, text="Set Time").grid(row=0, column=3)
+    ttk.Label(ada, text="Remaining").grid(row=0, column=5)
 
     tk.Checkbutton(ada, text="AO 1", variable=aocb1).grid(column=0, row=1, padx=10, pady=10)
-    adae1 = tk.Entry(ada)
+    adae1 = ttk.Entry(ada)
     adae1.grid(row=1, column=1)
 
-    ao1 = Button(ada, text="OFF")
+    ao1 = ttk.Button(ada, text="OFF")
     ao1.grid(row=1, column=2)
 
-    aoe1 = tk.Entry(ada)
+    aoe1 = ttk.Entry(ada)
     aoe1.insert(0, str('00:00:00'))
     aoe1.grid(row=1, column=3)
 
-    AdaBtn = tk.Button(ada, text="Start")
+    AdaBtn = ttk.Button(ada, text="Start")
     AdaBtn.grid(row=1, column=4, padx=10, pady=10)
 
-    aoe12 = tk.Entry(ada)
+    aoe12 = ttk.Entry(ada)
     aoe12.grid(row=1, column=5)
 
-    AdaBtnstp = tk.Button(ada, text="Stop", state='disable')
+    AdaBtnstp = ttk.Button(ada, text="Stop", state='disable')
     AdaBtnstp.grid(row=1, column=6, padx=10, pady=10)
 
     sada1 = AOcontrol(ao1, adae1, AdaBtn, 2, dac, AdaBtnstp, aoe1, aoe12)
 
     tk.Checkbutton(ada, text="AO 2", variable=aocb2).grid(column=0, row=3, padx=10, pady=10)
-    adae2 = tk.Entry(ada)
+    adae2 = ttk.Entry(ada)
     adae2.grid(row=3, column=1)
 
-    ao2 = Button(ada, text="OFF")
+    ao2 = ttk.Button(ada, text="OFF")
     ao2.grid(row=3, column=2)
 
-    aoe2 = tk.Entry(ada)
+    aoe2 = ttk.Entry(ada)
     aoe2.insert(0, str('00:00:00'))
     aoe2.grid(row=3, column=3)
 
-    AdaBtn1 = tk.Button(ada, text="Start")
+    AdaBtn1 = ttk.Button(ada, text="Start")
     AdaBtn1.grid(row=3, column=4, padx=10, pady=10)
 
-    aoe22 = tk.Entry(ada)
+    aoe22 = ttk.Entry(ada)
     aoe22.grid(row=3, column=5)
 
-    AdaBtnstp1 = tk.Button(ada, text="Stop", state='disable')
+    AdaBtnstp1 = ttk.Button(ada, text="Stop", state='disable')
     AdaBtnstp1.grid(row=3, column=6, padx=10, pady=10)
 
     sada2 = AOcontrol(ao2, adae2, AdaBtn1, 4, dac1, AdaBtnstp1, aoe2, aoe22)
 
     # AO cycle
-    tk.Label(ada, text="set Cycle").grid(row=5, column=0)
-    aoeg1c = tk.Entry(ada)
+    ttk.Label(ada, text="set Cycle").grid(row=5, column=0)
+    aoeg1c = ttk.Entry(ada)
     aoeg1c.insert(0, str('0'))
     aoeg1c.grid(row=5, column=1)
 
-    Btnaogc = tk.Button(ada, text="Start")
+    Btnaogc = ttk.Button(ada, text="Start")
     Btnaogc.grid(row=5, column=2)
 
-    tk.Label(ada, text="remaining").grid(row=5, column=4)
-    aoeg2c = tk.Entry(ada)
+    ttk.Label(ada, text="remaining").grid(row=5, column=4)
+    aoeg2c = ttk.Entry(ada)
     aoeg2c.grid(row=5, column=5)
 
-    Btnstpaogc = tk.Button(ada, text="Stop", state='disable')
+    Btnstpaogc = ttk.Button(ada, text="Stop", state='disable')
     Btnstpaogc.grid(row=5, column=6)
     gblcyao = AOCycle(aoeg1c, aoeg2c, Btnaogc, Btnstpaogc)
 
@@ -1037,39 +1037,39 @@ if __name__ == "__main__":
     t2.start()
 
     # Labels
-    thermocoupleLabel1 = Label(thermocouplePage, text="Thermocouple 1: ", font=("Courier", 15)).grid(column=1, row=1)
-    thermocoupleLabel2 = Label(thermocouplePage, text="Thermocouple 2: ", font=("Courier", 15)).grid(column=1, row=2)
-    thermocoupleLabel3 = Label(thermocouplePage, text="Thermocouple 3: ", font=("Courier", 15)).grid(column=1, row=3)
-    thermocoupleLabel4 = Label(thermocouplePage, text="Thermocouple 4: ", font=("Courier", 15)).grid(column=1, row=4)
-    thermocoupleLabel5 = Label(thermocouplePage, text="Thermocouple 5: ", font=("Courier", 15)).grid(column=1, row=5)
-    thermocoupleLabel6 = Label(thermocouplePage, text="Thermocouple 6: ", font=("Courier", 15)).grid(column=1, row=6)
-    thermocoupleLabel7 = Label(thermocouplePage, text="Thermocouple 7: ", font=("Courier", 15)).grid(column=1, row=7)
-    thermocoupleLabel8 = Label(thermocouplePage, text="Thermocouple 8: ", font=("Courier", 15)).grid(column=1, row=8)
+    thermocoupleLabel1 = ttk.Label(thermocouplePage, text="Thermocouple 1: ", font=("Courier", 15)).grid(column=1, row=1)
+    thermocoupleLabel2 = ttk.Label(thermocouplePage, text="Thermocouple 2: ", font=("Courier", 15)).grid(column=1, row=2)
+    thermocoupleLabel3 = ttk.Label(thermocouplePage, text="Thermocouple 3: ", font=("Courier", 15)).grid(column=1, row=3)
+    thermocoupleLabel4 = ttk.Label(thermocouplePage, text="Thermocouple 4: ", font=("Courier", 15)).grid(column=1, row=4)
+    thermocoupleLabel5 = ttk.Label(thermocouplePage, text="Thermocouple 5: ", font=("Courier", 15)).grid(column=1, row=5)
+    thermocoupleLabel6 = ttk.Label(thermocouplePage, text="Thermocouple 6: ", font=("Courier", 15)).grid(column=1, row=6)
+    thermocoupleLabel7 = ttk.Label(thermocouplePage, text="Thermocouple 7: ", font=("Courier", 15)).grid(column=1, row=7)
+    thermocoupleLabel8 = ttk.Label(thermocouplePage, text="Thermocouple 8: ", font=("Courier", 15)).grid(column=1, row=8)
 
-    analogLabel1 = Label(analogPage, text="Analog Input 1").grid(column=1, row=1)
-    analogLabel2 = Label(analogPage, text="Analog Input 2").grid(column=1, row=2)
-    analogLabel3 = Label(analogPage, text="Analog Input 3").grid(column=1, row=3)
-    analogLabel4 = Label(analogPage, text="Analog Input 4").grid(column=1, row=4)
-    analogLabel5 = Label(analogPage, text="Analog Input 5").grid(column=1, row=5)
-    analogLabel6 = Label(analogPage, text="Analog Input 6").grid(column=1, row=6)
-    analogLabel7 = Label(analogPage, text="Analog Input 7").grid(column=1, row=7)
-    analogLabel8 = Label(analogPage, text="Analog Input 8").grid(column=1, row=8)
+    analogLabel1 = ttk.Label(analogPage, text="Analog Input 1").grid(column=1, row=1)
+    analogLabel2 = ttk.Label(analogPage, text="Analog Input 2").grid(column=1, row=2)
+    analogLabel3 = ttk.Label(analogPage, text="Analog Input 3").grid(column=1, row=3)
+    analogLabel4 = ttk.Label(analogPage, text="Analog Input 4").grid(column=1, row=4)
+    analogLabel5 = ttk.Label(analogPage, text="Analog Input 5").grid(column=1, row=5)
+    analogLabel6 = ttk.Label(analogPage, text="Analog Input 6").grid(column=1, row=6)
+    analogLabel7 = ttk.Label(analogPage, text="Analog Input 7").grid(column=1, row=7)
+    analogLabel8 = ttk.Label(analogPage, text="Analog Input 8").grid(column=1, row=8)
 
-    diLabel1 = Label(diPage, text = "Digital Input 1: ").grid(column=1, row=1)
-    diLabel2 = Label(diPage, text="Digital Input 2: ").grid(column=1, row=2)
-    diLabel3 = Label(diPage, text="Digital Input 3: ").grid(column=1, row=3)
-    diLabel4 = Label(diPage, text="Digital Input 4: ").grid(column=1, row=4)
-    diLabel5 = Label(diPage, text="Digital Input 5: ").grid(column=1, row=5)
-    diLabel6 = Label(diPage, text="Digital Input 6: ").grid(column=1, row=6)
-    diLabel7 = Label(diPage, text="Digital Input 7: ").grid(column=1, row=7)
-    diLabel8 = Label(diPage, text="Digital Input 8: ").grid(column=1, row=8)
+    diLabel1 = ttk.Label(diPage, text = "Digital Input 1: ").grid(column=1, row=1)
+    diLabel2 = ttk.Label(diPage, text="Digital Input 2: ").grid(column=1, row=2)
+    diLabel3 = ttk.Label(diPage, text="Digital Input 3: ").grid(column=1, row=3)
+    diLabel4 = ttk.Label(diPage, text="Digital Input 4: ").grid(column=1, row=4)
+    diLabel5 = ttk.Label(diPage, text="Digital Input 5: ").grid(column=1, row=5)
+    diLabel6 = ttk.Label(diPage, text="Digital Input 6: ").grid(column=1, row=6)
+    diLabel7 = ttk.Label(diPage, text="Digital Input 7: ").grid(column=1, row=7)
+    diLabel8 = ttk.Label(diPage, text="Digital Input 8: ").grid(column=1, row=8)
 
-    # acc1x = Label(accelerometerPage, text='Accelerometer1 X Axis').grid(column=1, row=1)
-    # acc1y = Label(accelerometerPage, text='Accelerometer1 Y Axis').grid(column=1, row=2)
-    # acc1z = Label(accelerometerPage, text='Accelerometer1 Z Axis').grid(column=1, row=3)
-    # acc2x = Label(accelerometerPage, text='Accelerometer2 X Axis').grid(column=1, row=4)
-    # acc2y = Label(accelerometerPage, text='Accelerometer2 Y Axis').grid(column=1, row=5)
-    # acc2z = Label(accelerometerPage, text='Accelerometer2 Z Axis').grid(column=1, row=6)
+    # acc1x = ttk.Label(accelerometerPage, text='Accelerometer1 X Axis').grid(column=1, row=1)
+    # acc1y = ttk.Label(accelerometerPage, text='Accelerometer1 Y Axis').grid(column=1, row=2)
+    # acc1z = ttk.Label(accelerometerPage, text='Accelerometer1 Z Axis').grid(column=1, row=3)
+    # acc2x = ttk.Label(accelerometerPage, text='Accelerometer2 X Axis').grid(column=1, row=4)
+    # acc2y = ttk.Label(accelerometerPage, text='Accelerometer2 Y Axis').grid(column=1, row=5)
+    # acc2z = ttk.Label(accelerometerPage, text='Accelerometer2 Z Axis').grid(column=1, row=6)
 
 
     # progress_bars
@@ -1083,8 +1083,8 @@ if __name__ == "__main__":
 
     button_var = IntVar()
 
-    connectbtn = tk.Button(text="Connect", command=connect).place(x=10, y=370)
-    disconnectbtn = tk.Button(text="Disconnect", command=disconnect).place(x=98, y=370)
+    connectbtn = ttk.Button(text="Connect", command=connect).place(x=10, y=370)
+    disconnectbtn = ttk.Button(text="Disconnect", command=disconnect).place(x=98, y=370)
 
     # Defines and places the notebook widget
 
