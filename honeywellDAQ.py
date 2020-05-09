@@ -37,7 +37,7 @@ main.title("Citriot DAQ")
 
 # Setting Theme
 style = ThemedStyle(main)
-style.set_theme("winxpblue")
+style.set_theme("breeze")
 
 class ToggleDO:
 
