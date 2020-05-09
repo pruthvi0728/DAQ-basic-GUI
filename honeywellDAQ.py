@@ -770,7 +770,7 @@ if __name__ == "__main__":
 
     # DO4 Start
     ttk.Checkbutton(doPage, text="DO 4", variable=cb4).grid(column=0, row=4, padx=10, pady=10)
-    do4 = ttk.Button(doPage, text="OFF", width=12)
+    do4 = ttk.Button(doPage, text="OFF")
     do4.grid(row=4, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=4, column=2)
     e4 = ttk.Entry(doPage)
@@ -810,7 +810,7 @@ if __name__ == "__main__":
 
     # DO6 Start
     ttk.Checkbutton(doPage, text="DO 6", variable=cb6).grid(column=0, row=6, padx=10, pady=10)
-    do6 = ttk.Button(doPage, text="OFF", width=12)
+    do6 = ttk.Button(doPage, text="OFF")
     do6.grid(row=6, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=6, column=2)
     e6 = ttk.Entry(doPage)
@@ -830,7 +830,7 @@ if __name__ == "__main__":
 
     # DO7 Start
     ttk.Checkbutton(doPage, text="DO 7", variable=cb7).grid(column=0, row=7, padx=10, pady=10)
-    do7 = ttk.Button(doPage, text="OFF", width=12)
+    do7 = ttk.Button(doPage, text="OFF")
     do7.grid(row=7, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=7, column=2)
     e7 = ttk.Entry(doPage)
