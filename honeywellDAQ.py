@@ -888,7 +888,7 @@ if __name__ == "__main__":
     # gbl = CheckBox(eg1, eg2, Btng, Btnstpg)
 
     # cycle
-    ttk.Label(doPage, text="set Cycle").grid(row=9, column=1)
+    ttk.Label(doPage, text="Set Cycle").grid(row=9, column=1)
     eg1c = ttk.Entry(doPage, width=11)
     eg1c.insert(0, str('0'))
     eg1c.grid(row=9, column=2)
