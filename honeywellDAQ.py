@@ -689,10 +689,10 @@ if __name__ == "__main__":
     # L = Label(aboutPage, image=image).pack()
 
     image = Image.open("/home/pi/Desktop/New/DAQ-basic-GUI/Logo2.png")
-    image = image.resize((500, 250), Image.ANTIALIAS)  ## The (250, 250) is (height, width)
+    image = image.resize((500, 250), Image.ANTIALIAS)  # The (250, 250) is (height, width)
     img = ImageTk.PhotoImage(image)
-    panel = Label(aboutPage, image=img)
-    panel.pack(side="bottom", fill="both", expand="yes")
+    panel = ttk.Label(aboutPage, image=img)
+    panel.pack(fill="both", expand="yes", padx=20)
     ttk.Label(aboutPage, text="Citriot Data Acquisition System", font=("Helvetica", 24)).pack()
 
     # DO
