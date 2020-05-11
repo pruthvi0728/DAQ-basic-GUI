@@ -117,7 +117,7 @@ class Remaining:
                 self.btndo['state'] = 'disable'
 
                 self.btndo.config(text='ON')
-                self.btnstop.config(bg="orange")
+                self.btnstop.config(bg="orange")    # button color
                 # print(str(self.gpio) + ' ON')
                 GPIO.output(self.gpio, GPIO.HIGH)
                 self.remain_new()
@@ -126,7 +126,7 @@ class Remaining:
                 self.btnstart['state'] = 'disable'
                 self.btnstop['state'] = 'normal'
                 self.btndo['state'] = 'disable'
-
+                self.btnstop.config(bg="orange")     # button color
                 self.btndo.config(text='ON')
                 # print(str(self.gpio) + ' ON')
                 GPIO.output(self.gpio, GPIO.HIGH)
@@ -141,7 +141,7 @@ class Remaining:
         self.running = False
         self.btndo['state'] = 'normal'
         self.btndo.config(text='OFF')
-        self.btnstop.config(bg="white")
+        self.btnstop.config(bg="snow")
         # print(str(self.gpio) + ' OFF')
         GPIO.output(self.gpio, GPIO.LOW)
 
