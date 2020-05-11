@@ -39,7 +39,8 @@ main.title("Citriot DAQ")
 style = ThemedStyle(main)
 # style.set_theme("breeze")
 style.set_theme("radiance")
-
+style.configure("stp.active", bg="#DC461D")
+style.configure("stp.inactive", bg="snow")
 
 class ToggleDO:
 
@@ -117,7 +118,7 @@ class Remaining:
                 self.btndo['state'] = 'disable'
 
                 self.btndo.config(text='ON')
-                self.btnstop['bg'] = "#DC461D"    # button color
+                self.btnstop['style'] = "stp.active"    # button color
                 # print(str(self.gpio) + ' ON')
                 GPIO.output(self.gpio, GPIO.HIGH)
                 self.remain_new()
@@ -126,7 +127,7 @@ class Remaining:
                 self.btnstart['state'] = 'disable'
                 self.btnstop['state'] = 'normal'
                 self.btndo['state'] = 'disable'
-                self.btnstop['bg'] = "#DC461D"     # button color
+                self.btnstop['style'] = "stp.active"    # button color
                 self.btndo.config(text='ON')
                 # print(str(self.gpio) + ' ON')
                 GPIO.output(self.gpio, GPIO.HIGH)
@@ -141,7 +142,7 @@ class Remaining:
         self.running = False
         self.btndo['state'] = 'normal'
         self.btndo.config(text='OFF')
-        self.btnstop['bg'] = "snow"
+        self.btnstop['style'] = "stp.inactive"
         # print(str(self.gpio) + ' OFF')
         GPIO.output(self.gpio, GPIO.LOW)
 
