@@ -692,7 +692,7 @@ if __name__ == "__main__":
     image = image.resize((500, 250), Image.ANTIALIAS)  # The (250, 250) is (height, width)
     img = ImageTk.PhotoImage(image)
     panel = ttk.Label(aboutPage, image=img)
-    panel.pack(side="bottom", fill=BOTH, expand=True)    # , padx=140, pady=50 , expand=True
+    panel.pack(side="bottom", fill=BOTH, expand=True, anchor="center")    # , padx=140, pady=50 , expand=True
     ttk.Label(aboutPage, text="Citriot Data Acquisition System", font=("Helvetica", 24)).pack()
 
     # DO
@@ -1096,5 +1096,8 @@ if __name__ == "__main__":
     # Defines and places the notebook widget
 
     # mainloop
-    main.geometry('500x500')
+    width_value = main.winfo_screenwidth()
+    height_value = main.winfo_screenheight()
+    main.geometry("%dx%d+0+0" % (width_value, height_value))
+    # main.geometry('500x500')
     main.mainloop()
