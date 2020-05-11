@@ -39,8 +39,9 @@ main.title("Citriot DAQ")
 style = ThemedStyle(main)
 # style.set_theme("breeze")
 style.set_theme("radiance")
-style.configure("stp.active", bg="#DC461D")
-style.configure("stp.inactive", bg="snow")
+colorstyle = ttk.Style()
+colorstyle.configure("stp.active", bg="#DC461D")
+colorstyle.configure("stp.inactive", bg="snow")
 
 class ToggleDO:
 
