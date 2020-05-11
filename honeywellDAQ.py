@@ -721,14 +721,14 @@ if __name__ == "__main__":
     e1.insert(0, str('00:00:00'))
     e1.grid(row=1, column=2, padx=10)
 
-    Btn1 = ttk.Button(doPage, text="Start", width=5)
+    Btn1 = ttk.Button(doPage, text="Start", width=5, bg="#DC461D")
     Btn1.grid(row=1, column=3, padx=10)
 
     # tk.Label(doPage, text="remaining").grid(row=1, column=5)
     e12 = ttk.Entry(doPage, width=11)
     e12.grid(row=1, column=4, padx=10)
 
-    Btnstp1 = ttk.Button(doPage, text="Stop", state='disable', width=5)
+    Btnstp1 = ttk.Button(doPage, text="Stop", state='disable', width=5, bg="#DC461D")
     Btnstp1.grid(row=1, column=5, padx=10)
     rem1 = Remaining(e1, e12, Btn1, Btnstp1, do1, gpio=25)   # here add GPIO pin number for toggle
 
