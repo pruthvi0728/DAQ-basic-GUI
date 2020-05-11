@@ -692,7 +692,7 @@ if __name__ == "__main__":
     image = image.resize((500, 250), Image.ANTIALIAS)  # The (250, 250) is (height, width)
     img = ImageTk.PhotoImage(image)
     panel = ttk.Label(aboutPage, image=img)
-    panel.pack(fill="both", expand="yes", padx=20)
+    panel.pack(side="bottom", fill=tk.X, expand="yes", padx=50)
     ttk.Label(aboutPage, text="Citriot Data Acquisition System", font=("Helvetica", 24)).pack()
 
     # DO
