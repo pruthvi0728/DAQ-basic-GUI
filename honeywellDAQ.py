@@ -117,7 +117,7 @@ class Remaining:
                 self.btndo['state'] = 'disable'
 
                 self.btndo.config(text='ON')
-                self.btnstop.config(bg="#DC461D")
+                self.btnstop.config(bg="orange")
                 # print(str(self.gpio) + ' ON')
                 GPIO.output(self.gpio, GPIO.HIGH)
                 self.remain_new()
