@@ -39,9 +39,7 @@ main.title("Citriot DAQ")
 style = ThemedStyle(main)
 # style.set_theme("breeze")
 style.set_theme("radiance")
-colorstyle = ttk.Style()
-colorstyle.configure("stp.TButton", background="#DC461D")
-colorstyle.configure("Instp.TButton", background="snow")
+
 
 class ToggleDO:
 
@@ -119,7 +117,7 @@ class Remaining:
                 self.btndo['state'] = 'disable'
 
                 self.btndo.config(text='ON')
-                self.btnstop['style'] = "stp.TButton"    # button color
+                # self.btnstop['style'] = "stp.TButton"    # button color
                 # print(str(self.gpio) + ' ON')
                 GPIO.output(self.gpio, GPIO.HIGH)
                 self.remain_new()
@@ -128,7 +126,7 @@ class Remaining:
                 self.btnstart['state'] = 'disable'
                 self.btnstop['state'] = 'normal'
                 self.btndo['state'] = 'disable'
-                self.btnstop['style'] = "stp.TButton"    # button color
+                # self.btnstop['style'] = "stp.TButton"    # button color
                 self.btndo.config(text='ON')
                 # print(str(self.gpio) + ' ON')
                 GPIO.output(self.gpio, GPIO.HIGH)
@@ -143,7 +141,7 @@ class Remaining:
         self.running = False
         self.btndo['state'] = 'normal'
         self.btndo.config(text='OFF')
-        self.btnstop['style'] = "Instp.TButton"
+        # self.btnstop['style'] = "Instp.TButton"
         # print(str(self.gpio) + ' OFF')
         GPIO.output(self.gpio, GPIO.LOW)
 
@@ -723,14 +721,14 @@ if __name__ == "__main__":
     e1.insert(0, str('00:00:00'))
     e1.grid(row=1, column=2, padx=10)
 
-    Btn1 = ttk.Button(doPage, text="Start", width=5, style="stp.TButton")
+    Btn1 = ttk.Button(doPage, text="Start", width=5)
     Btn1.grid(row=1, column=3, padx=10)
 
     # tk.Label(doPage, text="remaining").grid(row=1, column=5)
     e12 = ttk.Entry(doPage, width=11)
     e12.grid(row=1, column=4, padx=10)
 
-    Btnstp1 = ttk.Button(doPage, text="Stop", state='disable', width=5, style="stp.TButton")
+    Btnstp1 = ttk.Button(doPage, text="Stop", state='disable', width=5)
     Btnstp1.grid(row=1, column=5, padx=10)
     rem1 = Remaining(e1, e12, Btn1, Btnstp1, do1, gpio=25)   # here add GPIO pin number for toggle
 
