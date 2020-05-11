@@ -975,64 +975,63 @@ if __name__ == "__main__":
     ttk.Label(ada, text="Set Time").grid(row=0, column=3)
     ttk.Label(ada, text="Remaining").grid(row=0, column=5)
 
-    ttk.Checkbutton(ada, text="AO 1", variable=aocb1).grid(column=0, row=1, padx=10, pady=10)
-    adae1 = ttk.Entry(ada)
-    adae1.grid(row=1, column=1)
+    ttk.Checkbutton(ada, text="AO 1", variable=aocb1).grid(column=0, row=1)
+    adae1 = ttk.Entry(ada, width=11)
+    adae1.grid(row=1, column=1, padx=10)
 
-    ao1 = ttk.Button(ada, text="OFF")
-    ao1.grid(row=1, column=2)
+    ao1 = ttk.Button(ada, text="OFF", width=5)
+    ao1.grid(row=1, column=2, padx=10)
 
-    aoe1 = ttk.Entry(ada)
+    aoe1 = ttk.Entry(ada, width=11)
     aoe1.insert(0, str('00:00:00'))
-    aoe1.grid(row=1, column=3)
+    aoe1.grid(row=1, column=3, padx=10)
 
-    AdaBtn = ttk.Button(ada, text="Start")
-    AdaBtn.grid(row=1, column=4, padx=10, pady=10)
+    AdaBtn = ttk.Button(ada, text="Start", width=5)
+    AdaBtn.grid(row=1, column=4, padx=10)
 
-    aoe12 = ttk.Entry(ada)
-    aoe12.grid(row=1, column=5)
+    aoe12 = ttk.Entry(ada, width=11)
+    aoe12.grid(row=1, column=5, padx=10)
 
-    AdaBtnstp = ttk.Button(ada, text="Stop", state='disable')
-    AdaBtnstp.grid(row=1, column=6, padx=10, pady=10)
+    AdaBtnstp = ttk.Button(ada, text="Stop", state='disable', width=5)
+    AdaBtnstp.grid(row=1, column=6, padx=10)
 
     sada1 = AOcontrol(ao1, adae1, AdaBtn, 2, dac, AdaBtnstp, aoe1, aoe12)
 
-    ttk.Checkbutton(ada, text="AO 2", variable=aocb2).grid(column=0, row=3, padx=10, pady=10)
-    adae2 = ttk.Entry(ada)
+    ttk.Checkbutton(ada, text="AO 2", variable=aocb2).grid(column=0, row=3)
+    adae2 = ttk.Entry(ada, width=11)
     adae2.grid(row=3, column=1)
 
-    ao2 = ttk.Button(ada, text="OFF")
+    ao2 = ttk.Button(ada, text="OFF", width=5)
     ao2.grid(row=3, column=2)
 
-    aoe2 = ttk.Entry(ada)
+    aoe2 = ttk.Entry(ada, width=11)
     aoe2.insert(0, str('00:00:00'))
     aoe2.grid(row=3, column=3)
 
-    AdaBtn1 = ttk.Button(ada, text="Start")
-    AdaBtn1.grid(row=3, column=4, padx=10, pady=10)
+    AdaBtn1 = ttk.Button(ada, text="Start", width=5)
+    AdaBtn1.grid(row=3, column=4)
 
-    aoe22 = ttk.Entry(ada)
+    aoe22 = ttk.Entry(ada, width=11)
     aoe22.grid(row=3, column=5)
 
-    AdaBtnstp1 = ttk.Button(ada, text="Stop", state='disable')
-    AdaBtnstp1.grid(row=3, column=6, padx=10, pady=10)
+    AdaBtnstp1 = ttk.Button(ada, text="Stop", state='disable', width=5)
+    AdaBtnstp1.grid(row=3, column=6)
 
     sada2 = AOcontrol(ao2, adae2, AdaBtn1, 4, dac1, AdaBtnstp1, aoe2, aoe22)
 
     # AO cycle
-    ttk.Label(ada, text="set Cycle").grid(row=5, column=0)
-    aoeg1c = ttk.Entry(ada)
+    ttk.Label(ada, text="set Cycle").grid(row=5, column=2)
+    aoeg1c = ttk.Entry(ada, width=11)
     aoeg1c.insert(0, str('0'))
-    aoeg1c.grid(row=5, column=1)
+    aoeg1c.grid(row=5, column=3)
 
-    Btnaogc = ttk.Button(ada, text="Start")
-    Btnaogc.grid(row=5, column=2)
+    Btnaogc = ttk.Button(ada, text="Start", width=5)
+    Btnaogc.grid(row=5, column=4)
 
-    ttk.Label(ada, text="remaining").grid(row=5, column=4)
-    aoeg2c = ttk.Entry(ada)
+    aoeg2c = ttk.Entry(ada, width=11)
     aoeg2c.grid(row=5, column=5)
 
-    Btnstpaogc = ttk.Button(ada, text="Stop", state='disable')
+    Btnstpaogc = ttk.Button(ada, text="Stop", state='disable', width=5)
     Btnstpaogc.grid(row=5, column=6)
     gblcyao = AOCycle(aoeg1c, aoeg2c, Btnaogc, Btnstpaogc)
 
