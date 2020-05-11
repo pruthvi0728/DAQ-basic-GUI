@@ -711,162 +711,162 @@ if __name__ == "__main__":
     cb8 = tk.IntVar()
 
     # DO1 Start
-    ttk.Checkbutton(doPage, text="DO 1", variable=cb1).grid(column=0, row=1, padx=10, pady=10)
-    do1 = ttk.Button(doPage, text="OFF")
-    do1.grid(row=1, column=1)
+    ttk.Checkbutton(doPage, text="DO 1", variable=cb1).grid(column=0, row=1, padx=10)
+    do1 = ttk.Button(doPage, text="OFF", width=5)
+    do1.grid(row=1, column=1, padx=10)
     # tk.Label(doPage, text="Set Time").grid(row=1, column=2)
-    e1 = ttk.Entry(doPage)
+    e1 = ttk.Entry(doPage, width=11)
     e1.insert(0, str('00:00:00'))
-    e1.grid(row=1, column=2)
+    e1.grid(row=1, column=2, padx=10)
 
-    Btn1 = ttk.Button(doPage, text="Start")
-    Btn1.grid(row=1, column=3)
+    Btn1 = ttk.Button(doPage, text="Start", width=5)
+    Btn1.grid(row=1, column=3, padx=10)
 
     # tk.Label(doPage, text="remaining").grid(row=1, column=5)
-    e12 = ttk.Entry(doPage)
-    e12.grid(row=1, column=4)
+    e12 = ttk.Entry(doPage, width=11)
+    e12.grid(row=1, column=4, padx=10)
 
-    Btnstp1 = ttk.Button(doPage, text="Stop", state='disable')
-    Btnstp1.grid(row=1, column=5)
+    Btnstp1 = ttk.Button(doPage, text="Stop", state='disable', width=5)
+    Btnstp1.grid(row=1, column=5, padx=10)
     rem1 = Remaining(e1, e12, Btn1, Btnstp1, do1, gpio=25)   # here add GPIO pin number for toggle
 
     # DO2 Start
-    ttk.Checkbutton(doPage, text="DO 2", variable=cb2).grid(column=0, row=2, padx=10, pady=10)
-    do2 = ttk.Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 2", variable=cb2).grid(column=0, row=2)
+    do2 = ttk.Button(doPage, text="OFF", width=5)
     do2.grid(row=2, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=2, column=2)
-    e2 = ttk.Entry(doPage)
+    e2 = ttk.Entry(doPage, width=11)
     e2.insert(0, str('00:00:00'))
     e2.grid(row=2, column=2)
 
-    Btn2 = ttk.Button(doPage, text="Start")
+    Btn2 = ttk.Button(doPage, text="Start", width=5)
     Btn2.grid(row=2, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=2, column=5)
-    e22 = ttk.Entry(doPage)
+    e22 = ttk.Entry(doPage, width=11)
     e22.grid(row=2, column=4)
 
-    Btnstp2 = ttk.Button(doPage, text="Stop", state='disable')
+    Btnstp2 = ttk.Button(doPage, text="Stop", state='disable', width=5)
     Btnstp2.grid(row=2, column=5)
     rem2 = Remaining(e2, e22, Btn2, Btnstp2, do2, gpio=17)      # here add GPIO pin number for toggle
 
     # DO3 Start
-    ttk.Checkbutton(doPage, text="DO 3", variable=cb3).grid(column=0, row=3, padx=10, pady=10)
-    do3 = ttk.Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 3", variable=cb3).grid(column=0, row=3)
+    do3 = ttk.Button(doPage, text="OFF", width=5)
     do3.grid(row=3, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=3, column=2)
-    e3 = ttk.Entry(doPage)
+    e3 = ttk.Entry(doPage, width=11)
     e3 .insert(0, str('00:00:00'))
     e3.grid(row=3, column=2)
 
-    Btn3 = ttk.Button(doPage, text="Start")
+    Btn3 = ttk.Button(doPage, text="Start", width=5)
     Btn3.grid(row=3, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=3, column=5)
-    e32 = ttk.Entry(doPage)
+    e32 = ttk.Entry(doPage, width=11)
     e32.grid(row=3, column=4)
 
-    Btnstp3 = ttk.Button(doPage, text="Stop", state='disable')
+    Btnstp3 = ttk.Button(doPage, text="Stop", state='disable', width=5)
     Btnstp3.grid(row=3, column=5)
     rem3 = Remaining(e3, e32, Btn3, Btnstp3, do3, gpio=18)  # here add GPIO pin number for toggle
 
     # DO4 Start
-    ttk.Checkbutton(doPage, text="DO 4", variable=cb4).grid(column=0, row=4, padx=10, pady=10)
-    do4 = ttk.Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 4", variable=cb4).grid(column=0, row=4)
+    do4 = ttk.Button(doPage, text="OFF", width=5)
     do4.grid(row=4, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=4, column=2)
-    e4 = ttk.Entry(doPage)
+    e4 = ttk.Entry(doPage, width=11)
     e4.insert(0, str('00:00:00'))
     e4.grid(row=4, column=2)
 
-    Btn4 = ttk.Button(doPage, text="Start")
+    Btn4 = ttk.Button(doPage, text="Start", width=5)
     Btn4.grid(row=4, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=4, column=5)
-    e42 = ttk.Entry(doPage)
+    e42 = ttk.Entry(doPage, width=11)
     e42.grid(row=4, column=4)
 
-    Btnstp4 = ttk.Button(doPage, text="Stop", state='disable')
+    Btnstp4 = ttk.Button(doPage, text="Stop", state='disable', width=5)
     Btnstp4.grid(row=4, column=5)
     rem4 = Remaining(e4, e42, Btn4, Btnstp4, do4, gpio=27)  # here add GPIO pin number for toggle
 
     # DO5 Start
-    ttk.Checkbutton(doPage, text="DO 5", variable=cb5).grid(column=0, row=5, padx=10, pady=10)
-    do5 = ttk.Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 5", variable=cb5).grid(column=0, row=5)
+    do5 = ttk.Button(doPage, text="OFF", width=5)
     do5.grid(row=5, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=5, column=2)
-    e5 = ttk.Entry(doPage)
+    e5 = ttk.Entry(doPage, width=11)
     e5.insert(0, str('00:00:00'))
     e5.grid(row=5, column=2)
 
-    Btn5 = ttk.Button(doPage, text="Start")
+    Btn5 = ttk.Button(doPage, text="Start", width=5)
     Btn5.grid(row=5, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=5, column=5)
-    e52 = ttk.Entry(doPage)
+    e52 = ttk.Entry(doPage, width=11)
     e52.grid(row=5, column=4)
 
-    Btnstp5 = ttk.Button(doPage, text="Stop", state='disable')
+    Btnstp5 = ttk.Button(doPage, text="Stop", state='disable', width=5)
     Btnstp5.grid(row=5, column=5)
     rem5 = Remaining(e5, e52, Btn5, Btnstp5, do5, gpio=22)  # here add GPIO pin number for toggle
 
     # DO6 Start
-    ttk.Checkbutton(doPage, text="DO 6", variable=cb6).grid(column=0, row=6, padx=10, pady=10)
-    do6 = ttk.Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 6", variable=cb6).grid(column=0, row=6)
+    do6 = ttk.Button(doPage, text="OFF", width=5)
     do6.grid(row=6, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=6, column=2)
-    e6 = ttk.Entry(doPage)
+    e6 = ttk.Entry(doPage, width=11)
     e6.insert(0, str('00:00:00'))
     e6.grid(row=6, column=2)
 
-    Btn6 = ttk.Button(doPage, text="Start")
+    Btn6 = ttk.Button(doPage, text="Start", width=5)
     Btn6.grid(row=6, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=6, column=5)
-    e62 = ttk.Entry(doPage)
+    e62 = ttk.Entry(doPage, width=11)
     e62.grid(row=6, column=4)
 
-    Btnstp6 = ttk.Button(doPage, text="Stop", state='disable')
+    Btnstp6 = ttk.Button(doPage, text="Stop", state='disable', width=5)
     Btnstp6.grid(row=6, column=5)
     rem6 = Remaining(e6, e62, Btn6, Btnstp6, do6, gpio=23)  # here add GPIO pin number for toggle
 
     # DO7 Start
-    ttk.Checkbutton(doPage, text="DO 7", variable=cb7).grid(column=0, row=7, padx=10, pady=10)
-    do7 = ttk.Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 7", variable=cb7).grid(column=0, row=7)
+    do7 = ttk.Button(doPage, text="OFF", width=5)
     do7.grid(row=7, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=7, column=2)
-    e7 = ttk.Entry(doPage)
+    e7 = ttk.Entry(doPage, width=11)
     e7.insert(0, str('00:00:00'))
     e7.grid(row=7, column=2)
 
-    Btn7 = ttk.Button(doPage, text="Start")
+    Btn7 = ttk.Button(doPage, text="Start", width=5)
     Btn7.grid(row=7, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=7, column=5)
-    e72 = ttk.Entry(doPage)
+    e72 = ttk.Entry(doPage, width=11)
     e72.grid(row=7, column=4)
 
-    Btnstp7 = ttk.Button(doPage, text="Stop", state='disable')
+    Btnstp7 = ttk.Button(doPage, text="Stop", state='disable', width=5)
     Btnstp7.grid(row=7, column=5)
     rem7 = Remaining(e7, e72, Btn7, Btnstp7, do7, gpio=24)  # here add GPIO pin number for toggle
 
     # DO8 Start
-    ttk.Checkbutton(doPage, text="DO 8", variable=cb8).grid(column=0, row=8, padx=10, pady=10)
-    do8 = ttk.Button(doPage, text="OFF")
+    ttk.Checkbutton(doPage, text="DO 8", variable=cb8).grid(column=0, row=8)
+    do8 = ttk.Button(doPage, text="OFF", width=5)
     do8.grid(row=8, column=1)
     # tk.Label(doPage, text="Set Time").grid(row=8, column=2)
-    e8 = ttk.Entry(doPage)
+    e8 = ttk.Entry(doPage, width=11)
     e8.insert(0, str('00:00:00'))
     e8.grid(row=8, column=2)
 
-    Btn8 = ttk.Button(doPage, text="Start")
+    Btn8 = ttk.Button(doPage, text="Start", width=5)
     Btn8.grid(row=8, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=8, column=5)
-    e82 = ttk.Entry(doPage)
+    e82 = ttk.Entry(doPage, width=11)
     e82.grid(row=8, column=4)
 
-    Btnstp8 = ttk.Button(doPage, text="Stop", state='disable')
+    Btnstp8 = ttk.Button(doPage, text="Stop", state='disable', width=5)
     Btnstp8.grid(row=8, column=5)
     rem8 = Remaining(e8, e82, Btn8, Btnstp8, do8, gpio=10)  # here add GPIO pin number for toggle
 
@@ -889,18 +889,18 @@ if __name__ == "__main__":
 
     # cycle
     ttk.Label(doPage, text="set Cycle").grid(row=9, column=0)
-    eg1c = ttk.Entry(doPage)
+    eg1c = ttk.Entry(doPage, width=11)
     eg1c.insert(0, str('0'))
     eg1c.grid(row=9, column=2)
 
-    Btngc = ttk.Button(doPage, text="Start")
+    Btngc = ttk.Button(doPage, text="Start", width=5)
     Btngc.grid(row=9, column=3)
 
     # tk.Label(doPage, text="remaining").grid(row=9, column=5)
-    eg2c = ttk.Entry(doPage)
+    eg2c = ttk.Entry(doPage, width=11)
     eg2c.grid(row=9, column=4)
 
-    Btnstpgc = ttk.Button(doPage, text="Stop", state='disable')
+    Btnstpgc = ttk.Button(doPage, text="Stop", state='disable', width=5)
     Btnstpgc.grid(row=9, column=5)
     gblcy = Cycle(eg1c, eg2c, Btngc, Btnstpgc)
 
@@ -1089,8 +1089,8 @@ if __name__ == "__main__":
 
     button_var = IntVar()
 
-    connectbtn = ttk.Button(text="Connect", command=connect).place(x=10, y=370)
-    disconnectbtn = ttk.Button(text="Disconnect", command=disconnect).place(x=98, y=370)
+    connectbtn = ttk.Button(text="Connect", command=connect, width=10).place(x=10, y=370)
+    disconnectbtn = ttk.Button(text="Disconnect", command=disconnect, width=10).place(x=129, y=370)
 
     # Defines and places the notebook widget
 
