@@ -1091,8 +1091,8 @@ if __name__ == "__main__":
 
     button_var = IntVar()
 
-    connectbtn = ttk.Button(text="Connect", command=connect, width=10).place(x=10, y=370)
-    disconnectbtn = ttk.Button(text="Disconnect", command=disconnect, width=10).place(x=149, y=370)
+    connectbtn = ttk.Button(text="Connect", command=connect, width=10).place(x=10, y=372)
+    disconnectbtn = ttk.Button(text="Disconnect", command=disconnect, width=10).place(x=149, y=372)
 
     # Defines and places the notebook widget
 
