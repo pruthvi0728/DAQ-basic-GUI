@@ -689,7 +689,8 @@ if __name__ == "__main__":
     # L = Label(aboutPage, image=image).pack()
     ttk.Label(aboutPage, text="Citriot Data Acquisition System", font=("Helvetica", 24)).pack(side="top", pady=5)
 
-    image = Image.open("/home/pi/Desktop/New/DAQ-basic-GUI/Logo2.png")
+    image = Image.open("/home/pi/.DAQ/New/DAQ-basic-GUI/Logo2.png")     # /home/pi/.DAQ/New/DAQ-basic-GUI/Logo2.png
+    # /home/pi/Desktop/New/DAQ-basic-GUI/Logo2.png
     image = image.resize((500, 250), Image.ANTIALIAS)  # The (250, 250) is (height, width)
     img = ImageTk.PhotoImage(image)
     panel = ttk.Label(aboutPage, image=img)
