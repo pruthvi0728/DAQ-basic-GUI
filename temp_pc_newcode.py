@@ -10,12 +10,23 @@ from tkinter import messagebox
 import datetime as dt
 import csv
 from ttkthemes import ThemedStyle
+import Adafruit_MCP4725
+import RPi.GPIO as GPIO
+import serial
 
+
+GPIO.setmode(GPIO.BCM)
 
 doPinlist = [25, 17, 18, 27, 22, 23, 24, 10]
 diPinlist = [5, 6, 13, 19, 26, 16, 20, 21]
 di_data = [0, 0, 0, 0, 0, 0, 0, 0]
 
+for i in doPinlist:
+    GPIO.setup(i, GPIO.OUT)
+    GPIO.output(i, GPIO.LOW)
+
+for i in diPinlist:
+    GPIO.setup(i, GPIO.IN)
 
 serial_data = ""
 filter_data = ""
@@ -272,9 +283,11 @@ class AOcontrol:
         self.aostop = aostop
         self.dec = dec
         self.running = False
+        self.running_cycle = False
+        self.remaining = 0
         self.remaining_time = 0
-        self.aostart.config(command=lambda: self.setdec())
-        self.aostop.config(command=self.setdecstp)
+        self.aostart.config(command=lambda: self.start())
+        self.aostop.config(command=self.stop)
 
     # def remain(self):
     #     # remaining time display
@@ -290,6 +303,31 @@ class AOcontrol:
     #                 self.setdecstp()
 
     #     rem()
+
+    def remain_cycle_new(self):
+        for r in range(self.remaining):
+            if self.running_cycle:
+                rem_time = self.remaining - r - 1
+                self.aoremaincycle.delete(0, tk.END)
+                self.aoremaincycle.insert(0, rem_time)
+                main.update()
+                self.setdec()
+            else:
+                break
+
+    def start(self):
+        self.running_cycle = True
+        self.aostart["state"] = "disable"
+        self.aostop["state"] = "normal"
+        self.remaining = int(self.aosetcycle.get())
+        self.remain_cycle_new()
+        self.stop()
+
+    def stop(self):
+        self.running_cycle = False
+        self.aostart["state"] = "normal"
+        self.aostop["state"] = "disable"
+        self.setdecstp()
 
     def remain_new(self):
         def rem():
@@ -334,8 +372,6 @@ class AOcontrol:
                         seconds=aominholdtime.second,
                     ).total_seconds()
                 )
-                self.aostart["state"] = "disable"
-                self.aostop["state"] = "normal"
 
                 self.minvoltramp()
 
@@ -409,8 +445,6 @@ class AOcontrol:
 
     def setdecstp(self):
         self.running = False
-        self.aostart["state"] = "normal"
-        self.aostop["state"] = "disable"
         self.dec.set_voltage(0)
 
     def validate(self, entry):
@@ -479,55 +513,55 @@ class Cycle:
                 r.stop()
 
 
-class AOCycle:
-    def __init__(self, entry1, entry2, btnstart, btnstop):
-        self.entry1 = entry1
-        self.entry2 = entry2
-        self.remaining = 0
-        self.btnstart = btnstart
-        self.btnstop = btnstop
-        self.running = False
-        self.btnstart.config(command=lambda: self.start())
-        self.btnstop.config(command=self.stop)
+# class AOCycle:
+#     def __init__(self, entry1, entry2, btnstart, btnstop):
+#         self.entry1 = entry1
+#         self.entry2 = entry2
+#         self.remaining = 0
+#         self.btnstart = btnstart
+#         self.btnstop = btnstop
+#         self.running = False
+#         self.btnstart.config(command=lambda: self.start())
+#         self.btnstop.config(command=self.stop)
 
-    def remain_new(self):
-        aocy = [aocb1, aocb2]
-        sada = [sada1, sada2]
+#     def remain_new(self):
+#         aocy = [aocb1, aocb2]
+#         sada = [sada1, sada2]
 
-        for r in range(self.remaining):
-            if self.running:
-                rem_time = self.remaining - r - 1
-                self.entry2.delete(0, tk.END)
-                self.entry2.insert(0, rem_time)
-                main.update()
-                i = 0
-                for c in aocy:
-                    if self.running:
-                        if c.get() == 1:
-                            sada[i].setdec(r=0, rr=1)
-                        i += 1
-                    else:
-                        break
-            else:
-                break
+#         for r in range(self.remaining):
+#             if self.running:
+#                 rem_time = self.remaining - r - 1
+#                 self.entry2.delete(0, tk.END)
+#                 self.entry2.insert(0, rem_time)
+#                 main.update()
+#                 i = 0
+#                 for c in aocy:
+#                     if self.running:
+#                         if c.get() == 1:
+#                             sada[i].setdec(r=0, rr=1)
+#                         i += 1
+#                     else:
+#                         break
+#             else:
+#                 break
 
-    def start(self):
-        self.running = True
-        self.btnstart["state"] = "disable"
-        self.btnstop["state"] = "normal"
-        self.remaining = int(self.entry1.get())
-        self.remain_new()
-        self.stop()
+#     def start(self):
+#         self.running = True
+#         self.btnstart["state"] = "disable"
+#         self.btnstop["state"] = "normal"
+#         self.remaining = int(self.entry1.get())
+#         self.remain_new()
+#         self.stop()
 
-    def stop(self):
-        self.running = False
-        self.btnstart["state"] = "normal"
-        self.btnstop["state"] = "disable"
-        aocy = [aocb1, aocb2]
-        sada = [sada1, sada2]
-        for r, c in zip(sada, aocy):
-            if c.get() == 1:
-                r.setdecstp()
+#     def stop(self):
+#         self.running = False
+#         self.btnstart["state"] = "normal"
+#         self.btnstop["state"] = "disable"
+#         aocy = [aocb1, aocb2]
+#         sada = [sada1, sada2]
+#         for r, c in zip(sada, aocy):
+#             if c.get() == 1:
+#                 r.setdecstp()
 
 
 # gives weight to the cells in the grid
@@ -1093,8 +1127,10 @@ if __name__ == "__main__":
     aocb2 = tk.IntVar()
 
     # Create a DAC instance.
-    dac1 = 1
-    dac2 = 2
+    # dac1 = 1
+    # dac2 = 2
+    dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
+    dac2 = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)
 
     ttk.Label(ada, text="Min").grid(row=0, column=1)
     ttk.Label(ada, text="Ramp Time").grid(row=0, column=2)
