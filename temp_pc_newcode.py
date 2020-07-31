@@ -811,9 +811,11 @@ if __name__ == "__main__":
         aboutPage, text="Citriot Data Acquisition System", font=("Helvetica", 24)
     ).pack(side="top", pady=5)
 
-    image = Image.open(
-        r"C:\Users\Infinity\Desktop\Project\DAQ-basic-GUI\Logo2.png"
-    )  # /home/pi/.DAQ/New/DAQ-basic-GUI/Logo2.png
+    try:
+        image = Image.open("/home/pi/.DAQ/New/DAQ-basic-GUI/Logo2.png")
+    except Exception:
+        image = Image.open(r"C:\Users\Infinity\Desktop\Project\DAQ-basic-GUI\Logo2.png")
+    # /home/pi/.DAQ/New/DAQ-basic-GUI/Logo2.png
     # /home/pi/Desktop/New/DAQ-basic-GUI/Logo2.png
     image = image.resize(
         (500, 250), Image.ANTIALIAS
