@@ -431,10 +431,11 @@ class AOcontrol:
                 seconds=aomaxramptime.second,
             ).total_seconds()
         )
-        # min volt -----------------
+        # max volt -----------------
+        minvolt = round(float(self.aominvolt.get()), 2)
         volt = round(float(self.aomaxvolt.get()), 2)
-        incvolt = volt / ramp_total
-        tmp_volt = 0
+        incvolt = (volt - minvolt) / ramp_total
+        tmp_volt = minvolt
         while tmp_volt <= volt:
             tmp_volt += incvolt
             xdec = int((tmp_volt / 5.11) * 4096)
