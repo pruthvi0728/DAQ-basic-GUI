@@ -263,6 +263,7 @@ class AOcontrol:
         self.adabtn.config(command=lambda: self.setdec(r=0, rr=0))
         self.stpadabtn.config(command=self.setdecstp)
         self.btnao.config(command=self.toggleao)
+        self.setdecstp()
 
     def remain(self):
         # remaining time display
@@ -557,7 +558,9 @@ def get_data():
                     di_data[i] = 'OFF'
                 else:
                     di_data[i] = 'ON'
-
+            
+            
+            filter_data[15], filter_data[14], filter_data[13], filter_data[12] = filter_data[12], filter_data[13], filter_data[14], filter_data[15]
             print(filter_data)
             datatimestamp = [str(dt.datetime.now())]
             datasave = datatimestamp + filter_data[:16] + di_data
@@ -689,7 +692,7 @@ if __name__ == "__main__":
     # L = Label(aboutPage, image=image).pack()
     ttk.Label(aboutPage, text="Citriot Data Acquisition System", font=("Helvetica", 24)).pack(side="top", pady=5)
 
-    image = Image.open("/home/pi/.DAQ/New/DAQ-basic-GUI/Logo2.png")     # /home/pi/.DAQ/New/DAQ-basic-GUI/Logo2.png
+    image = Image.open("/home/pi/.DAQ/DAQ-basic-GUI/Logo2.png")     # /home/pi/.DAQ//DAQ-basic-GUI/Logo2.png
     # /home/pi/Desktop/New/DAQ-basic-GUI/Logo2.png
     image = image.resize((500, 250), Image.ANTIALIAS)  # The (250, 250) is (height, width)
     img = ImageTk.PhotoImage(image)
@@ -973,8 +976,8 @@ if __name__ == "__main__":
     aocb2 = tk.IntVar()
 
     # Create a DAC instance.
-    dac = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)
-    dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
+    dac = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
+    dac1 = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)
 
     ttk.Label(ada, text="Set Time").grid(row=0, column=3)
     ttk.Label(ada, text="Remaining").grid(row=0, column=5)
