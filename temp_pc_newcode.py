@@ -10,23 +10,24 @@ from tkinter import messagebox
 import datetime as dt
 import csv
 from ttkthemes import ThemedStyle
-import Adafruit_MCP4725
-import RPi.GPIO as GPIO
-import serial
+
+# import Adafruit_MCP4725
+# import RPi.GPIO as GPIO
+# import serial
 
 
-GPIO.setmode(GPIO.BCM)
+# GPIO.setmode(GPIO.BCM)
 
 doPinlist = [25, 17, 18, 27, 22, 23, 24, 10]
 diPinlist = [5, 6, 13, 19, 26, 16, 20, 21]
 di_data = [0, 0, 0, 0, 0, 0, 0, 0]
 
-for i in doPinlist:
-    GPIO.setup(i, GPIO.OUT)
-    GPIO.output(i, GPIO.LOW)
+# for i in doPinlist:
+#     GPIO.setup(i, GPIO.OUT)
+#     GPIO.output(i, GPIO.LOW)
 
-for i in diPinlist:
-    GPIO.setup(i, GPIO.IN)
+# for i in diPinlist:
+#     GPIO.setup(i, GPIO.IN)
 
 serial_data = ""
 filter_data = ""
@@ -283,10 +284,13 @@ class AOcontrol:
         self.aostop = aostop
         self.dec = dec
         self.running = False
+        self.running_ok = True
         self.running_cycle = False
         self.remaining = 0
         self.remaining_time = 0
-        self.aostart.config(command=lambda: self.start())
+        self.AOTrd = threading.Thread(target=self.start)
+        self.AOTrd.daemon = True
+        self.aostart.config(command=lambda: self.AOTrd.start())
         self.aostop.config(command=self.stop)
 
     # def remain(self):
@@ -305,11 +309,11 @@ class AOcontrol:
     #     rem()
 
     def remain_cycle_new(self):
-        for r in range(self.remaining):
+        for self.r in range(self.remaining):
             if self.running_cycle:
-                rem_time = self.remaining - r - 1
+                self.rem_time = self.remaining - self.r - 1
                 self.aoremaincycle.delete(0, tk.END)
-                self.aoremaincycle.insert(0, rem_time)
+                self.aoremaincycle.insert(0, self.rem_time)
                 main.update()
                 self.setdec()
             else:
@@ -341,13 +345,16 @@ class AOcontrol:
                     time.sleep(1)
                     rem()
                 else:
-                    self.setdecstp()
+                    self.setstp_remain_new()
 
         rem()
 
+    def setstp_remain_new(self):
+        self.running = False
+        print("Loop Stoped")
+
     def setdec(self):
-        self.running = True
-        # calculation for remaining time
+        self.running_ok = True
         try:
             if self.validate(self.aominvolt) and self.validate(self.aomaxvolt):
                 if (
@@ -373,11 +380,19 @@ class AOcontrol:
                     ).total_seconds()
                 )
 
-                self.minvoltramp()
+                self.running = True
+                if self.running_ok:
+                    self.minvoltramp()
 
-                self.remain_new()
+                print("Min Volt hold start")
+                if self.running_ok:
+                    self.remain_new()
+                print("Min Volt hold stop")
 
-                self.maxvoltramp()
+                self.running = True
+
+                if self.running_ok:
+                    self.maxvoltramp()
 
                 aomaxholdtime = dt.datetime.strptime(
                     self.aomaxholdtime.get(), "%H:%M:%S"
@@ -391,67 +406,90 @@ class AOcontrol:
                     ).total_seconds()
                 )
 
-                self.remain_new()
+                print("Max Volt hold start")
+                if self.running_ok:
+                    self.remain_new()
+                print("Max Volt hold stop")
         except ValueError:
             messagebox.showinfo("Error", "Enter value in non zero hh:mm:ss format only")
         except:
             messagebox.showinfo("Error", "Something went wrong")
 
     def minvoltramp(self):
-        aominramptime = dt.datetime.strptime(
-            self.aominramptime.get(), "%H:%M:%S"
-        ).time()
-        ramp_total = int(
-            dt.timedelta(
-                hours=aominramptime.hour,
-                minutes=aominramptime.minute,
-                seconds=aominramptime.second,
-            ).total_seconds()
-        )
-        # min volt -----------------
-        volt = round(float(self.aominvolt.get()), 2)
-        incvolt = volt / ramp_total
-        tmp_volt = 0
-        while tmp_volt <= volt:
-            tmp_volt += incvolt
-            xdec = int((tmp_volt / 5.11) * 4096)
-            # messagebox.showinfo("Hello", str(xdec))
-            self.dec.set_voltage(xdec)
-            main.update()
-            time.sleep(1)
+        if self.running:
+            print("Min Volt Ramp")
+            self.get_aominramptime = dt.datetime.strptime(
+                self.aominramptime.get(), "%H:%M:%S"
+            ).time()
+            self.minvoltramp_total = int(
+                dt.timedelta(
+                    hours=self.get_aominramptime.hour,
+                    minutes=self.get_aominramptime.minute,
+                    seconds=self.get_aominramptime.second,
+                ).total_seconds()
+            )
+            # min volt -----------------
+            self.minvoltramp_volt = round(float(self.aominvolt.get()), 2)
+            self.minvoltramp_incvolt = self.minvoltramp_volt / self.minvoltramp_total
+            self.minvoltramp_tmp_volt = 0
+            while self.minvoltramp_tmp_volt <= self.minvoltramp_volt:
+                if self.running:
+                    self.minvoltramp_tmp_volt += self.minvoltramp_incvolt
+                    self.minvoltramp_xdec = int(
+                        (self.minvoltramp_tmp_volt / 5.11) * 4096
+                    )
+                    # messagebox.showinfo("Hello", str(xdec))
+                    # self.dec.set_voltage(xdec)
+                    print(self.minvoltramp_tmp_volt, self.minvoltramp_xdec)
+                    main.update()
+                    time.sleep(1)
+                else:
+                    break
 
     def maxvoltramp(self):
-        aomaxramptime = dt.datetime.strptime(
-            self.aomaxramptime.get(), "%H:%M:%S"
-        ).time()
-        ramp_total = int(
-            dt.timedelta(
-                hours=aomaxramptime.hour,
-                minutes=aomaxramptime.minute,
-                seconds=aomaxramptime.second,
-            ).total_seconds()
-        )
-        # max volt -----------------
-        minvolt = round(float(self.aominvolt.get()), 2)
-        volt = round(float(self.aomaxvolt.get()), 2)
-        incvolt = (volt - minvolt) / ramp_total
-        tmp_volt = minvolt
-        while tmp_volt <= volt:
-            tmp_volt += incvolt
-            xdec = int((tmp_volt / 5.11) * 4096)
-            # messagebox.showinfo("Hello", str(xdec))
-            self.dec.set_voltage(xdec)
-            main.update()
-            time.sleep(1)
+        if self.running:
+            print("Max Volt Ramp")
+            self.get_aomaxramptime = dt.datetime.strptime(
+                self.aomaxramptime.get(), "%H:%M:%S"
+            ).time()
+            self.maxvoltramp_ramp_total = int(
+                dt.timedelta(
+                    hours=self.get_aomaxramptime.hour,
+                    minutes=self.get_aomaxramptime.minute,
+                    seconds=self.get_aomaxramptime.second,
+                ).total_seconds()
+            )
+            # max volt -----------------
+            self.maxvoltramp_minvolt = round(float(self.aominvolt.get()), 2)
+            self.maxvoltramp_volt = round(float(self.aomaxvolt.get()), 2)
+            self.maxvoltramp_incvolt = (
+                self.maxvoltramp_volt - self.maxvoltramp_minvolt
+            ) / self.maxvoltramp_ramp_total
+            self.maxvoltramp_tmp_volt = self.maxvoltramp_minvolt
+            while self.maxvoltramp_tmp_volt <= self.maxvoltramp_volt:
+                if self.running:
+                    self.maxvoltramp_tmp_volt += self.maxvoltramp_incvolt
+                    self.maxvoltramp_xdec = int(
+                        (self.maxvoltramp_tmp_volt / 5.11) * 4096
+                    )
+                    # messagebox.showinfo("Hello", str(xdec))
+                    # self.dec.set_voltage(xdec)
+                    print(self.maxvoltramp_tmp_volt, self.maxvoltramp_xdec)
+                    main.update()
+                    time.sleep(1)
+                else:
+                    break
 
     def setdecstp(self):
         self.running = False
-        self.dec.set_voltage(0)
+        self.running_ok = False
+        # self.dec.set_voltage(0)
+        print("stop 0")
 
     def validate(self, entry):
         try:
-            volt = float(entry.get())
-            if volt < 0 or volt > 5:
+            self.volt = float(entry.get())
+            if self.volt < 0 or self.volt > 5:
                 messagebox.showinfo("Error", "Voltage only between 0 to 5")
                 return False
             else:
@@ -1126,14 +1164,11 @@ if __name__ == "__main__":
     ada = ttk.Frame(nb)
     nb.add(ada, text="Analog Output")
 
-    aocb1 = tk.IntVar()
-    aocb2 = tk.IntVar()
-
     # Create a DAC instance.
-    # dac1 = 1
-    # dac2 = 2
-    dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
-    dac2 = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)
+    dac1 = 1
+    dac2 = 2
+    # dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
+    # dac2 = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)
 
     ttk.Label(ada, text="Min").grid(row=0, column=1)
     ttk.Label(ada, text="Ramp Time").grid(row=0, column=2)
@@ -1141,19 +1176,19 @@ if __name__ == "__main__":
     ttk.Label(ada, text="Cycle").grid(row=0, column=4)
 
     ao1minvolt = ttk.Entry(ada, width=11)
-    ao1minvolt.insert(0, str("0"))
+    ao1minvolt.insert(0, str("2"))
     ao1minvolt.grid(row=1, column=1, padx=10)
 
     ao1minramptime = ttk.Entry(ada, width=11)
-    ao1minramptime.insert(0, str("00:00:00"))
+    ao1minramptime.insert(0, str("00:00:05"))
     ao1minramptime.grid(row=1, column=2, padx=10)
 
     ao1minholdtime = ttk.Entry(ada, width=11)
-    ao1minholdtime.insert(0, str("00:00:00"))
+    ao1minholdtime.insert(0, str("00:00:07"))
     ao1minholdtime.grid(row=1, column=3, padx=10)
 
     ao1setcycle = ttk.Entry(ada, width=11)
-    ao1setcycle.insert(0, str("0"))
+    ao1setcycle.insert(0, str("5"))
     ao1setcycle.grid(row=1, column=4, padx=10)
 
     ao1start = ttk.Button(ada, text="Start", width=5)
@@ -1167,15 +1202,15 @@ if __name__ == "__main__":
     ttk.Label(ada, text="Remain Cycle").grid(row=2, column=4)
 
     ao1maxvolt = ttk.Entry(ada, width=11)
-    ao1maxvolt.insert(0, str("0"))
+    ao1maxvolt.insert(0, str("4"))
     ao1maxvolt.grid(row=3, column=1, padx=10)
 
     ao1maxramptime = ttk.Entry(ada, width=11)
-    ao1maxramptime.insert(0, str("00:00:00"))
+    ao1maxramptime.insert(0, str("00:00:08"))
     ao1maxramptime.grid(row=3, column=2, padx=10)
 
     ao1maxholdtime = ttk.Entry(ada, width=11)
-    ao1maxholdtime.insert(0, str("00:00:00"))
+    ao1maxholdtime.insert(0, str("00:00:10"))
     ao1maxholdtime.grid(row=3, column=3, padx=10)
 
     ao1remaincycle = ttk.Entry(ada, width=11)
@@ -1205,19 +1240,19 @@ if __name__ == "__main__":
     ttk.Label(ada, text="Cycle").grid(row=5, column=4)
 
     ao2minvolt = ttk.Entry(ada, width=11)
-    ao2minvolt.insert(0, str("0"))
+    ao2minvolt.insert(0, str("1"))
     ao2minvolt.grid(row=6, column=1, padx=10)
 
     ao2minramptime = ttk.Entry(ada, width=11)
-    ao2minramptime.insert(0, str("00:00:00"))
+    ao2minramptime.insert(0, str("00:00:05"))
     ao2minramptime.grid(row=6, column=2, padx=10)
 
     ao2minholdtime = ttk.Entry(ada, width=11)
-    ao2minholdtime.insert(0, str("00:00:00"))
+    ao2minholdtime.insert(0, str("00:00:09"))
     ao2minholdtime.grid(row=6, column=3, padx=10)
 
     ao2setcycle = ttk.Entry(ada, width=11)
-    ao2setcycle.insert(0, str("0"))
+    ao2setcycle.insert(0, str("4"))
     ao2setcycle.grid(row=6, column=4, padx=10)
 
     ao2start = ttk.Button(ada, text="Start", width=5)
@@ -1231,15 +1266,15 @@ if __name__ == "__main__":
     ttk.Label(ada, text="Remain Cycle").grid(row=7, column=4)
 
     ao2maxvolt = ttk.Entry(ada, width=11)
-    ao2maxvolt.insert(0, str("0"))
+    ao2maxvolt.insert(0, str("5"))
     ao2maxvolt.grid(row=8, column=1, padx=10)
 
     ao2maxramptime = ttk.Entry(ada, width=11)
-    ao2maxramptime.insert(0, str("00:00:00"))
+    ao2maxramptime.insert(0, str("00:00:07"))
     ao2maxramptime.grid(row=8, column=2, padx=10)
 
     ao2maxholdtime = ttk.Entry(ada, width=11)
-    ao2maxholdtime.insert(0, str("00:00:00"))
+    ao2maxholdtime.insert(0, str("00:00:10"))
     ao2maxholdtime.grid(row=8, column=3, padx=10)
 
     ao2remaincycle = ttk.Entry(ada, width=11)
