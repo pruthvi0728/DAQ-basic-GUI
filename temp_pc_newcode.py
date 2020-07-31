@@ -812,7 +812,7 @@ if __name__ == "__main__":
     ).pack(side="top", pady=5)
 
     try:
-        image = Image.open("/home/pi/.DAQ/New/DAQ-basic-GUI/Logo2.png")
+        image = Image.open("/home/pi/.DAQ/DAQ-basic-GUI/Logo2.png")
     except Exception:
         image = Image.open(r"C:\Users\Infinity\Desktop\Project\DAQ-basic-GUI\Logo2.png")
     # /home/pi/.DAQ/New/DAQ-basic-GUI/Logo2.png
