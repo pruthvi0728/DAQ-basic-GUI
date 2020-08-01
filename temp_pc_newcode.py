@@ -15,7 +15,6 @@ from ttkthemes import ThemedStyle
 # import RPi.GPIO as GPIO
 # import serial
 
-
 # GPIO.setmode(GPIO.BCM)
 
 doPinlist = [25, 17, 18, 27, 22, 23, 24, 10]
@@ -288,44 +287,34 @@ class AOcontrol:
         self.running_cycle = False
         self.remaining = 0
         self.remaining_time = 0
-        self.AOTrd = threading.Thread(target=self.start)
-        self.AOTrd.daemon = True
-        self.aostart.config(command=lambda: self.AOTrd.start())
+        # self.AOTrd = threading.Thread(target=self.start)  # +++++++++++
+        # self.AOTrd.daemon = True
+        # self.aostart.config(command=lambda: self.AOTrd.start())  # ++++++++++
+        self.aostart.config(command=lambda: self.start())
         self.aostop.config(command=self.stop)
 
-    # def remain(self):
-    #     # remaining time display
-    #     def rem():
-    #         if self.running:
-    #             if self.remaining_time != 0:
-    #                 self.remaining_time = self.remaining_time - 1
-    #                 self.btnentry2.delete(0, tk.END)
-    #                 rem_time = dt.timedelta(seconds=self.remaining_time)
-    #                 self.btnentry2.insert(0, rem_time)
-    #                 self.btnentry2.after(1000, rem)
-    #             else:
-    #                 self.setdecstp()
-
-    #     rem()
-
     def remain_cycle_new(self):
-        for self.r in range(self.remaining):
-            if self.running_cycle:
-                self.rem_time = self.remaining - self.r - 1
-                self.aoremaincycle.delete(0, tk.END)
-                self.aoremaincycle.insert(0, self.rem_time)
-                main.update()
-                self.setdec()
-            else:
-                break
+        try:
+            for self.r in range(self.remaining):
+                if self.running_cycle:
+                    self.rem_time = self.remaining - self.r - 1
+                    self.aoremaincycle.delete(0, tk.END)
+                    self.aoremaincycle.insert(0, self.rem_time)
+                    main.update()
+                    self.setdec()
+                else:
+                    break
+        finally:
+            self.stop()
 
     def start(self):
         self.running_cycle = True
         self.aostart["state"] = "disable"
         self.aostop["state"] = "normal"
         self.remaining = int(self.aosetcycle.get())
-        self.remain_cycle_new()
-        self.stop()
+        self.AOTrd = threading.Thread(target=self.remain_cycle_new)  # --------
+        self.AOTrd.start()  # ----------
+        # self.remain_cycle_new() # +++++++++++++
 
     def stop(self):
         self.running_cycle = False
@@ -338,9 +327,6 @@ class AOcontrol:
             if self.running:
                 if self.remaining_time != 0:
                     self.remaining_time = self.remaining_time - 1
-                    # rem_time = dt.timedelta(seconds=self.remaining_time)
-                    # self.btnentry2.delete(0, tk.END)
-                    # self.btnentry2.insert(0, rem_time)
                     main.update()
                     time.sleep(1)
                     rem()
@@ -434,7 +420,6 @@ class AOcontrol:
             self.minvoltramp_tmp_volt = 0
             while self.minvoltramp_tmp_volt <= self.minvoltramp_volt:
                 if self.running:
-                    self.minvoltramp_tmp_volt += self.minvoltramp_incvolt
                     self.minvoltramp_xdec = int(
                         (self.minvoltramp_tmp_volt / 5.11) * 4096
                     )
@@ -443,6 +428,7 @@ class AOcontrol:
                     print(self.minvoltramp_tmp_volt, self.minvoltramp_xdec)
                     main.update()
                     time.sleep(1)
+                    self.minvoltramp_tmp_volt += self.minvoltramp_incvolt
                 else:
                     break
 
@@ -468,7 +454,6 @@ class AOcontrol:
             self.maxvoltramp_tmp_volt = self.maxvoltramp_minvolt
             while self.maxvoltramp_tmp_volt <= self.maxvoltramp_volt:
                 if self.running:
-                    self.maxvoltramp_tmp_volt += self.maxvoltramp_incvolt
                     self.maxvoltramp_xdec = int(
                         (self.maxvoltramp_tmp_volt / 5.11) * 4096
                     )
@@ -477,6 +462,7 @@ class AOcontrol:
                     print(self.maxvoltramp_tmp_volt, self.maxvoltramp_xdec)
                     main.update()
                     time.sleep(1)
+                    self.maxvoltramp_tmp_volt += self.maxvoltramp_incvolt
                 else:
                     break
 
