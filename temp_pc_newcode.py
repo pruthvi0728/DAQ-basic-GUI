@@ -287,6 +287,7 @@ class AOcontrol:
         self.running_cycle = False
         self.remaining = 0
         self.remaining_time = 0
+        self.dec.set_voltage(0)
         # self.AOTrd = threading.Thread(target=self.start)  # +++++++++++
         # self.AOTrd.daemon = True
         # self.aostart.config(command=lambda: self.AOTrd.start())  # ++++++++++
@@ -738,15 +739,6 @@ def update_main():
     thermocoupleText7.grid(column=2, row=7)
     thermocoupleText8.grid(column=2, row=8)
 
-    analogText1.grid(column=2, row=1)
-    analogText2.grid(column=2, row=2)
-    analogText3.grid(column=2, row=3)
-    analogText4.grid(column=2, row=4)
-    analogText5.grid(column=2, row=5)
-    analogText6.grid(column=2, row=6)
-    analogText7.grid(column=2, row=7)
-    analogText8.grid(column=2, row=8)
-
     diText1.grid(column=2, row=1)
     diText2.grid(column=2, row=2)
     diText3.grid(column=2, row=3)
@@ -772,14 +764,111 @@ def update_main():
             thermocoupleText7.config(text=filter_data[6])
             thermocoupleText8.config(text=filter_data[7])
 
-            analogText1.config(text=filter_data[8])
-            analogText2.config(text=filter_data[9])
-            analogText3.config(text=filter_data[10])
-            analogText4.config(text=filter_data[11])
-            analogText5.config(text=filter_data[12])
-            analogText6.config(text=filter_data[13])
-            analogText7.config(text=filter_data[14])
-            analogText8.config(text=filter_data[15])
+            ai1currentvolt.config(text=filter_data[8])
+            ai2currentvolt.config(text=filter_data[9])
+            ai3currentvolt.config(text=filter_data[10])
+            ai4currentvolt.config(text=filter_data[11])
+            ai5currentvolt.config(text=filter_data[12])
+            ai6currentvolt.config(text=filter_data[13])
+            ai7currentvolt.config(text=filter_data[14])
+            ai8currentvolt.config(text=filter_data[15])
+
+            ai1measurevalue.config(
+                text=str(
+                    round(
+                        (
+                            (ai1maxphy.get() - ai1minphy.get())
+                            / (ai1maxvolt.get() - ai1minvolt.get())
+                        )
+                        * float(filter_data[8]),
+                        2,
+                    )
+                )
+            )
+            ai2measurevalue.config(
+                text=str(
+                    round(
+                        (
+                            (ai2maxphy.get() - ai2minphy.get())
+                            / (ai2maxvolt.get() - ai2minvolt.get())
+                        )
+                        * float(filter_data[9]),
+                        2,
+                    )
+                )
+            )
+            ai3measurevalue.config(
+                text=str(
+                    round(
+                        (
+                            (ai3maxphy.get() - ai3minphy.get())
+                            / (ai3maxvolt.get() - ai3minvolt.get())
+                        )
+                        * float(filter_data[10]),
+                        2,
+                    )
+                )
+            )
+            ai4measurevalue.config(
+                text=str(
+                    round(
+                        (
+                            (ai4maxphy.get() - ai4minphy.get())
+                            / (ai4maxvolt.get() - ai4minvolt.get())
+                        )
+                        * float(filter_data[11]),
+                        2,
+                    )
+                )
+            )
+            ai5measurevalue.config(
+                text=str(
+                    round(
+                        (
+                            (ai5maxphy.get() - ai5minphy.get())
+                            / (ai5maxvolt.get() - ai5minvolt.get())
+                        )
+                        * float(filter_data[12]),
+                        2,
+                    )
+                )
+            )
+            ai6measurevalue.config(
+                text=str(
+                    round(
+                        (
+                            (ai6maxphy.get() - ai6minphy.get())
+                            / (ai6maxvolt.get() - ai6minvolt.get())
+                        )
+                        * float(filter_data[13]),
+                        2,
+                    )
+                )
+            )
+            ai7measurevalue.config(
+                text=str(
+                    round(
+                        (
+                            (ai7maxphy.get() - ai7minphy.get())
+                            / (ai7maxvolt.get() - ai7minvolt.get())
+                        )
+                        * float(filter_data[14]),
+                        2,
+                    )
+                )
+            )
+            ai8measurevalue.config(
+                text=str(
+                    round(
+                        (
+                            (ai8maxphy.get() - ai8minphy.get())
+                            / (ai8maxvolt.get() - ai8minvolt.get())
+                        )
+                        * float(filter_data[15]),
+                        2,
+                    )
+                )
+            )
 
             diText1.config(text=di_data[0])
             diText2.config(text=di_data[1])
@@ -1126,14 +1215,238 @@ if __name__ == "__main__":
     analogPage = ttk.Frame(nb)
     nb.add(analogPage, text="Analog Input")
 
-    analogText1 = ttk.Label(analogPage, text="Loading...", font=("Courier", 15))
-    analogText2 = ttk.Label(analogPage, text="Loading...", font=("Courier", 15))
-    analogText3 = ttk.Label(analogPage, text="Loading...", font=("Courier", 15))
-    analogText4 = ttk.Label(analogPage, text="Loading...", font=("Courier", 15))
-    analogText5 = ttk.Label(analogPage, text="Loading...", font=("Courier", 15))
-    analogText6 = ttk.Label(analogPage, text="Loading...", font=("Courier", 15))
-    analogText7 = ttk.Label(analogPage, text="Loading...", font=("Courier", 15))
-    analogText8 = ttk.Label(analogPage, text="Loading...", font=("Courier", 15))
+    ttk.Label(analogPage, text="Min Volt").grid(row=0, column=1)
+    ttk.Label(analogPage, text="Min Phy Value").grid(row=0, column=2)
+    ttk.Label(analogPage, text="Max Volt").grid(row=0, column=3)
+    ttk.Label(analogPage, text="Max Phy Value").grid(row=0, column=4)
+    ttk.Label(analogPage, text="Current Value").grid(row=0, column=5)
+    ttk.Label(analogPage, text="Measure Value").grid(row=0, column=6)
+
+    # Creating variable for checkbox
+    aicb1 = tk.IntVar()
+    aicb2 = tk.IntVar()
+    aicb3 = tk.IntVar()
+    aicb4 = tk.IntVar()
+    aicb5 = tk.IntVar()
+    aicb6 = tk.IntVar()
+    aicb7 = tk.IntVar()
+    aicb8 = tk.IntVar()
+
+    # AI1 Start
+    ttk.Checkbutton(analogPage, text="AI 1", variable=aicb1).grid(
+        column=0, row=1, padx=10
+    )
+
+    ai1minvolt = ttk.Entry(analogPage, width=11)
+    ai1minvolt.insert(0, str("0"))
+    ai1minvolt.grid(row=1, column=1, padx=10)
+
+    ai1minphy = ttk.Entry(analogPage, width=11)
+    ai1minphy.insert(0, str("0"))
+    ai1minphy.grid(row=1, column=2, padx=10)
+
+    ai1maxvolt = ttk.Entry(analogPage, width=11)
+    ai1maxvolt.insert(0, str("0"))
+    ai1maxvolt.grid(row=1, column=3, padx=10)
+
+    ai1maxphy = ttk.Entry(analogPage, width=11)
+    ai1maxphy.insert(0, str("0"))
+    ai1maxphy.grid(row=1, column=4, padx=10)
+
+    ai1currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai1currentvolt.grid(row=1, column=5, padx=10)
+
+    ai1measurevalue = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai1measurevalue.grid(row=1, column=6, padx=10)
+
+    # AI2 Start
+    ttk.Checkbutton(analogPage, text="AI 2", variable=aicb2).grid(
+        column=0, row=2, padx=10
+    )
+
+    ai2minvolt = ttk.Entry(analogPage, width=11)
+    ai2minvolt.insert(0, str("0"))
+    ai2minvolt.grid(row=2, column=1, padx=10)
+
+    ai2minphy = ttk.Entry(analogPage, width=11)
+    ai2minphy.insert(0, str("0"))
+    ai2minphy.grid(row=2, column=2, padx=10)
+
+    ai2maxvolt = ttk.Entry(analogPage, width=11)
+    ai2maxvolt.insert(0, str("0"))
+    ai2maxvolt.grid(row=2, column=3, padx=10)
+
+    ai2maxphy = ttk.Entry(analogPage, width=11)
+    ai2maxphy.insert(0, str("0"))
+    ai2maxphy.grid(row=2, column=4, padx=10)
+
+    ai2currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai2currentvolt.grid(row=2, column=5, padx=10)
+
+    ai2measurevalue = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai2measurevalue.grid(row=2, column=6, padx=10)
+
+    # AI3 Start
+    ttk.Checkbutton(analogPage, text="AI 3", variable=aicb3).grid(
+        column=0, row=3, padx=10
+    )
+
+    ai3minvolt = ttk.Entry(analogPage, width=11)
+    ai3minvolt.insert(0, str("0"))
+    ai3minvolt.grid(row=3, column=1, padx=10)
+
+    ai3minphy = ttk.Entry(analogPage, width=11)
+    ai3minphy.insert(0, str("0"))
+    ai3minphy.grid(row=3, column=2, padx=10)
+
+    ai3maxvolt = ttk.Entry(analogPage, width=11)
+    ai3maxvolt.insert(0, str("0"))
+    ai3maxvolt.grid(row=3, column=3, padx=10)
+
+    ai3maxphy = ttk.Entry(analogPage, width=11)
+    ai3maxphy.insert(0, str("0"))
+    ai3maxphy.grid(row=3, column=4, padx=10)
+
+    ai3currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai3currentvolt.grid(row=3, column=5, padx=10)
+
+    ai3measurevalue = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai3measurevalue.grid(row=3, column=6, padx=10)
+
+    # AI4 Start
+    ttk.Checkbutton(analogPage, text="AI 4", variable=aicb4).grid(
+        column=0, row=4, padx=10
+    )
+
+    ai4minvolt = ttk.Entry(analogPage, width=11)
+    ai4minvolt.insert(0, str("0"))
+    ai4minvolt.grid(row=4, column=1, padx=10)
+
+    ai4minphy = ttk.Entry(analogPage, width=11)
+    ai4minphy.insert(0, str("0"))
+    ai4minphy.grid(row=4, column=2, padx=10)
+
+    ai4maxvolt = ttk.Entry(analogPage, width=11)
+    ai4maxvolt.insert(0, str("0"))
+    ai4maxvolt.grid(row=4, column=3, padx=10)
+
+    ai4maxphy = ttk.Entry(analogPage, width=11)
+    ai4maxphy.insert(0, str("0"))
+    ai4maxphy.grid(row=4, column=4, padx=10)
+
+    ai4currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai4currentvolt.grid(row=4, column=5, padx=10)
+
+    ai4measurevalue = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai4measurevalue.grid(row=4, column=6, padx=10)
+
+    # AI5 Start
+    ttk.Checkbutton(analogPage, text="AI 5", variable=aicb5).grid(
+        column=0, row=5, padx=10
+    )
+
+    ai5minvolt = ttk.Entry(analogPage, width=11)
+    ai5minvolt.insert(0, str("0"))
+    ai5minvolt.grid(row=5, column=1, padx=10)
+
+    ai5minphy = ttk.Entry(analogPage, width=11)
+    ai5minphy.insert(0, str("0"))
+    ai5minphy.grid(row=5, column=2, padx=10)
+
+    ai5maxvolt = ttk.Entry(analogPage, width=11)
+    ai5maxvolt.insert(0, str("0"))
+    ai5maxvolt.grid(row=5, column=3, padx=10)
+
+    ai5maxphy = ttk.Entry(analogPage, width=11)
+    ai5maxphy.insert(0, str("0"))
+    ai5maxphy.grid(row=5, column=4, padx=10)
+
+    ai5currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai5currentvolt.grid(row=5, column=5, padx=10)
+
+    ai5measurevalue = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai5measurevalue.grid(row=5, column=6, padx=10)
+
+    # AI6 Start
+    ttk.Checkbutton(analogPage, text="AI 6", variable=aicb6).grid(
+        column=0, row=6, padx=10
+    )
+
+    ai6minvolt = ttk.Entry(analogPage, width=11)
+    ai6minvolt.insert(0, str("0"))
+    ai6minvolt.grid(row=6, column=1, padx=10)
+
+    ai6minphy = ttk.Entry(analogPage, width=11)
+    ai6minphy.insert(0, str("0"))
+    ai6minphy.grid(row=6, column=2, padx=10)
+
+    ai6maxvolt = ttk.Entry(analogPage, width=11)
+    ai6maxvolt.insert(0, str("0"))
+    ai6maxvolt.grid(row=6, column=3, padx=10)
+
+    ai6maxphy = ttk.Entry(analogPage, width=11)
+    ai6maxphy.insert(0, str("0"))
+    ai6maxphy.grid(row=6, column=4, padx=10)
+
+    ai6currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai6currentvolt.grid(row=6, column=5, padx=10)
+
+    ai6measurevalue = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai6measurevalue.grid(row=6, column=6, padx=10)
+
+    # AI7 Start
+    ttk.Checkbutton(analogPage, text="AI 7", variable=aicb7).grid(
+        column=0, row=7, padx=10
+    )
+
+    ai7minvolt = ttk.Entry(analogPage, width=11)
+    ai7minvolt.insert(0, str("0"))
+    ai7minvolt.grid(row=7, column=1, padx=10)
+
+    ai7minphy = ttk.Entry(analogPage, width=11)
+    ai7minphy.insert(0, str("0"))
+    ai7minphy.grid(row=7, column=2, padx=10)
+
+    ai7maxvolt = ttk.Entry(analogPage, width=11)
+    ai7maxvolt.insert(0, str("0"))
+    ai7maxvolt.grid(row=7, column=3, padx=10)
+
+    ai7maxphy = ttk.Entry(analogPage, width=11)
+    ai7maxphy.insert(0, str("0"))
+    ai7maxphy.grid(row=7, column=4, padx=10)
+
+    ai7currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai7currentvolt.grid(row=7, column=5, padx=10)
+
+    ai7measurevalue = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai7measurevalue.grid(row=7, column=6, padx=10)
+
+    # AI8 Start
+    ttk.Checkbutton(analogPage, text="AI 8", variable=aicb8).grid(
+        column=0, row=8, padx=10
+    )
+
+    ai8minvolt = ttk.Entry(analogPage, width=11)
+    ai8minvolt.insert(0, str("0"))
+    ai8minvolt.grid(row=8, column=1, padx=10)
+
+    ai8minphy = ttk.Entry(analogPage, width=11)
+    ai8minphy.insert(0, str("0"))
+    ai8minphy.grid(row=8, column=2, padx=10)
+
+    ai8maxvolt = ttk.Entry(analogPage, width=11)
+    ai8maxvolt.insert(0, str("0"))
+    ai8maxvolt.grid(row=8, column=3, padx=10)
+
+    ai8maxphy = ttk.Entry(analogPage, width=11)
+    ai8maxphy.insert(0, str("0"))
+    ai8maxphy.grid(row=8, column=4, padx=10)
+
+    ai8currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai8currentvolt.grid(row=8, column=5, padx=10)
+
+    ai8measurevalue = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
+    ai8measurevalue.grid(row=8, column=6, padx=10)
 
     # Accelerometer
     # accelerometerPage = ttk.Frame(nb)
@@ -1315,31 +1628,6 @@ if __name__ == "__main__":
     ).grid(column=1, row=7)
     thermocoupleLabel8 = ttk.Label(
         thermocouplePage, text="Thermocouple 8: ", font=("Courier", 18)
-    ).grid(column=1, row=8)
-
-    analogLabel1 = ttk.Label(
-        analogPage, text="Analog Input 1: ", font=("Courier", 18)
-    ).grid(column=1, row=1)
-    analogLabel2 = ttk.Label(
-        analogPage, text="Analog Input 2: ", font=("Courier", 18)
-    ).grid(column=1, row=2)
-    analogLabel3 = ttk.Label(
-        analogPage, text="Analog Input 3: ", font=("Courier", 18)
-    ).grid(column=1, row=3)
-    analogLabel4 = ttk.Label(
-        analogPage, text="Analog Input 4: ", font=("Courier", 18)
-    ).grid(column=1, row=4)
-    analogLabel5 = ttk.Label(
-        analogPage, text="Analog Input 5: ", font=("Courier", 18)
-    ).grid(column=1, row=5)
-    analogLabel6 = ttk.Label(
-        analogPage, text="Analog Input 6: ", font=("Courier", 18)
-    ).grid(column=1, row=6)
-    analogLabel7 = ttk.Label(
-        analogPage, text="Analog Input 7: ", font=("Courier", 18)
-    ).grid(column=1, row=7)
-    analogLabel8 = ttk.Label(
-        analogPage, text="Analog Input 8: ", font=("Courier", 18)
     ).grid(column=1, row=8)
 
     diLabel1 = ttk.Label(diPage, text="Digital Input 1: ", font=("Courier", 18)).grid(
