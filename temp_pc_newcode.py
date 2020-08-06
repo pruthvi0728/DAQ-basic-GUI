@@ -702,6 +702,12 @@ def get_data():
                 else:
                     di_data[i] = "ON"
 
+            filter_data[15], filter_data[14], filter_data[13], filter_data[12] = (
+                filter_data[12],
+                filter_data[13],
+                filter_data[14],
+                filter_data[15],
+            )
             print(filter_data)
             datatimestamp = [str(dt.datetime.now())]
             datasave = datatimestamp + filter_data[:16] + di_data
@@ -777,11 +783,12 @@ def update_main():
                 ai1measurevalue.config(
                     text=str(
                         round(
-                            (
-                                (float(ai1maxphy.get()) - float(ai1minphy.get()))
+                            (float(ai1maxphy.get()) - float(ai1minphy.get()))
+                            * (
+                                (float(filter_data[8]) - float(ai1minvolt.get()))
                                 / (float(ai1maxvolt.get()) - float(ai1minvolt.get()))
                             )
-                            * float(filter_data[8]),
+                            + float(ai1minphy.get()),
                             2,
                         )
                     )
@@ -792,11 +799,12 @@ def update_main():
                 ai2measurevalue.config(
                     text=str(
                         round(
-                            (
-                                (float(ai2maxphy.get()) - float(ai2minphy.get()))
+                            (float(ai2maxphy.get()) - float(ai2minphy.get()))
+                            * (
+                                (float(filter_data[9]) - float(ai2minvolt.get()))
                                 / (float(ai2maxvolt.get()) - float(ai2minvolt.get()))
                             )
-                            * float(filter_data[9]),
+                            + float(ai2minphy.get()),
                             2,
                         )
                     )
@@ -807,11 +815,12 @@ def update_main():
                 ai3measurevalue.config(
                     text=str(
                         round(
-                            (
-                                (float(ai3maxphy.get()) - float(ai3minphy.get()))
+                            (float(ai3maxphy.get()) - float(ai3minphy.get()))
+                            * (
+                                (float(filter_data[10]) - float(ai3minvolt.get()))
                                 / (float(ai3maxvolt.get()) - float(ai3minvolt.get()))
                             )
-                            * float(filter_data[10]),
+                            + float(ai3minphy.get()),
                             2,
                         )
                     )
@@ -822,11 +831,12 @@ def update_main():
                 ai4measurevalue.config(
                     text=str(
                         round(
-                            (
-                                (float(ai4maxphy.get()) - float(ai4minphy.get()))
+                            (float(ai4maxphy.get()) - float(ai4minphy.get()))
+                            * (
+                                (float(filter_data[11]) - float(ai4minvolt.get()))
                                 / (float(ai4maxvolt.get()) - float(ai4minvolt.get()))
                             )
-                            * float(filter_data[11]),
+                            + float(ai4minphy.get()),
                             2,
                         )
                     )
@@ -837,11 +847,12 @@ def update_main():
                 ai5measurevalue.config(
                     text=str(
                         round(
-                            (
-                                (float(ai5maxphy.get()) - float(ai5minphy.get()))
+                            (float(ai5maxphy.get()) - float(ai5minphy.get()))
+                            * (
+                                (float(filter_data[12]) - float(ai5minvolt.get()))
                                 / (float(ai5maxvolt.get()) - float(ai5minvolt.get()))
                             )
-                            * float(filter_data[12]),
+                            + float(ai5minphy.get()),
                             2,
                         )
                     )
@@ -852,11 +863,12 @@ def update_main():
                 ai6measurevalue.config(
                     text=str(
                         round(
-                            (
-                                (float(ai6maxphy.get()) - float(ai6minphy.get()))
+                            (float(ai6maxphy.get()) - float(ai6minphy.get()))
+                            * (
+                                (float(filter_data[13]) - float(ai6minvolt.get()))
                                 / (float(ai6maxvolt.get()) - float(ai6minvolt.get()))
                             )
-                            * float(filter_data[13]),
+                            + float(ai6minphy.get()),
                             2,
                         )
                     )
@@ -867,11 +879,12 @@ def update_main():
                 ai7measurevalue.config(
                     text=str(
                         round(
-                            (
-                                (float(ai7maxphy.get()) - float(ai7minphy.get()))
+                            (float(ai7maxphy.get()) - float(ai7minphy.get()))
+                            * (
+                                (float(filter_data[14]) - float(ai7minvolt.get()))
                                 / (float(ai7maxvolt.get()) - float(ai7minvolt.get()))
                             )
-                            * float(filter_data[14]),
+                            + float(ai7minphy.get()),
                             2,
                         )
                     )
@@ -882,11 +895,12 @@ def update_main():
                 ai8measurevalue.config(
                     text=str(
                         round(
-                            (
-                                (float(ai8maxphy.get()) - float(ai8minphy.get()))
+                            (float(ai8maxphy.get()) - float(ai8minphy.get()))
+                            * (
+                                (float(filter_data[15]) - float(ai8minvolt.get()))
                                 / (float(ai8maxvolt.get()) - float(ai8minvolt.get()))
                             )
-                            * float(filter_data[15]),
+                            + float(ai8minphy.get()),
                             2,
                         )
                     )
