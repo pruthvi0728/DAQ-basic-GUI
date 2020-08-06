@@ -777,8 +777,8 @@ def update_main():
                 text=str(
                     round(
                         (
-                            (ai1maxphy.get() - ai1minphy.get())
-                            / (ai1maxvolt.get() - ai1minvolt.get())
+                            (float(ai1maxphy.get()) - float(ai1minphy.get()))
+                            / (float(ai1maxvolt.get()) - float(ai1minvolt.get()))
                         )
                         * float(filter_data[8]),
                         2,
@@ -789,8 +789,8 @@ def update_main():
                 text=str(
                     round(
                         (
-                            (ai2maxphy.get() - ai2minphy.get())
-                            / (ai2maxvolt.get() - ai2minvolt.get())
+                            (float(ai2maxphy.get()) - float(ai2minphy.get()))
+                            / (float(ai2maxvolt.get()) - float(ai2minvolt.get()))
                         )
                         * float(filter_data[9]),
                         2,
@@ -801,8 +801,8 @@ def update_main():
                 text=str(
                     round(
                         (
-                            (ai3maxphy.get() - ai3minphy.get())
-                            / (ai3maxvolt.get() - ai3minvolt.get())
+                            (float(ai3maxphy.get()) - float(ai3minphy.get()))
+                            / (float(ai3maxvolt.get()) - float(ai3minvolt.get()))
                         )
                         * float(filter_data[10]),
                         2,
@@ -813,8 +813,8 @@ def update_main():
                 text=str(
                     round(
                         (
-                            (ai4maxphy.get() - ai4minphy.get())
-                            / (ai4maxvolt.get() - ai4minvolt.get())
+                            (float(ai4maxphy.get()) - float(ai4minphy.get()))
+                            / (float(ai4maxvolt.get()) - float(ai4minvolt.get()))
                         )
                         * float(filter_data[11]),
                         2,
@@ -825,8 +825,8 @@ def update_main():
                 text=str(
                     round(
                         (
-                            (ai5maxphy.get() - ai5minphy.get())
-                            / (ai5maxvolt.get() - ai5minvolt.get())
+                            (float(ai5maxphy.get()) - float(ai5minphy.get()))
+                            / (float(ai5maxvolt.get()) - float(ai5minvolt.get()))
                         )
                         * float(filter_data[12]),
                         2,
@@ -837,8 +837,8 @@ def update_main():
                 text=str(
                     round(
                         (
-                            (ai6maxphy.get() - ai6minphy.get())
-                            / (ai6maxvolt.get() - ai6minvolt.get())
+                            (float(ai6maxphy.get()) - float(ai6minphy.get()))
+                            / (float(ai6maxvolt.get()) - float(ai6minvolt.get()))
                         )
                         * float(filter_data[13]),
                         2,
@@ -849,8 +849,8 @@ def update_main():
                 text=str(
                     round(
                         (
-                            (ai7maxphy.get() - ai7minphy.get())
-                            / (ai7maxvolt.get() - ai7minvolt.get())
+                            (float(ai7maxphy.get()) - float(ai7minphy.get()))
+                            / (float(ai7maxvolt.get()) - float(ai7minvolt.get()))
                         )
                         * float(filter_data[14]),
                         2,
@@ -861,8 +861,8 @@ def update_main():
                 text=str(
                     round(
                         (
-                            (ai8maxphy.get() - ai8minphy.get())
-                            / (ai8maxvolt.get() - ai8minvolt.get())
+                            (float(ai8maxphy.get()) - float(ai8minphy.get()))
+                            / (float(ai8maxvolt.get()) - float(ai8minvolt.get()))
                         )
                         * float(filter_data[15]),
                         2,
