@@ -1630,31 +1630,6 @@ if __name__ == "__main__":
         thermocouplePage, text="Thermocouple 8: ", font=("Courier", 18)
     ).grid(column=1, row=8)
 
-    analogLabel1 = ttk.Label(
-        analogPage, text="Analog Input 1: ", font=("Courier", 18)
-    ).grid(column=1, row=1)
-    analogLabel2 = ttk.Label(
-        analogPage, text="Analog Input 2: ", font=("Courier", 18)
-    ).grid(column=1, row=2)
-    analogLabel3 = ttk.Label(
-        analogPage, text="Analog Input 3: ", font=("Courier", 18)
-    ).grid(column=1, row=3)
-    analogLabel4 = ttk.Label(
-        analogPage, text="Analog Input 4: ", font=("Courier", 18)
-    ).grid(column=1, row=4)
-    analogLabel5 = ttk.Label(
-        analogPage, text="Analog Input 5: ", font=("Courier", 18)
-    ).grid(column=1, row=5)
-    analogLabel6 = ttk.Label(
-        analogPage, text="Analog Input 6: ", font=("Courier", 18)
-    ).grid(column=1, row=6)
-    analogLabel7 = ttk.Label(
-        analogPage, text="Analog Input 7: ", font=("Courier", 18)
-    ).grid(column=1, row=7)
-    analogLabel8 = ttk.Label(
-        analogPage, text="Analog Input 8: ", font=("Courier", 18)
-    ).grid(column=1, row=8)
-
     diLabel1 = ttk.Label(diPage, text="Digital Input 1: ", font=("Courier", 18)).grid(
         column=1, row=1
     )
