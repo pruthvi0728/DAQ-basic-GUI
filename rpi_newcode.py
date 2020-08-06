@@ -773,102 +773,126 @@ def update_main():
             ai7currentvolt.config(text=filter_data[14])
             ai8currentvolt.config(text=filter_data[15])
 
-            ai1measurevalue.config(
-                text=str(
-                    round(
-                        (
-                            (float(ai1maxphy.get()) - float(ai1minphy.get()))
-                            / (float(ai1maxvolt.get()) - float(ai1minvolt.get()))
+            try:
+                ai1measurevalue.config(
+                    text=str(
+                        round(
+                            (
+                                (float(ai1maxphy.get()) - float(ai1minphy.get()))
+                                / (float(ai1maxvolt.get()) - float(ai1minvolt.get()))
+                            )
+                            * float(filter_data[8]),
+                            2,
                         )
-                        * float(filter_data[8]),
-                        2,
                     )
                 )
-            )
-            ai2measurevalue.config(
-                text=str(
-                    round(
-                        (
-                            (float(ai2maxphy.get()) - float(ai2minphy.get()))
-                            / (float(ai2maxvolt.get()) - float(ai2minvolt.get()))
+            except ZeroDivisionError as ZDE:
+                print(ZDE)
+            try:
+                ai2measurevalue.config(
+                    text=str(
+                        round(
+                            (
+                                (float(ai2maxphy.get()) - float(ai2minphy.get()))
+                                / (float(ai2maxvolt.get()) - float(ai2minvolt.get()))
+                            )
+                            * float(filter_data[9]),
+                            2,
                         )
-                        * float(filter_data[9]),
-                        2,
                     )
                 )
-            )
-            ai3measurevalue.config(
-                text=str(
-                    round(
-                        (
-                            (float(ai3maxphy.get()) - float(ai3minphy.get()))
-                            / (float(ai3maxvolt.get()) - float(ai3minvolt.get()))
+            except ZeroDivisionError as ZDE:
+                print(ZDE)
+            try:
+                ai3measurevalue.config(
+                    text=str(
+                        round(
+                            (
+                                (float(ai3maxphy.get()) - float(ai3minphy.get()))
+                                / (float(ai3maxvolt.get()) - float(ai3minvolt.get()))
+                            )
+                            * float(filter_data[10]),
+                            2,
                         )
-                        * float(filter_data[10]),
-                        2,
                     )
                 )
-            )
-            ai4measurevalue.config(
-                text=str(
-                    round(
-                        (
-                            (float(ai4maxphy.get()) - float(ai4minphy.get()))
-                            / (float(ai4maxvolt.get()) - float(ai4minvolt.get()))
+            except ZeroDivisionError as ZDE:
+                print(ZDE)
+            try:
+                ai4measurevalue.config(
+                    text=str(
+                        round(
+                            (
+                                (float(ai4maxphy.get()) - float(ai4minphy.get()))
+                                / (float(ai4maxvolt.get()) - float(ai4minvolt.get()))
+                            )
+                            * float(filter_data[11]),
+                            2,
                         )
-                        * float(filter_data[11]),
-                        2,
                     )
                 )
-            )
-            ai5measurevalue.config(
-                text=str(
-                    round(
-                        (
-                            (float(ai5maxphy.get()) - float(ai5minphy.get()))
-                            / (float(ai5maxvolt.get()) - float(ai5minvolt.get()))
+            except ZeroDivisionError as ZDE:
+                print(ZDE)
+            try:
+                ai5measurevalue.config(
+                    text=str(
+                        round(
+                            (
+                                (float(ai5maxphy.get()) - float(ai5minphy.get()))
+                                / (float(ai5maxvolt.get()) - float(ai5minvolt.get()))
+                            )
+                            * float(filter_data[12]),
+                            2,
                         )
-                        * float(filter_data[12]),
-                        2,
                     )
                 )
-            )
-            ai6measurevalue.config(
-                text=str(
-                    round(
-                        (
-                            (float(ai6maxphy.get()) - float(ai6minphy.get()))
-                            / (float(ai6maxvolt.get()) - float(ai6minvolt.get()))
+            except ZeroDivisionError as ZDE:
+                print(ZDE)
+            try:
+                ai6measurevalue.config(
+                    text=str(
+                        round(
+                            (
+                                (float(ai6maxphy.get()) - float(ai6minphy.get()))
+                                / (float(ai6maxvolt.get()) - float(ai6minvolt.get()))
+                            )
+                            * float(filter_data[13]),
+                            2,
                         )
-                        * float(filter_data[13]),
-                        2,
                     )
                 )
-            )
-            ai7measurevalue.config(
-                text=str(
-                    round(
-                        (
-                            (float(ai7maxphy.get()) - float(ai7minphy.get()))
-                            / (float(ai7maxvolt.get()) - float(ai7minvolt.get()))
+            except ZeroDivisionError as ZDE:
+                print(ZDE)
+            try:
+                ai7measurevalue.config(
+                    text=str(
+                        round(
+                            (
+                                (float(ai7maxphy.get()) - float(ai7minphy.get()))
+                                / (float(ai7maxvolt.get()) - float(ai7minvolt.get()))
+                            )
+                            * float(filter_data[14]),
+                            2,
                         )
-                        * float(filter_data[14]),
-                        2,
                     )
                 )
-            )
-            ai8measurevalue.config(
-                text=str(
-                    round(
-                        (
-                            (float(ai8maxphy.get()) - float(ai8minphy.get()))
-                            / (float(ai8maxvolt.get()) - float(ai8minvolt.get()))
+            except ZeroDivisionError as ZDE:
+                print(ZDE)
+            try:
+                ai8measurevalue.config(
+                    text=str(
+                        round(
+                            (
+                                (float(ai8maxphy.get()) - float(ai8minphy.get()))
+                                / (float(ai8maxvolt.get()) - float(ai8minvolt.get()))
+                            )
+                            * float(filter_data[15]),
+                            2,
                         )
-                        * float(filter_data[15]),
-                        2,
                     )
                 )
-            )
+            except ZeroDivisionError as ZDE:
+                print(ZDE)
 
             diText1.config(text=di_data[0])
             diText2.config(text=di_data[1])
@@ -1246,11 +1270,11 @@ if __name__ == "__main__":
     ai1minphy.grid(row=1, column=2, padx=10)
 
     ai1maxvolt = ttk.Entry(analogPage, width=11)
-    ai1maxvolt.insert(0, str("0"))
+    ai1maxvolt.insert(0, str("10"))
     ai1maxvolt.grid(row=1, column=3, padx=10)
 
     ai1maxphy = ttk.Entry(analogPage, width=11)
-    ai1maxphy.insert(0, str("0"))
+    ai1maxphy.insert(0, str("1000"))
     ai1maxphy.grid(row=1, column=4, padx=10)
 
     ai1currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
@@ -1265,19 +1289,19 @@ if __name__ == "__main__":
     )
 
     ai2minvolt = ttk.Entry(analogPage, width=11)
-    ai2minvolt.insert(0, str("0"))
+    ai2minvolt.insert(0, str("5"))
     ai2minvolt.grid(row=2, column=1, padx=10)
 
     ai2minphy = ttk.Entry(analogPage, width=11)
-    ai2minphy.insert(0, str("0"))
+    ai2minphy.insert(0, str("100"))
     ai2minphy.grid(row=2, column=2, padx=10)
 
     ai2maxvolt = ttk.Entry(analogPage, width=11)
-    ai2maxvolt.insert(0, str("0"))
+    ai2maxvolt.insert(0, str("10"))
     ai2maxvolt.grid(row=2, column=3, padx=10)
 
     ai2maxphy = ttk.Entry(analogPage, width=11)
-    ai2maxphy.insert(0, str("0"))
+    ai2maxphy.insert(0, str("500"))
     ai2maxphy.grid(row=2, column=4, padx=10)
 
     ai2currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
@@ -1300,11 +1324,11 @@ if __name__ == "__main__":
     ai3minphy.grid(row=3, column=2, padx=10)
 
     ai3maxvolt = ttk.Entry(analogPage, width=11)
-    ai3maxvolt.insert(0, str("0"))
+    ai3maxvolt.insert(0, str("10"))
     ai3maxvolt.grid(row=3, column=3, padx=10)
 
     ai3maxphy = ttk.Entry(analogPage, width=11)
-    ai3maxphy.insert(0, str("0"))
+    ai3maxphy.insert(0, str("100"))
     ai3maxphy.grid(row=3, column=4, padx=10)
 
     ai3currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
@@ -1327,11 +1351,11 @@ if __name__ == "__main__":
     ai4minphy.grid(row=4, column=2, padx=10)
 
     ai4maxvolt = ttk.Entry(analogPage, width=11)
-    ai4maxvolt.insert(0, str("0"))
+    ai4maxvolt.insert(0, str("10"))
     ai4maxvolt.grid(row=4, column=3, padx=10)
 
     ai4maxphy = ttk.Entry(analogPage, width=11)
-    ai4maxphy.insert(0, str("0"))
+    ai4maxphy.insert(0, str("100"))
     ai4maxphy.grid(row=4, column=4, padx=10)
 
     ai4currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
@@ -1354,11 +1378,11 @@ if __name__ == "__main__":
     ai5minphy.grid(row=5, column=2, padx=10)
 
     ai5maxvolt = ttk.Entry(analogPage, width=11)
-    ai5maxvolt.insert(0, str("0"))
+    ai5maxvolt.insert(0, str("10"))
     ai5maxvolt.grid(row=5, column=3, padx=10)
 
     ai5maxphy = ttk.Entry(analogPage, width=11)
-    ai5maxphy.insert(0, str("0"))
+    ai5maxphy.insert(0, str("100"))
     ai5maxphy.grid(row=5, column=4, padx=10)
 
     ai5currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
@@ -1381,11 +1405,11 @@ if __name__ == "__main__":
     ai6minphy.grid(row=6, column=2, padx=10)
 
     ai6maxvolt = ttk.Entry(analogPage, width=11)
-    ai6maxvolt.insert(0, str("0"))
+    ai6maxvolt.insert(0, str("10"))
     ai6maxvolt.grid(row=6, column=3, padx=10)
 
     ai6maxphy = ttk.Entry(analogPage, width=11)
-    ai6maxphy.insert(0, str("0"))
+    ai6maxphy.insert(0, str("100"))
     ai6maxphy.grid(row=6, column=4, padx=10)
 
     ai6currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
@@ -1408,11 +1432,11 @@ if __name__ == "__main__":
     ai7minphy.grid(row=7, column=2, padx=10)
 
     ai7maxvolt = ttk.Entry(analogPage, width=11)
-    ai7maxvolt.insert(0, str("0"))
+    ai7maxvolt.insert(0, str("10"))
     ai7maxvolt.grid(row=7, column=3, padx=10)
 
     ai7maxphy = ttk.Entry(analogPage, width=11)
-    ai7maxphy.insert(0, str("0"))
+    ai7maxphy.insert(0, str("100"))
     ai7maxphy.grid(row=7, column=4, padx=10)
 
     ai7currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
@@ -1435,11 +1459,11 @@ if __name__ == "__main__":
     ai8minphy.grid(row=8, column=2, padx=10)
 
     ai8maxvolt = ttk.Entry(analogPage, width=11)
-    ai8maxvolt.insert(0, str("0"))
+    ai8maxvolt.insert(0, str("10"))
     ai8maxvolt.grid(row=8, column=3, padx=10)
 
     ai8maxphy = ttk.Entry(analogPage, width=11)
-    ai8maxphy.insert(0, str("0"))
+    ai8maxphy.insert(0, str("100"))
     ai8maxphy.grid(row=8, column=4, padx=10)
 
     ai8currentvolt = ttk.Label(analogPage, text="Loading...", font=("Courier", 11))
