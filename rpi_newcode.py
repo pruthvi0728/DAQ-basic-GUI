@@ -50,11 +50,11 @@ class ToggleDO:
     def toggle(self):
         if self.btndo.config("text")[-1] == "ON":
             self.btndo.config(text="OFF")
-            print(str(self.gpio) + " OFF")
+            # print(str(self.gpio) + " OFF")
             GPIO.output(self.gpio, GPIO.LOW)
         else:
             self.btndo.config(text="ON")
-            print(str(self.gpio) + " ON")
+            # print(str(self.gpio) + " ON")
             GPIO.output(self.gpio, GPIO.HIGH)
 
 
@@ -123,7 +123,7 @@ class Remaining:
 
                 self.btndo.config(text="ON")
                 # self.btnstop['style'] = "stp.TButton"    # button color
-                print(str(self.gpio) + " ON")
+                # print(str(self.gpio) + " ON")
                 GPIO.output(self.gpio, GPIO.HIGH)
                 self.remain_new()
             else:
@@ -133,7 +133,7 @@ class Remaining:
                 self.btndo["state"] = "disable"
                 # self.btnstop['style'] = "stp.TButton"    # button color
                 self.btndo.config(text="ON")
-                print(str(self.gpio) + " ON")
+                # print(str(self.gpio) + " ON")
                 GPIO.output(self.gpio, GPIO.HIGH)
         except ValueError:
             messagebox.showinfo("Error", "Enter value in non zero hh:mm:ss format only")
@@ -147,7 +147,7 @@ class Remaining:
         self.btndo["state"] = "normal"
         self.btndo.config(text="OFF")
         # self.btnstop['style'] = "Instp.TButton"
-        print(str(self.gpio) + " OFF")
+        # print(str(self.gpio) + " OFF")
         GPIO.output(self.gpio, GPIO.LOW)
 
 
@@ -209,11 +209,11 @@ class CheckBox(Remaining):
     def dobtnctrl(self, btncdo, gpio, flag):
         if flag:
             btncdo.config(text="ON")
-            print(str(gpio) + " ON")
+            # print(str(gpio) + " ON")
             GPIO.output(gpio, GPIO.HIGH)
         else:
             btncdo.config(text="OFF")
-            print(str(gpio) + " OFF")
+            # print(str(gpio) + " OFF")
             GPIO.output(gpio, GPIO.LOW)
 
     def stop(self):
@@ -338,7 +338,7 @@ class AOcontrol:
 
     def setstp_remain_new(self):
         self.running = False
-        print("Loop Stoped")
+        # print("Loop Stoped")
 
     def setdec(self):
         self.running_ok = True
@@ -371,10 +371,10 @@ class AOcontrol:
                 if self.running_ok:
                     self.minvoltramp()
 
-                print("Min Volt hold start")
+                # print("Min Volt hold start")
                 if self.running_ok:
                     self.remain_new()
-                print("Min Volt hold stop")
+                # print("Min Volt hold stop")
 
                 self.running = True
 
@@ -393,10 +393,10 @@ class AOcontrol:
                     ).total_seconds()
                 )
 
-                print("Max Volt hold start")
+                # print("Max Volt hold start")
                 if self.running_ok:
                     self.remain_new()
-                print("Max Volt hold stop")
+                # print("Max Volt hold stop")
         except ValueError:
             messagebox.showinfo("Error", "Enter value in non zero hh:mm:ss format only")
         except:
@@ -404,7 +404,7 @@ class AOcontrol:
 
     def minvoltramp(self):
         if self.running:
-            print("Min Volt Ramp")
+            # print("Min Volt Ramp")
             self.get_aominramptime = dt.datetime.strptime(
                 self.aominramptime.get(), "%H:%M:%S"
             ).time()
@@ -424,9 +424,8 @@ class AOcontrol:
                     self.minvoltramp_xdec = int(
                         (self.minvoltramp_tmp_volt / 5.11) * 4096
                     )
-                    # messagebox.showinfo("Hello", str(xdec))
                     self.dec.set_voltage(self.minvoltramp_xdec)
-                    print(self.minvoltramp_tmp_volt, self.minvoltramp_xdec)
+                    # print(self.minvoltramp_tmp_volt, self.minvoltramp_xdec)
                     main.update()
                     time.sleep(1)
                     self.minvoltramp_tmp_volt += self.minvoltramp_incvolt
@@ -435,7 +434,7 @@ class AOcontrol:
 
     def maxvoltramp(self):
         if self.running:
-            print("Max Volt Ramp")
+            # print("Max Volt Ramp")
             self.get_aomaxramptime = dt.datetime.strptime(
                 self.aomaxramptime.get(), "%H:%M:%S"
             ).time()
@@ -458,9 +457,8 @@ class AOcontrol:
                     self.maxvoltramp_xdec = int(
                         (self.maxvoltramp_tmp_volt / 5.11) * 4096
                     )
-                    # messagebox.showinfo("Hello", str(xdec))
                     self.dec.set_voltage(self.maxvoltramp_xdec)
-                    print(self.maxvoltramp_tmp_volt, self.maxvoltramp_xdec)
+                    # print(self.maxvoltramp_tmp_volt, self.maxvoltramp_xdec)
                     main.update()
                     time.sleep(1)
                     self.maxvoltramp_tmp_volt += self.maxvoltramp_incvolt
@@ -471,7 +469,7 @@ class AOcontrol:
         self.running = False
         self.running_ok = False
         self.dec.set_voltage(0)
-        print("stop 0")
+        # print("stop 0")
 
     def validate(self, entry):
         try:
@@ -537,57 +535,6 @@ class Cycle:
         for r, c in zip(re, cy):
             if c.get() == 1:
                 r.stop()
-
-
-# class AOCycle:
-#     def __init__(self, entry1, entry2, btnstart, btnstop):
-#         self.entry1 = entry1
-#         self.entry2 = entry2
-#         self.remaining = 0
-#         self.btnstart = btnstart
-#         self.btnstop = btnstop
-#         self.running = False
-#         self.btnstart.config(command=lambda: self.start())
-#         self.btnstop.config(command=self.stop)
-
-#     def remain_new(self):
-#         aocy = [aocb1, aocb2]
-#         sada = [sada1, sada2]
-
-#         for r in range(self.remaining):
-#             if self.running:
-#                 rem_time = self.remaining - r - 1
-#                 self.entry2.delete(0, tk.END)
-#                 self.entry2.insert(0, rem_time)
-#                 main.update()
-#                 i = 0
-#                 for c in aocy:
-#                     if self.running:
-#                         if c.get() == 1:
-#                             sada[i].setdec(r=0, rr=1)
-#                         i += 1
-#                     else:
-#                         break
-#             else:
-#                 break
-
-#     def start(self):
-#         self.running = True
-#         self.btnstart["state"] = "disable"
-#         self.btnstop["state"] = "normal"
-#         self.remaining = int(self.entry1.get())
-#         self.remain_new()
-#         self.stop()
-
-#     def stop(self):
-#         self.running = False
-#         self.btnstart["state"] = "normal"
-#         self.btnstop["state"] = "disable"
-#         aocy = [aocb1, aocb2]
-#         sada = [sada1, sada2]
-#         for r, c in zip(sada, aocy):
-#             if c.get() == 1:
-#                 r.setdecstp()
 
 
 # gives weight to the cells in the grid
@@ -696,7 +643,7 @@ def get_data():
                     filter_data[i] = "NAN"
 
             for i in range(len(diPinlist)):
-                di_data[i] = 1
+                di_data[i] = GPIO.input(diPinlist[i])
                 if di_data[i] == 1:
                     di_data[i] = "OFF"
                 else:
@@ -708,7 +655,7 @@ def get_data():
                 filter_data[14],
                 filter_data[15],
             )
-            print(filter_data)
+            # print(filter_data)
             datatimestamp = [str(dt.datetime.now())]
             datasave = datatimestamp + filter_data[:16] + di_data
 
@@ -1634,8 +1581,6 @@ if __name__ == "__main__":
         ao2stop,
         dac2,
     )
-
-    # gblcyao = AOCycle(aoeg1c, aoeg2c, Btnaogc, Btnstpaogc)
 
     # threads
     t2 = threading.Thread(target=update_main)

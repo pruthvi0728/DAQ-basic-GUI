@@ -424,7 +424,6 @@ class AOcontrol:
                     self.minvoltramp_xdec = int(
                         (self.minvoltramp_tmp_volt / 5.11) * 4096
                     )
-                    # messagebox.showinfo("Hello", str(xdec))
                     # self.dec.set_voltage(xdec)
                     print(self.minvoltramp_tmp_volt, self.minvoltramp_xdec)
                     main.update()
@@ -458,7 +457,6 @@ class AOcontrol:
                     self.maxvoltramp_xdec = int(
                         (self.maxvoltramp_tmp_volt / 5.11) * 4096
                     )
-                    # messagebox.showinfo("Hello", str(xdec))
                     # self.dec.set_voltage(xdec)
                     print(self.maxvoltramp_tmp_volt, self.maxvoltramp_xdec)
                     main.update()
@@ -537,57 +535,6 @@ class Cycle:
         for r, c in zip(re, cy):
             if c.get() == 1:
                 r.stop()
-
-
-# class AOCycle:
-#     def __init__(self, entry1, entry2, btnstart, btnstop):
-#         self.entry1 = entry1
-#         self.entry2 = entry2
-#         self.remaining = 0
-#         self.btnstart = btnstart
-#         self.btnstop = btnstop
-#         self.running = False
-#         self.btnstart.config(command=lambda: self.start())
-#         self.btnstop.config(command=self.stop)
-
-#     def remain_new(self):
-#         aocy = [aocb1, aocb2]
-#         sada = [sada1, sada2]
-
-#         for r in range(self.remaining):
-#             if self.running:
-#                 rem_time = self.remaining - r - 1
-#                 self.entry2.delete(0, tk.END)
-#                 self.entry2.insert(0, rem_time)
-#                 main.update()
-#                 i = 0
-#                 for c in aocy:
-#                     if self.running:
-#                         if c.get() == 1:
-#                             sada[i].setdec(r=0, rr=1)
-#                         i += 1
-#                     else:
-#                         break
-#             else:
-#                 break
-
-#     def start(self):
-#         self.running = True
-#         self.btnstart["state"] = "disable"
-#         self.btnstop["state"] = "normal"
-#         self.remaining = int(self.entry1.get())
-#         self.remain_new()
-#         self.stop()
-
-#     def stop(self):
-#         self.running = False
-#         self.btnstart["state"] = "normal"
-#         self.btnstop["state"] = "disable"
-#         aocy = [aocb1, aocb2]
-#         sada = [sada1, sada2]
-#         for r, c in zip(sada, aocy):
-#             if c.get() == 1:
-#                 r.setdecstp()
 
 
 # gives weight to the cells in the grid
