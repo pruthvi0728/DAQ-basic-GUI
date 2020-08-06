@@ -1219,7 +1219,7 @@ if __name__ == "__main__":
     ttk.Label(analogPage, text="Min Phy Value").grid(row=0, column=2)
     ttk.Label(analogPage, text="Max Volt").grid(row=0, column=3)
     ttk.Label(analogPage, text="Max Phy Value").grid(row=0, column=4)
-    ttk.Label(analogPage, text="Current Value").grid(row=0, column=5)
+    ttk.Label(analogPage, text="Current Volt").grid(row=0, column=5)
     ttk.Label(analogPage, text="Measure Value").grid(row=0, column=6)
 
     # Creating variable for checkbox
@@ -1234,7 +1234,7 @@ if __name__ == "__main__":
 
     # AI1 Start
     ttk.Checkbutton(analogPage, text="AI 1", variable=aicb1).grid(
-        column=0, row=1, padx=10
+        column=0, row=1, padx=10, pady=5
     )
 
     ai1minvolt = ttk.Entry(analogPage, width=11)
@@ -1261,7 +1261,7 @@ if __name__ == "__main__":
 
     # AI2 Start
     ttk.Checkbutton(analogPage, text="AI 2", variable=aicb2).grid(
-        column=0, row=2, padx=10
+        column=0, row=2, padx=10, pady=5
     )
 
     ai2minvolt = ttk.Entry(analogPage, width=11)
@@ -1288,7 +1288,7 @@ if __name__ == "__main__":
 
     # AI3 Start
     ttk.Checkbutton(analogPage, text="AI 3", variable=aicb3).grid(
-        column=0, row=3, padx=10
+        column=0, row=3, padx=10, pady=5
     )
 
     ai3minvolt = ttk.Entry(analogPage, width=11)
@@ -1315,7 +1315,7 @@ if __name__ == "__main__":
 
     # AI4 Start
     ttk.Checkbutton(analogPage, text="AI 4", variable=aicb4).grid(
-        column=0, row=4, padx=10
+        column=0, row=4, padx=10, pady=5
     )
 
     ai4minvolt = ttk.Entry(analogPage, width=11)
@@ -1342,7 +1342,7 @@ if __name__ == "__main__":
 
     # AI5 Start
     ttk.Checkbutton(analogPage, text="AI 5", variable=aicb5).grid(
-        column=0, row=5, padx=10
+        column=0, row=5, padx=10, pady=5
     )
 
     ai5minvolt = ttk.Entry(analogPage, width=11)
@@ -1369,7 +1369,7 @@ if __name__ == "__main__":
 
     # AI6 Start
     ttk.Checkbutton(analogPage, text="AI 6", variable=aicb6).grid(
-        column=0, row=6, padx=10
+        column=0, row=6, padx=10, pady=5
     )
 
     ai6minvolt = ttk.Entry(analogPage, width=11)
@@ -1396,7 +1396,7 @@ if __name__ == "__main__":
 
     # AI7 Start
     ttk.Checkbutton(analogPage, text="AI 7", variable=aicb7).grid(
-        column=0, row=7, padx=10
+        column=0, row=7, padx=10, pady=5
     )
 
     ai7minvolt = ttk.Entry(analogPage, width=11)
@@ -1423,7 +1423,7 @@ if __name__ == "__main__":
 
     # AI8 Start
     ttk.Checkbutton(analogPage, text="AI 8", variable=aicb8).grid(
-        column=0, row=8, padx=10
+        column=0, row=8, padx=10, pady=5
     )
 
     ai8minvolt = ttk.Entry(analogPage, width=11)
