@@ -742,6 +742,10 @@ def update_main():
                 )
             except ZeroDivisionError as ZDE:
                 print(ZDE)
+            except ValueError as VE:
+                print(VE)
+            except:
+                print("Something went wrong in calculation of measure value")
             try:
                 ai2measurevalue.config(
                     text=str(
@@ -758,6 +762,10 @@ def update_main():
                 )
             except ZeroDivisionError as ZDE:
                 print(ZDE)
+            except ValueError as VE:
+                print(VE)
+            except:
+                print("Something went wrong in calculation of measure value")
             try:
                 ai3measurevalue.config(
                     text=str(
@@ -774,6 +782,10 @@ def update_main():
                 )
             except ZeroDivisionError as ZDE:
                 print(ZDE)
+            except ValueError as VE:
+                print(VE)
+            except:
+                print("Something went wrong in calculation of measure value")
             try:
                 ai4measurevalue.config(
                     text=str(
@@ -790,6 +802,10 @@ def update_main():
                 )
             except ZeroDivisionError as ZDE:
                 print(ZDE)
+            except ValueError as VE:
+                print(VE)
+            except:
+                print("Something went wrong in calculation of measure value")
             try:
                 ai5measurevalue.config(
                     text=str(
@@ -806,6 +822,10 @@ def update_main():
                 )
             except ZeroDivisionError as ZDE:
                 print(ZDE)
+            except ValueError as VE:
+                print(VE)
+            except:
+                print("Something went wrong in calculation of measure value")
             try:
                 ai6measurevalue.config(
                     text=str(
@@ -822,6 +842,10 @@ def update_main():
                 )
             except ZeroDivisionError as ZDE:
                 print(ZDE)
+            except ValueError as VE:
+                print(VE)
+            except:
+                print("Something went wrong in calculation of measure value")
             try:
                 ai7measurevalue.config(
                     text=str(
@@ -838,6 +862,10 @@ def update_main():
                 )
             except ZeroDivisionError as ZDE:
                 print(ZDE)
+            except ValueError as VE:
+                print(VE)
+            except:
+                print("Something went wrong in calculation of measure value")
             try:
                 ai8measurevalue.config(
                     text=str(
@@ -854,6 +882,10 @@ def update_main():
                 )
             except ZeroDivisionError as ZDE:
                 print(ZDE)
+            except ValueError as VE:
+                print(VE)
+            except:
+                print("Something went wrong in calculation of measure value")
 
             diText1.config(text=di_data[0])
             diText2.config(text=di_data[1])
@@ -1451,8 +1483,8 @@ if __name__ == "__main__":
     # Create a DAC instance.
     # dac1 = 1
     # dac2 = 2
-    dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)
-    dac2 = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)
+    dac1 = Adafruit_MCP4725.MCP4725(address=0x61, busnum=1)     # Address is i2c of that channel
+    dac2 = Adafruit_MCP4725.MCP4725(address=0x60, busnum=1)     # Address is i2c of that channel
 
     ttk.Label(ada, text="Min").grid(row=0, column=1)
     ttk.Label(ada, text="Ramp Time").grid(row=0, column=2)
